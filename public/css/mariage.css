@@ -1,0 +1,18 @@
+@media(max-width:767px){
+    
+    .carte{
+       min-width: 50% !important; 
+     }
+ }
+ @media(min-width:768px){
+     .carte{
+       min-width: 42% !important; 
+       max-width: 42% !important;
+     }
+ }
+ @media(min-width:992px){
+     .carte{
+       min-width: 25rem !important; 
+       max-width: 25rem !important;
+     }
+ }

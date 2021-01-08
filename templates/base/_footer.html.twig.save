@@ -1,0 +1,56 @@
+{% trans_default_domain 'cocorico' %}
+
+{% if app.environment == 'dev'  %}
+    <script type="text/javascript">
+        var filename = "font-size: 1.5em; color: #519657; font-weight: bold; margin-top: 0.5em;";
+        var filepath = "font-size: 1.2em; color: #81c784;";
+        console.log("%cFile: %s", filename, '_new_footer.html.twig');
+        console.log("%cPath: %s", filepath, 'CoreBundle/Resources/views/Frontend/Commun');
+    </script>
+{% endif %}
+
+<!-- Footer -->
+	<section id="footer">
+		<div class="container">
+			<div class="row text-center text-xs-center text-sm-left text-md-left">
+				<div class="col-xs-12 col-sm-4 col-md-4">
+					<h5 class="colorwy">{{ 'footer.about.title'|trans }}</h5>
+					<ul class="list-unstyled quick-links">
+						<li><a href="{{ path('cocorico_page_show', { 'slug': 'nav.who_we_are.slug'|trans }) }}"><i class="fa fa-angle-double-right"></i>{{ 'footer.who_we_are.link'|trans }}</a></li>
+						<li><a href="{{ path('cocorico_page_show', { 'slug': 'nav.how_it_works.slug'|trans }) }}"><i class="fa fa-angle-double-right"></i>{{ 'footer.how_it_works.link'|trans }}</a></li>
+						<li><a href="{{ path('cocorico_page_show', { 'slug': 'nav.legal_notices.slug'|trans }) }}"><i class="fa fa-angle-double-right"></i>{{ 'footer.legal_notices.link'|trans }}</a></li>
+					</ul>
+				</div>
+				<div class="col-xs-12 col-sm-4 col-md-4">
+					<h5 class="colorwy">Aide & Contact</h5>
+					<ul class="list-unstyled quick-links">
+						<li><a href="contact/creer"><i class="fa fa-angle-double-right"></i>Nous contacter</a></li>
+					</ul>
+				</div>
+				<div class="col-xs-12 col-sm-4 col-md-4">
+					<h5 class="colorwy">{{ 'footer.contact_us.title'|trans }}</h5>
+					<ul class="list-unstyled quick-links">
+            <li><a href="mailto:{{ cocorico_contact_mail_obfuscated|raw }}"><i class="fa fa-envelope" aria-hidden="true"></i> {{ cocorico_contact_mail_obfuscated|raw }}</a></li>
+            <li><a href="tel:{{ cocorico_phone|replace({'+': '', '(': '', ')': '', ' ': ''}) }}"><i class="fa fa-phone" aria-hidden="true"></i> {{ cocorico_phone|replace({'+': '', '(': '', ')': '', ' ': ''}) }}</a></li>
+					</ul>
+				</div>
+			</div>
+			<div class="row">
+				<div class="col-xs-12 col-sm-12 col-md-12 mt-2 mt-sm-5">
+					<ul class="list-unstyled list-inline social text-center">
+						<li class="list-inline-item"><a href="https://www.facebook.com/Weddingyourself/"><i class="fa fa-facebook"></i></a></li>
+						<li class="list-inline-item"><a href="https://www.instagram.com/weddingyourself.fr/"><i class="fa fa-instagram"></i></a></li>
+					</ul>
+				</div>
+				<hr>
+			</div>
+			<div class="row">
+				<div class="col-xs-12 col-sm-12 col-md-12 mt-2 mt-sm-2 text-center text-white">
+					<p><u><a href="https://weddingyourself.fr/">Wedding Yourself</a></u> est une plateforme de mise en relation pour les clients désireux de réaliser eux-mêmes tous types d'événements (Mariages, anniversaires, baptêmes...).</p>
+					<p class="h6">&copy; {{ "now"|date("Y") }} {{ 'footer.all_right_reserved'|trans }} <a class="text-green ml-2" href="{{ path('cocorico_home') }}">{{ cocorico_site_name }}</a></p>
+				</div>
+				<hr>
+			</div>
+		</div>
+	</section>
+	<!-- ./Footer -->

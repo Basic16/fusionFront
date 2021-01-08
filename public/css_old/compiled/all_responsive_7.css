@@ -1,0 +1,88 @@
+
+
+
+/* Extra large devices (large laptops and desktops, 1200px and up) */
+@media only screen and (max-width: 1200px) {
+	.file_dariane{font-size: 13px;}
+	.recherche_box .input_group{margin-right: 2.8%;margin-bottom: 30px;}
+	.recherche_box .time_2{margin-right: 0px;}
+	.submit_r{float: none;display: block;margin-left: auto;margin-right: auto;}
+
+}
+
+/* Large devices (laptops/desktops, 992px and up) */
+@media only screen and (max-width: 992px) {
+	.navbar-dark .navbar-brand {color: #fff;width: 180px;}
+	.navbar-dark .navbar-brand img{width: 100%;}
+	.wedder_link {padding: 10px 20px;font-size: 15px;}
+	.conn_link,.fav_link{margin-right: 10px;}
+	.navbar {padding: 5px 1rem;}
+	.search_container .dropdown {width: 33%;margin-right: 3%;margin-bottom: 20px;}
+	.search_container .input_group {width: 36%;margin-bottom: 20px;}
+	.search_container {bottom: 10px;}
+	.block_1 .col-md-3 {-ms-flex: 0 0 33%;flex: 0 0 33%;max-width: 100% !important;}
+	.pb-5, .py-5 {padding-bottom: 0rem!important;}
+
+	.left_part,.right_part{width: 100%;-webkit-box-flex: 0;-ms-flex: 0 0 100%;flex: 0 0 100%;max-width: 100%;}
+	.right_part{margin: 50px 15px;border: 1px solid #e9e9e9;padding: 30px 0px;box-shadow: 0px 0px 20px -12px #000;border-radius: 4px;width: calc(100% - 30px);}
+	.facebook_connect{margin-top: 50px;}
+
+	.recherche_box .input_group {margin-right: 2.8%;margin-bottom: 20px;width: 48% !important;float: left !important;display: block;}
+	.recherche_box .input_group:nth-child(2){margin-right: 0px;}
+	.recherche_box .time_1{width: 22% !important;}
+	.recherche_box .time_2{width: 23% !important;margin-right: 0px;}
+	.favorites .col-md-6,.favorites .col-md-8,.favorites .col-md-4{-webkit-box-flex: 0;-ms-flex: 0 0 50%;flex: 0 0 100%;max-width: 100%;}
+
+	.recherche .col-md-4 {-webkit-box-flex: 0;-ms-flex: 0 0 100%;flex: 0 0 100%;max-width: 100%;margin-bottom: 50px;}
+	.info_liste {width: 300px;margin-left: auto;margin-right: auto;display: block;float: none;}
+	.recherche .col-md-8 {-webkit-box-flex: 0;-ms-flex: 0 0 100%;flex: 0 0 100%;max-width: 100%;}
+	..aside_bar_left{margin-bottom: 30px;}
+
+
+
+
+
+} 
+
+/* Medium devices (landscape tablets, 768px and up) */
+@media only screen and (max-width: 768px) {
+	.container {max-width: 100%;}
+	.carousel.slide{padding-bottom: 105px;background-color: #f3f3f3;border-bottom: 1px solid #e2e2e2;}
+	.carousel-control-prev,.carousel-control-next{display: none;}
+	.block_1 .col-md-3 {-ms-flex: 0 0 33%;flex: 0 0 100%;max-width: 100% !important;}
+
+	#example5 {max-width: 100% !important;margin: 0px;padding-right: 0px !important;}
+	.sp-bottom-thumbnails.sp-has-pointer .sp-selected-thumbnail:before,
+	.sp-bottom-thumbnails.sp-has-pointer .sp-selected-thumbnail:after,
+	.sp-slides-container .sp-fade-arrows{display: none;}
+
+} 
+
+@media only screen and (max-width: 700px) {
+	.input_submit {width: 200px;float: none;margin-left: auto;margin-right: auto;display: block;}
+	.search_container .dropdown {width: 100%;margin-right: 0px;}
+	.search_container .input_group {width: 100%;margin-bottom: 20px;}
+	.carousel.slide {padding-bottom: 205px;}
+	.right_menu{position: relative;}
+	.fav_link{position: absolute;right: 0px;font-size: 13px;top: -5px;}
+	.conn_link{position: absolute;left: 0px;font-size: 13px;top: -5px;}
+	.wedder_link {padding: 8px 35px;font-size: 15px;margin-top: 20px;float: right;}
+	.navbar-dark .navbar-brand {width: 150px;margin: 10px 0px;}
+	.navbar {padding: 5px 0rem;}
+
+}
+/* Small devices (portrait tablets and large phones, 600px and up) */
+@media only screen and (max-width: 600px) {
+	.form_create_acompte .input_groupe label{width: 100%;}
+	.form_create_acompte .input_groupe .text_input,.radio_box,.groupe_date,.bootstrap-select{width: 100%;max-width: 100%;}
+	.facebook_connect{font-size: 15px;}
+	.title_form,.title_page{font-size: 30px;}
+	.recherche_box .input_group {margin-right: 0px;margin-bottom: 20px;width: 100% !important;}
+	.recherche_box .time_1 {width: 48% !important;margin-right: 2%;}
+	.recherche_box .time_2 {width: 50% !important;margin-right: 0px;}
+	.wedding_info {width: 100%;float: right;padding: 31px 20px;position: relative;}
+	.img_mini {margin-left: auto;margin-right: auto;display: block;float: none;width: 100%;}
+	.submit_r{width: 100%;}
+} 
+
+ 

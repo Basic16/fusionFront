@@ -1,0 +1,62 @@
+{% extends 'base.html.twig' %}
+
+{% block title %}Hello InscriptionController!
+{% endblock %}
+
+{% block body %}
+	<div class="container-fluid">
+		<div class="row justify-content-center">
+			<h1 class="text-center text-primary p-4">S'inscrire</h1>
+		</div>
+		<div class="row justify-content-center">
+			<div class="col-8 bg-white p-4 m-0 text-primary">
+
+				{{ form_start(form) }}
+
+				
+					{{ form_label(form.username, 'E-mail', {'label_attr': {'class': 'font-weight-bold'}}) }}
+					{{ form_widget(form.username, {'attr': {'class': 'form-control'}}) }}
+
+                    {{ form_label(form.password, 'Password ', {'label_attr': {'class': 'font-weight-bold'}}) }}
+					{{ form_widget(form.password, {'attr': {'class': 'form-control'}}) }}
+
+                    {{ form_label(form.confirmation, 'Confirmation', {'label_attr': {'class': 'font-weight-bold'}}) }}
+					{{ form_widget(form.confirmation, {'attr': {'class': 'form-control'}}) }}
+
+                    {{ form_label(form.lastname, 'Nom ', {'label_attr': {'class': 'font-weight-bold'}}) }}
+					{{ form_widget(form.lastname, {'attr': {'class': 'form-control'}}) }}
+
+                    {{ form_label(form.firstname, 'Prénom ', {'label_attr': {'class': 'font-weight-bold'}}) }}
+					{{ form_widget(form.firstname, {'attr': {'class': 'form-control'}}) }}
+
+                    {{ form_label(form.birthday, 'Date de naissance', {'label_attr': {'class': 'font-weight-bold'}}) }}
+					{{ form_widget(form.birthday, {'attr': {'class': 'form-control'}}) }}
+
+                    {{ form_label(form.nationality, 'Nationalité', {'label_attr': {'class': 'font-weight-bold'}}) }}
+					{{ form_widget(form.nationality, {'attr': {'class': 'form-control'}}) }}
+
+                    {{ form_label(form.countryofresidence, 'Pays de résidence', {'label_attr': {'class': 'font-weight-bold'}}) }}
+					{{ form_widget(form.countryofresidence, {'attr': {'class': 'form-control'}}) }}
+
+                    {{ form_label(form.phone, 'Téléphone', {'label_attr': {'class': 'font-weight-bold'}}) }}
+					{{ form_widget(form.phone, {'attr': {'class': 'form-control'}}) }}
+
+                    </br>
+
+                    {{ form_label(form.inscription, 'Inscription', {'label_attr': {'class': 'font-weight-bold'}}) }}
+					{{ form_widget(form.inscription, {'attr': {'class': 'form-control'}}) }}
+
+                    
+
+                    
+
+
+				</div>
+                </div>
+
+
+				{{ form_end(form) }}
+			</div>
+		</div>
+	</div>
+{% endblock %}

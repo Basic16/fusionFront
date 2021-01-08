@@ -1,0 +1,298 @@
+.cardmariage {
+    margin-bottom: 20px;
+    box-shadow: 0px 0px 15px -5px #000;
+    text-align: center;
+  }
+
+  .innermariage{
+      overflow: hidden;
+  }
+
+  .innermariage img{
+      transition: all 1.2s ease;
+  }
+
+  .innermariage:hover img{
+      transform: scale(1.2);
+  }
+
+
+      .col-big{
+        position: relative;
+      	min-height: 1px;
+      	padding-right: 15px;
+      	padding-left: 15px;
+      	width:20%;
+      }
+
+      .hovereffect {
+        width: 100%;
+        height: 100%;
+        float: left;
+        overflow: hidden;
+        position: relative;
+        text-align: center;
+        cursor: default;
+        box-shadow: 0px 0px 15px -5px #000;
+      }
+
+      .hovereffect .overlay {
+        width: 100%;
+        height: 100%;
+        position: absolute;
+        overflow: hidden;
+        top: 0;
+        left: 0;
+        background-color: rgba(75,75,75,0.4);
+        -webkit-transition: all 0.4s ease-in-out;
+        transition: all 0.4s ease-in-out;
+      }
+
+      .hovereffect:hover .overlay {
+        background-color: #cab437;
+      }
+
+      .hovereffect img {
+        display: block;
+        position: relative;
+      }
+
+      .hovereffect h2 {
+        text-transform: uppercase;
+        color: #fff;
+        text-align: center;
+        position: relative;
+        font-size: 17px;
+        padding: 10px;
+        background: rgba(0, 0, 0, 0.6);
+        -webkit-transform: translateY(45px);
+        -ms-transform: translateY(45px);
+        transform: translateY(45px);
+        -webkit-transition: all 0.4s ease-in-out;
+        transition: all 0.4s ease-in-out;
+      }
+
+      .hovereffect:hover h2 {
+        -webkit-transform: translateY(5px);
+        -ms-transform: translateY(5px);
+        transform: translateY(5px);
+        margin:0px;
+      }
+
+      .hovereffect p.info {
+        display: inline-block;
+        text-decoration: none;
+        padding: 7px 14px;
+        text-transform: uppercase;
+        color: #fff;
+        border: 1px solid #fff;
+        background-color: transparent;
+        opacity: 0;
+        filter: alpha(opacity=0);
+        -webkit-transform: scale(0);
+        -ms-transform: scale(0);
+        transform: scale(0);
+        -webkit-transition: all 0.4s ease-in-out;
+        transition: all 0.4s ease-in-out;
+        font-weight: normal;
+        margin: 10px;
+        font-size: 15px;
+      }
+
+      .hovereffect:hover p.info {
+        opacity: 1;
+        filter: alpha(opacity=100);
+        -webkit-transform: scale(1);
+        -ms-transform: scale(1);
+        transform: scale(1);
+      }
+
+      .hovereffect p.info:hover {
+        box-shadow: 0 0 5px #fff;
+      }
+
+      /* Début slider */
+      #myCarousel .carousel-item .mask {
+        /*position: absolute;*/
+        top: 0;
+        left:0;
+        height: 100%;
+        width: 100%;
+        background-attachment: fixed;
+        margin-bottom: 40px;
+    }
+    #myCarousel h4{
+      font-size:50px;
+      margin-bottom:15px;
+      color:#FFF;
+      line-height:100%;
+      letter-spacing:0.5px;
+      font-family: Merriweather,"Times New Roman",Times,serif;
+      text-transform:none;
+    }
+    #myCarousel p{
+      font-size:18px;
+      margin-bottom:15px;
+      color:#d5d5d5;
+    }
+    #myCarousel .carousel-item a{background:#cab437; font-size:14px; color:#FFF; padding:13px 32px; display:inline-block; }
+    #myCarousel .carousel-item a:hover{background:#fff; color: #cab437; text-decoration:none;  }
+
+    #myCarousel .carousel-item h4{-webkit-animation-name:fadeInLeft; animation-name:fadeInLeft; color: #5d5d5d; padding-top: 20px;}
+    #myCarousel .carousel-item p{-webkit-animation-name:slideInRight; animation-name:slideInRight; font-weight: bold; color:#5d5d5d}
+    #myCarousel .carousel-item a{-webkit-animation-name:fadeInUp; animation-name:fadeInUp;}
+    #myCarousel .carousel-item .mask img{-webkit-animation-name:slideInRight; animation-name:slideInRight; display:block; height: 300px;margin-top: 50px;}
+    #myCarousel h4, #myCarousel p, #myCarousel a, #myCarousel .carousel-item .mask img{-webkit-animation-duration: 1s;
+        animation-duration: 1.2s;
+        -webkit-animation-fill-mode: both;
+        animation-fill-mode: both;
+    }
+    #myCarousel .container {width: 100%;  }
+    #myCarousel .carousel-item{min-height:400px; }
+    #myCarousel{position:relative; z-index:1; background:url('https://weddingyourself.fr/images/fond.jpg') center center no-repeat; background-size:cover; }
+
+    .carousel-control-next, .carousel-control-prev{height:40px; width:40px; padding:12px; top:50%; bottom:auto; transform:translateY(-50%); background-color: #cab437; }
+
+
+    .carousel-item {
+        position: relative;
+        display: none;
+        -webkit-box-align: center;
+        -ms-flex-align: center;
+        align-items: center;
+        width: 100%;
+        transition: -webkit-transform .6s ease;
+        transition: transform .6s ease;
+        transition: transform .6s ease,-webkit-transform .6s ease;
+        -webkit-backface-visibility: hidden;
+        backface-visibility: hidden;
+        -webkit-perspective: 1000px;
+        perspective: 1000px;
+    }
+    .carousel-fade .carousel-item {
+      opacity: 0;
+      -webkit-transition-duration: .6s;
+      transition-duration: .6s;
+      -webkit-transition-property: opacity;
+      transition-property: opacity
+    }
+    .carousel-fade .carousel-item-next.carousel-item-left, .carousel-fade .carousel-item-prev.carousel-item-right, .carousel-fade .carousel-item.active {
+      opacity: 1
+    }
+    .carousel-fade .carousel-item-left.active, .carousel-fade .carousel-item-right.active {
+      opacity: 0
+    }
+    .carousel-fade .carousel-item-left.active, .carousel-fade .carousel-item-next, .carousel-fade .carousel-item-prev, .carousel-fade .carousel-item-prev.active, .carousel-fade .carousel-item.active {
+      -webkit-transform: translateX(0);
+      -ms-transform: translateX(0);
+      transform: translateX(0)
+    }
+    @supports (transform-style:preserve-3d) {
+      .carousel-fade .carousel-item-left.active, .carousel-fade .carousel-item-next, .carousel-fade .carousel-item-prev, .carousel-fade .carousel-item-prev.active, .carousel-fade .carousel-item.active {
+      -webkit-transform:translate3d(0, 0, 0);
+      transform:translate3d(0, 0, 0)
+      }
+    }
+    .carousel-fade .carousel-item-left.active, .carousel-fade .carousel-item-next, .carousel-fade .carousel-item-prev, .carousel-fade .carousel-item-prev.active, .carousel-fade .carousel-item.active {
+        -webkit-transform: translate3d(0,0,0);
+        transform: translate3d(0,0,0);
+    }
+
+
+
+    @-webkit-keyframes fadeInLeft {
+      from {
+        opacity: 0;
+        -webkit-transform: translate3d(-100%, 0, 0);
+        transform: translate3d(-100%, 0, 0);
+      }
+
+      to {
+        opacity: 1;
+        -webkit-transform: translate3d(0, 0, 0);
+        transform: translate3d(0, 0, 0);
+      }
+    }
+
+    @keyframes fadeInLeft {
+      from {
+        opacity: 0;
+        -webkit-transform: translate3d(-100%, 0, 0);
+        transform: translate3d(-100%, 0, 0);
+      }
+
+      to {
+        opacity: 1;
+        -webkit-transform: translate3d(0, 0, 0);
+        transform: translate3d(0, 0, 0);
+      }
+    }
+
+    .fadeInLeft {
+      -webkit-animation-name: fadeInLeft;
+      animation-name: fadeInLeft;
+    }
+
+    @-webkit-keyframes fadeInUp {
+      from {
+        opacity: 0;
+        -webkit-transform: translate3d(0, 100%, 0);
+        transform: translate3d(0, 100%, 0);
+      }
+
+      to {
+        opacity: 1;
+        -webkit-transform: translate3d(0, 0, 0);
+        transform: translate3d(0, 0, 0);
+      }
+    }
+
+    @keyframes fadeInUp {
+      from {
+        opacity: 0;
+        -webkit-transform: translate3d(0, 100%, 0);
+        transform: translate3d(0, 100%, 0);
+      }
+
+      to {
+        opacity: 1;
+        -webkit-transform: translate3d(0, 0, 0);
+        transform: translate3d(0, 0, 0);
+      }
+    }
+
+    .fadeInUp {
+      -webkit-animation-name: fadeInUp;
+      animation-name: fadeInUp;
+    }
+
+    @-webkit-keyframes slideInRight {
+      from {
+        -webkit-transform: translate3d(100%, 0, 0);
+        transform: translate3d(100%, 0, 0);
+        visibility: visible;
+      }
+
+      to {
+        -webkit-transform: translate3d(0, 0, 0);
+        transform: translate3d(0, 0, 0);
+      }
+    }
+
+    @keyframes slideInRight {
+      from {
+        -webkit-transform: translate3d(100%, 0, 0);
+        transform: translate3d(100%, 0, 0);
+        visibility: visible;
+      }
+
+      to {
+        -webkit-transform: translate3d(0, 0, 0);
+        transform: translate3d(0, 0, 0);
+      }
+    }
+
+    .slideInRight {
+      -webkit-animation-name: slideInRight;
+      animation-name: slideInRight;
+    }

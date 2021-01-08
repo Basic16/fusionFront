@@ -1,0 +1,182 @@
+
+
+
+/* Extra large devices (large laptops and desktops, 1200px and up) */
+@media only screen and (max-width: 1200px) {
+	.file_dariane{font-size: 13px;}
+	.recherche_box .input_group{margin-right: 2.8%;margin-bottom: 30px;}
+	.recherche_box .time_2{margin-right: 0px;}
+	.submit_r{float: none;display: block;margin-left: auto;margin-right: auto;}
+
+}
+
+/* Large devices (laptops/desktops, 992px and up) */
+@media only screen and (max-width: 992px) {
+	.navbar-dark .navbar-brand {color: #fff;width: 180px;}
+	.navbar-dark .navbar-brand img{width: 100%;}
+	.wedder_link {padding: 10px 20px;font-size: 15px;}
+	.conn_link,.fav_link{margin-right: 10px;}
+	.navbar {padding: 5px 1rem;}
+	.search_container .dropdown {width: 33%;margin-right: 3%;margin-bottom: 20px;}
+	.search_container .input_group {width: 36%;margin-bottom: 20px;}
+	.search_container {bottom: 10px;}
+	.block_1 .col-md-3 {-ms-flex: 0 0 33%;flex: 0 0 33%;max-width: 100% !important;}
+	.pb-5, .py-5 {padding-bottom: 0rem!important;}
+
+	.left_part,.right_part{width: 100%;-webkit-box-flex: 0;-ms-flex: 0 0 100%;flex: 0 0 100%;max-width: 100%;}
+	.right_part{margin: 50px 15px;border: 1px solid #e9e9e9;padding: 30px 0px;box-shadow: 0px 0px 20px -12px #000;border-radius: 4px;width: calc(100% - 30px);}
+	.facebook_connect{margin-top: 50px;}
+
+	.recherche_box .input_group {margin-right: 2.8%;margin-bottom: 20px;width: 48% !important;float: left !important;display: block;}
+	.recherche_box .input_group:nth-child(2){margin-right: 0px;}
+	.recherche_box .time_1{width: 22% !important;}
+	.recherche_box .time_2{width: 23% !important;margin-right: 0px;}
+	.favorites .col-md-6,.favorites .col-md-8,.favorites .col-md-4{-webkit-box-flex: 0;-ms-flex: 0 0 50%;flex: 0 0 100%;max-width: 100%;}
+
+	.recherche .col-md-4 {-webkit-box-flex: 0;-ms-flex: 0 0 100%;flex: 0 0 100%;max-width: 100%;margin-bottom: 50px;}
+	.info_liste {width: 300px;margin-left: auto;margin-right: auto;display: block;float: none;}
+	.recherche .col-md-8 {-webkit-box-flex: 0;-ms-flex: 0 0 100%;flex: 0 0 100%;max-width: 100%;}
+	.aside_bar_left{margin-bottom: 30px;}
+	#carouselExampleIndicators form .col-xs-12 .area .col:first-child {margin-right: 1%;}
+	#carouselExampleIndicators form .col-xs-12 .area .col:nth-child(2) {width: 48%;}
+
+
+
+
+
+} 
+
+/* Medium devices (landscape tablets, 768px and up) */
+@media only screen and (max-width: 768px) {
+	.container {max-width: 100%;}
+	.carousel.slide{padding-bottom: 105px;background-color: #f3f3f3;border-bottom: 1px solid #e2e2e2;}
+	.carousel-control-prev,.carousel-control-next{display: none;}
+	.block_1 .col-md-3 {-ms-flex: 0 0 33%;flex: 0 0 100%;max-width: 100% !important;}
+
+	#example5 {max-width: 100% !important;margin: 0px;padding-right: 0px !important;}
+	.sp-bottom-thumbnails.sp-has-pointer .sp-selected-thumbnail:before,
+	.sp-bottom-thumbnails.sp-has-pointer .sp-selected-thumbnail:after,
+	.sp-slides-container .sp-fade-arrows{display: none;}
+	.navbar .container.justify-content-between{padding: 0px;}
+	.search_container {bottom: -20px;}
+	.form-category .area{padding: 0px 20px;}
+	#carouselExampleIndicators .area input[type=submit] {padding: .4rem 1.5rem;}
+	.conn_link, .fav_link {margin-right: 5px;font-size: 13px;}
+
+} 
+
+@media only screen and (max-width: 700px) {
+	.input_submit {width: 200px;float: none;margin-left: auto;margin-right: auto;display: block;}
+	.search_container .dropdown {width: 100%;margin-right: 0px;}
+	.search_container .input_group {width: 100%;margin-bottom: 20px;}
+	.carousel.slide {padding-bottom: 205px;}
+	.right_menu{position: relative;}
+	.fav_link{position: absolute;right: 0px;font-size: 13px;top: -5px;}
+	.conn_link{position: absolute;left: 0px;font-size: 13px;top: -5px;}
+	.wedder_link {padding: 8px 35px;font-size: 15px;margin-top: 20px;float: right;}
+	.navbar-dark .navbar-brand {width: 150px;margin: 10px 0px;}
+	.navbar {padding: 5px 0rem;}
+	#carouselExampleIndicators form .col-xs-12 .area .col:first-child {margin-right: 0px;width: 100%;margin-bottom: 20px;}
+	#carouselExampleIndicators form .col-xs-12 .area .col:nth-child(2) {width: 100%;padding: 0px;margin-bottom: 20px;}
+	#carouselExampleIndicators form .col-xs-12{width: 100%;position: relative;}
+	.form-category .area {padding: 0px 20px;position: relative;float: left;width: 100%;}
+	#carouselExampleIndicators form .col-xs-12 .area .multiselect{text-align: left;}
+	#carouselExampleIndicators .area input[type=submit] {padding: .4rem 1.5rem;float: none;margin-left: auto;margin-right: auto;display: block;width: 200px;}
+	.navbar .container.justify-content-between {padding: 0px 20px;}
+	.right_menu {position: relative;width: 50%;}
+	.fav_link {position: relative;float: right;font-size: 13px;top: -5px;}
+	.conn_link {position: relative;float: right;font-size: 13px;top: -5px;}
+	.wedder_link{margin-top: 0px;width: 222px;text-align: center;}
+
+}
+/* Small devices (portrait tablets and large phones, 600px and up) */
+@media only screen and (max-width: 600px) {
+	.form_create_acompte .input_groupe label{width: 100%;}
+	.form_create_acompte .input_groupe .text_input,.radio_box,.groupe_date,.bootstrap-select{width: 100%;max-width: 100%;}
+	.facebook_connect{font-size: 15px;}
+	.title_form,.title_page{font-size: 30px;}
+	.recherche_box .input_group {margin-right: 0px;margin-bottom: 20px;width: 100% !important;}
+	.recherche_box .time_1 {width: 48% !important;margin-right: 0px;}
+	.recherche_box .time_2 {width: 50% !important;margin-right: 0px;}
+	.wedding_info {width: 100%;float: right;padding: 31px 20px;position: relative;}
+	.img_mini {margin-left: auto;margin-right: auto;display: block;float: none;width: 100%;}
+	.submit_r{width: 100%;}
+	.wedder_link {font-size: 15px;width: 165px;padding: 6px 0px;}
+	.conn_link {width: 32%;text-align: center;margin: 0px;}
+	.fav_link {width: 33.3%;text-align: center;}
+	.recherche_box .input_group.time_1{width: 100%;width: 100% !important;margin-right: 0px;}
+	.recherche_box .input_group.date_1 .col {float: left;margin-right: 0px;width: 100%;}
+	.form_create_acompte .input_groupe label {width: auto;}	
+	.input_groupe {margin-bottom: 0px;}
+	body{overflow-x: hidden;}
+	.submit_div {top: -30px;}
+	
+	.right_part {margin: 0px 15px 50px 15px;}
+	.form_create_acompte .input_infos {margin-top: 0px;}
+	 
+ 
+	.right_menu {position: relative;width: 100%;float: left;}
+	.wedder_link {font-size: 15px;width: 100%;padding: 5px 0px;margin-left: auto;margin-right: auto;display: block;float: left;}
+	.conn_link {position: relative;float: right;font-size: 13px;top: -5px;width: 32%;text-align: center;margin: 0px;}
+	.fav_link {position: relative;float: left;font-size: 13px;top: -5px;width: 33.3%;text-align: left;margin:0px;}
+	.navbar-dark .navbar-brand {width: 150px;margin: 10px 0px;float: none;margin-left: auto;margin-right: auto;}
+	.impas {left: 15px;}
+	footer .col-md-2,footer .col-md-3{width: 100%;margin-bottom: 30px;}
+	.file_dariane {display: none;}
+	.recherche_box{margin-top: 0px;}
+	.main{padding-top: 0px !important;}
+	.recherche_box .col.datepicker-holder,.recherche_box .datepicker-holder .col {width: 100%;}
+	.recherche_box .input_group.time_1 {box-shadow: none !important;}
+	.recherche_box .input_group.time_1{width: 100%;width: 100% !important;margin-right: 0px;}
+	.recherche_box .input_group.date_1 .col {float: left;margin-right: 0px;width: 100%;}
+	.recherche_box .time-fields .jcf-select {width: 100%;height: 46px;margin-top: 20px;}
+	#search-container .selection-holder > .select-holder:first-child {width: 100%;float: left;}
+	#search-container li.field-row:last-child{margin-right: 0px;}
+	#search-container li.field-row:nth-child(even){float: left;width: 48%;margin-right: 0%;}
+	#search-container li.field-row:nth-child(odd){float: left;width: 48%;margin-right: 4%;} 
+	#search-container .selection-holder .select-holder {float: left;width: 100%;margin-bottom: 0px;}
+	#search-container .selection-holder .btn{margin-top: 10px;width: 100%;}
+	.favorites .col-md-6{margin-bottom: 30px;}
+	.favorites #map-canvas {height: 50vh;}
+	.album.py-5{width: 100%;float: left;}
+	.tab-content {padding: 30px 10px;}
+	.sp-bottom-thumbnails .sp-thumbnail-container{height: 120px !important; }
+	.rs_shear ul {float: none;width: 136px;margin: 0px;padding: 0px;margin-left: auto;margin-right: auto;margin-top: 10px;}
+	.tabs_content .nav li a,.tabs_content .nav li a.active, .tabs_content .nav li a:hover {padding: 10px 14px;font-size: 15px;}
+	#commentaires {margin-top: 0px;}
+	#commentaires h2{font-size: 18px;}
+	.booking-price-form fieldset .col{padding:0px;}
+	.navbar-dark .navbar-brand {width: 150px;margin: 10px 0px;float: none;margin-left: auto;margin-right: auto;display: block;padding: 0px;} 
+	.box-shadow .right_menu {margin-top: 0px;}
+	.wedder_link{padding: 10px 0px;}
+	#form-registerlogin {margin-top: 0px;}
+	#form-registerlogin h1{font-size: 22px;}
+	#form-registerlogin .login_pannel {width: 100%;}
+	.right_facebook_connect {width: 100%;}
+	.right_menu .nav.navbar-nav {float: right;margin-right: 0px;}
+	.new_header .display-sub-tabs{right: 0px;left: auto;}
+	footer{float: left;width: 100%;}
+	footer .col-md-3.float-right {width: 100%;}
+	footer .col-md-2, footer .col-md-3 {margin-top: 10px;float: left;}
+	.new_header #dashboard-link {font-size: 13px;padding: 0px}
+	.new_header .fav_link{top: 4px;}
+	.radio_box #user_registration_personType{padding:0px;}
+	.form_create_acompte .input_groupe label{font-size: 12px;}
+	.link_compte{text-align: center;font-size: 16px;}
+ 	.login_tab-content button[type="submit"] {left: 50% !important;top: auto;width: 200px !important;margin-left: -100px !important;}
+ 	.form_create_acompte button[type="submit"] {left: auto;top: 45px !important;width: 200px !important;}
+ 	.navbar-nav .open .dropdown-menu {position: absolute;background-color: #fff;width: 280px;box-shadow: 0px 10px 25px -10px #000;} 
+ 	.right_menu.new_header .navbar-nav > li > a{margin-bottom: 0px;}
+ 	.right_menu .nav.navbar-nav {margin:0px;}
+ 	ul.dropdown-menu.display-sub-tabs.newstyle{margin-top: 0px;}
+ 	ul.dropdown-menu.display-sub-tabs.newstyle .dropdown-menu{margin-top: 2px;}
+ 	ul.dropdown-menu.display-sub-tabs.newstyle.show li.dropdown.display-tab{margin-top: 39px;}
+ 	
+
+
+   
+ 
+   
+}  
+ 
+      

@@ -1,0 +1,153 @@
+{% trans_default_domain 'cocorico' %}
+
+{% if app.environment == 'dev'  %}
+    <script type="text/javascript">
+        var filename = "font-size: 1.5em; color: #519657; font-weight: bold; margin-top: 0.5em;";
+        var filepath = "font-size: 1.2em; color: #81c784;";
+        console.log("%cFile: %s", filename, '_new_footer.html.twig');
+        console.log("%cPath: %s", filepath, 'CoreBundle/Resources/views/Frontend/Commun');
+    </script>
+{% endif %}
+
+<footer class="text-muted">
+    <div class="container">
+        <div class="row block_2">
+            <div class="col-12 col-md-4 col-lg-4">
+                <span class="title_text">{{ 'footer.about.title'|trans }}</span>
+                <ul class="menu_footer">
+                    <li>
+                        <a href="{{ path('cocorico_page_show', { 'slug': 'nav.who_we_are.slug'|trans }) }}">
+                            {{ 'footer.who_we_are.link'|trans }}
+                        </a>
+                    </li>
+                    <li>
+                        <a href="{{ path('cocorico_page_show', { 'slug': 'nav.how_it_works.slug'|trans }) }}">
+                            {{ 'footer.how_it_works.link'|trans }}
+                        </a>
+                    </li>
+                    <li>
+                        <a href="{{ path('cocorico_page_show', { 'slug': 'nav.legal_notices.slug'|trans }) }}">
+                            {{ 'footer.legal_notices.link'|trans }}
+                        </a>
+                    </li>
+                </ul>
+            </div>
+
+            <div class="col-12 col-md-4 col-lg-4">
+                <span class="title_text">Aide & Contact</span>
+                <ul class="menu_footer">
+                    <li>
+                        <a href="/fr/contact/creer">
+                            Nous contacter
+                        </a>
+                    </li>
+                </ul>
+            </div>
+
+
+
+
+            <div class="col-12 col-md-4 col-lg-4 float-right">
+                <span class="title_text">{{ 'footer.contact_us.title'|trans }}</span>
+                <ul class="contact_info">
+                    <li><a href="mailto:{{ cocorico_contact_mail_obfuscated|raw }}"><i class="fa fa-envelope" aria-hidden="true"></i> {{ cocorico_contact_mail_obfuscated|raw }}</a></li>
+                    <li><a href="tel:{{ cocorico_phone|replace({'+': '', '(': '', ')': '', ' ': ''}) }}"><i class="fa fa-phone" aria-hidden="true"></i> {{ cocorico_phone|replace({'+': '', '(': '', ')': '', ' ': ''}) }}</a></li>
+                </ul>
+                <span class="title_text" style="margin-top: 10px;">Nous suivre</span>
+                <a href="https://www.facebook.com/Weddingyourself/" target="_blank"><i id="social-fb" class="fa fa-facebook-square fa-3x social" style="color: #cab437; padding-left: 5px;"></i></a>
+                <a href="https://www.instagram.com/weddingyourself.fr/" target="_blank"><i id="social-tw" class="fa fa-instagram fa-3x social" style="color: #cab437; padding-left: 5px;"></i></a>
+            </div>
+
+        </div>
+
+
+    </div>
+    <div class="copyright">
+        <p>&copy; {{ "now"|date("Y") }} {{ 'footer.all_right_reserved'|trans }} <a href="{{ path('cocorico_home') }}">{{ cocorico_site_name }}</a></p>
+    </div>
+</footer>
+
+{#
+<!-- bottom-container -->
+<div class="bottom-container">
+    <!-- footer-aside -->
+    <aside class="aside-footer">
+        <div class="container">
+            <div class="row">
+                <div class="col-xs-12">
+                    <!-- contact-info -->
+                    <div class="contact-info pull-right">
+                        <strong class="title">{{ 'footer.contact_us.title'|trans }}</strong>
+                        <ul class="list-unstyled">
+
+                            <li>
+                                <a href="tel:{{ cocorico_phone|replace({'+': '', '(': '', ')': '', ' ': ''}) }}">
+                                    <i class="icon-phone"></i>{{ cocorico_phone }}
+                                </a>
+                            </li>
+                            <li>
+                                <a href="mailto:{{ cocorico_contact_mail_obfuscated|raw }}">
+                                    <i class="icon-mail-alt"></i>
+                                    {{ cocorico_contact_mail_obfuscated|raw }}
+                                </a>
+                            </li>
+                        </ul>
+                    </div>
+                    <!-- navarea -->
+                    <nav class="navarea">
+                        <ul class="list-unstyled pull-left">
+                            <li class="title">{{ 'footer.about.title'|trans }}</li>
+                            <li>
+                                <a href="{{ path('cocorico_page_show', { 'slug': 'nav.who_we_are.slug'|trans }) }}">
+                                    {{ 'footer.who_we_are.link'|trans }}
+                                </a>
+                            </li>
+                            <li>
+                                <a href="{{ path('cocorico_page_show', { 'slug': 'nav.how_it_works.slug'|trans }) }}">
+                                    {{ 'footer.how_it_works.link'|trans }}
+                                </a>
+                            </li>
+                        </ul>
+                        <ul class="list-unstyled pull-left">
+                            <li class="title">{{ 'footer.help.title'|trans }}</li>
+                            <li>
+                                <a href="{{ path('cocorico_contact_new') }}">
+                                    {{ 'footer.contact_us.link'|trans }}
+                                </a>
+                            </li>
+                        </ul>
+                    </nav>
+                </div>
+            </div>
+        </div>
+    </aside>
+
+
+    {{ render(controller('CocoricoCMSBundle:Frontend/Footer:index',{
+        request: app.request
+    })) }}
+
+    <!-- footer of the page -->
+    <footer id="footer" class="container text-center">
+        <div class="row">
+            <div class="col-xs-12">
+                <a href="{{ path('cocorico_page_show', { 'slug': 'nav.legal_notices.slug'|trans }) }}"
+                   class="by pull-right">
+                    {{ 'footer.legal_notices.link'|trans }}
+                </a>
+
+                <a href="http://www.cocolabs.io/fr/"
+                   class="by pull-right credit" target="_blank">
+                    <img src="{{ asset('images/marketplace-solutions.png') }}" width="45" height="15"
+                         alt="creation marketplace">
+                </a>
+
+                <p>
+                    &copy; {{ "now"|date("Y") }} {{ 'footer.all_right_reserved'|trans }}
+                    <a href="{{ path('cocorico_home') }}">{{ cocorico_site_name }}</a>
+                </p>
+            </div>
+        </div>
+    </footer>
+</div>
+#}

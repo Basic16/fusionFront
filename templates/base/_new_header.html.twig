@@ -1,0 +1,144 @@
+{% trans_default_domain 'cocorico' %}
+
+{% if app.environment == 'dev'  %}
+    <script type="text/javascript">
+        var filename = "font-size: 1.5em; color: #519657; font-weight: bold; margin-top: 0.5em;";
+        var filepath = "font-size: 1.2em; color: #81c784;";
+        console.log("%cFile: %s", filename, '_new_header.html.twig');
+        console.log("%cPath: %s", filepath, 'CoreBundle/Resources/views/Frontend/Commun');
+    </script>
+{% endif %}
+
+<!-- header of the page -->
+<header>
+    <div class="navbar navbar-dark">
+        <div class="container d-flex justify-content-between">
+            <a href="" class="navbar-brand d-flex align-items-center">
+                <img src="{{ asset('images/logo.png') }}" alt="{{ 'nav.home.link'|trans }}" />
+            </a>
+            <div class="right_menu {% if app.user is not null and is_granted("IS_AUTHENTICATED_FULLY") %} new_header {% endif %}   ">
+
+                <a href="/fr/page/comment-ca-marche" class="fav_link" abindex="5">
+                    Comment ça marche ?
+                </a>
+		 <a href="/blog" class="fav_link" abindex="6">
+                    Blog
+                </a>
+                <!-- <a href="" class="fav_link" abindex="5">
+                    <i class="fa fa-heart" aria-hidden="true"></i> {{ 'nav.favorites.link'|trans }} <span id="fav-count"></span>
+                </a> -->
+                <!-- User info -->
+                {%- if app.user is not null and is_granted("IS_AUTHENTICATED_FULLY") -%}
+                    <ul class="nav navbar-nav ">
+                        <li id="dashboard-dropdown" class="dropdown">
+                            <a id="dashboard-link" class="dropdown-toggle"
+                               href="" tabindex="6"
+                               title="My Dashboard" data-toggle="dropdown" role="button" aria-expanded="false">
+                                {{ 'nav.dashboard.link'|trans }} {#( {{ app.user.firstName | capitalize }} )#}
+                                <span id="nb-unread-msg"></span>
+                                <span class="icon-down-open-mini"></span>
+                            </a>
+                            {% include '_nav.html.twig' with {'nav_dashboard_current':''} only %}
+                        </li>
+                    </ul>
+                {%- else -%}
+                    {# <a class="conn_link" href="" tabindex="7">
+                        {{ 'nav.register.link'|trans }}
+                    </a> #}
+                    <a class="conn_link" href="" tabindex="7">
+                        {# {{ 'nav.login.link'|trans }}  #}
+                        Connectez-vous
+                    </a>
+                {%- endif -%}
+                <!-- New listing link -->
+
+                {%- if app.user is not null and is_granted("IS_AUTHENTICATED_FULLY") -%}
+                    <a href="" class="wedder_link" tabindex="9">
+                        Déposer votre annonce
+                    </a>
+                {%- else -%}
+                    <a href="" class="wedder_link" tabindex="9">
+                        {{ 'nav.listing.new.link'|trans }}
+                    </a>
+                {%- endif -%}
+
+
+            </div>
+
+        </div>
+    </div>
+</header>
+{#
+<header>
+    <div class="container d-flex justify-content-between">
+        <div class="row">
+            <div class="col-xs-12">
+                <!-- main navigation of the page -->
+                <nav class="navbar navbar-default navbar-dark">
+                    <!-- Brand and toggle get grouped for better mobile display -->
+                    <div class="navbar-header">
+                        <button type="button" class="navbar-toggle collapsed" data-toggle="collapse"
+                                data-target="#bs-example-navbar-collapse-1" tabindex="2">
+                            <span class="sr-only">Toggle navigation</span>
+                            <span class="icon-bar"></span>
+                            <span class="icon-bar"></span>
+                            <span class="icon-bar"></span>
+                        </button>
+                        <!-- page logo -->
+                        <a class="navbar-brand d-flex align-items-center" href="" tabindex="3">
+                            <img src="{{ asset('images/logo.png') }}" alt="{{ 'nav.home.link'|trans }}" width="300"
+                                 height="29">
+                        </a>
+                    </div>
+                    <!-- Collect the nav links, forms, and other content for toggling -->
+                    <div class="right_menu collapse navbar-collapse" id="bs-example-navbar-collapse-1">
+                        <ul class="nav navbar-nav ">
+                            <li>
+                                <a class="fav_link" href=""
+                                   tabindex="5">
+                                   <i class="fa fa-heart" aria-hidden="true"></i>
+                                   {{ 'nav.favorites.link'|trans }}
+                                    <span id="fav-count"></span>
+                                </a>
+                            </li>
+                            <!-- User info -->
+                            {%- if app.user is not null and is_granted("IS_AUTHENTICATED_FULLY") -%}
+                                <li id="dashboard-dropdown" class="dropdown">
+                                    <a id="dashboard-link" class="dropdown-toggle"
+                                       href="" tabindex="6"
+                                       title="My Dashboard" data-toggle="dropdown" role="button" aria-expanded="false">
+                                        {{ 'nav.dashboard.link'|trans }} ({{ app.user.firstName | capitalize }})
+                                        <span id="nb-unread-msg"></span>
+                                        <span class="icon-down-open-mini"></span>
+                                    </a>
+                                    {% include '@CocoricoCore/Frontend/Common/_nav.html.twig' with {'nav_dashboard_current':''} only %}
+                                </li>
+                            {%- else -%}
+                                <li>
+                                    <a class="conn_link" href="" tabindex="6">
+                                        {{ 'nav.register.link'|trans }}
+                                    </a>
+                                </li>
+                                <li>
+                                    <a class="conn_link" href="" tabindex="7">
+                                        {{ 'nav.login.link'|trans }}
+                                    </a>
+                                </li>
+                            {%- endif -%}
+                            <!-- Language switcher. -->
+                            {{ render(controller('CocoricoCoreBundle:Frontend/Language:switch', {'request': app.request} )) }}
+                            <!-- Currency switcher -->
+                            {% include '@CocoricoCore/Frontend/Common/_currency_switcher.html.twig' only %}
+                        </ul>
+                        <!-- New listing link -->
+                        <a href="" class="wedder_link btn btn-primary navbar-right" tabindex="9">
+                            {{ 'nav.listing.new.link'|trans }}
+                        </a>
+                    </div>
+                    <!-- /.navbar-collapse -->
+                </nav>
+            </div>
+        </div>
+    </div>
+</header>
+#}

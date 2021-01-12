@@ -13,6 +13,8 @@ use Symfony\Component\OptionsResolver\OptionsResolver;
 use Symfony\Component\Form\Extension\Core\Type\EmailType;
 use Symfony\Component\Form\Extension\Core\Type\PasswordType;
 use Symfony\Component\Form\Extension\Core\Type\BirthdayType;
+use Symfony\Component\Form\Extension\Core\Type\CheckboxType;
+use Symfony\Component\Form\Extension\Core\Type\CountryType;
 
 
 
@@ -21,18 +23,15 @@ class InscriptionType extends AbstractType
     public function buildForm(FormBuilderInterface $builder, array $options)
     {
         $builder
-            ->add('email', EmailType::class)
+            ->add('username', EmailType::class)
             ->add('password', PasswordType::class)
             ->add('confirmation', PasswordType::class,['mapped'=>false])
-            ->add('lastName', TextType::class)
-            ->add('firstName', TextType::class)
+            ->add('lastname', TextType::class)
+            ->add('firstname', TextType::class)
             ->add('birthday', BirthdayType::class)
-            ->add('nationality', TextType::class)
-            ->add('countryOfResidence', TextType::class)
-            ->add('phone', IntegerType::class)
-
-            ->add('inscription', SubmitType::class)
-            
+            ->add('nationality', CountryType::class)
+            ->add('countryofresidence', CountryType::class)
+            ->add('phone', TextType::class)  
         ;
     }
 

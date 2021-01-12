@@ -14,7 +14,7 @@
 
 
 {% block layout %}
-
+        
 
         {% trans_default_domain 'cocorico_home' %}
 
@@ -69,6 +69,12 @@
 
         {% block main %}
 
+            {# Création des variables "mariages" et "categories" vide en attendant #}
+            
+            {% set categories = [] %}
+            
+            {% include 'home/listings_weddings.html.twig' with {'mariages': mariages} only %}
+            {% include 'home/listings_categories.html.twig' with {'categories': categories} only %}
 
             <div class="album mt-lg-4 pt-lg-4">
                 <div class="container">
@@ -121,7 +127,8 @@
                 </div>
             </div>
 
-
+            {% set listings = [] %}
+            {% include 'home/_high_rank.html.twig' with {'listings': listings} only %}
 
         {% endblock %}
 

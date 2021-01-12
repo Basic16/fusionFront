@@ -1,62 +1,224 @@
 {% extends 'base.html.twig' %}
 
-{% block title %}Hello InscriptionController!
-{% endblock %}
 
-{% block body %}
-	<div class="container-fluid">
-		<div class="row justify-content-center">
-			<h1 class="text-center text-primary p-4">S'inscrire</h1>
-		</div>
-		<div class="row justify-content-center">
-			<div class="col-8 bg-white p-4 m-0 text-primary">
+{% block title %}Inscription{% endblock %}
 
-				{{ form_start(form) }}
+{% block main %}
+	<div class="album py-5">
+		<div class="container">
+            {% include 'base/_flash.html.twig' %}
+			<div class="row">
+				<div id="form-registerlogin" class="form-signup validate-form create_acompte">
+					<h1 class="title_form">Créer un compte</h1>
 
+
+					{{ form_start(form) }}
+
+					<div class="col-md-6 left_part">
+
+						<div class="form_create_acompte">
+
+							<div class="input_infos">
+
+
+								<div class="input_groupe field-row validate-row">
+									{{ form_label(form.username, 'E-mail:* ', ) }}
+									{{ form_widget(form.username, {
+                    						'attr': {
+                        				'class': "text_input form-control required",
+                        				'placeholder': "Votre adresse email"
+                        
+                    					}
+                					}) }}
+								</div>
+
+								<div class="input_groupe field-row validate-row">
+									{{ form_label(form.password, 'Mot de passe:* ', ) }}
+
+									{{ form_widget(form.password, {
+                    						'attr': {
+                        				'class': "text_input form-control required",
+                        				'placeholder': "Votre mot de passe sécurisé"
+            
+                    					}
+                					}) }}
+								</div>
+
+								<div class="input_groupe field-row validate-row">
+									{{ form_label(form.confirmation, 'Vérification:* ',) }}
+
+									{{ form_widget(form.confirmation, {
+                    						'attr': {
+                        				'class': "text_input form-control required",
+                        				'placeholder': "Votre mot de passe sécurisé"
+            
+                    					}
+                					}) }}
+								</div>
+							</div>
+
+							<div class="input_infos">
+
+
+							
+							
+								
 				
-					{{ form_label(form.username, 'E-mail', {'label_attr': {'class': 'font-weight-bold'}}) }}
-					{{ form_widget(form.username, {'attr': {'class': 'form-control'}}) }}
+							{#<div class="form-check">
+							Vous êtes *
 
-                    {{ form_label(form.password, 'Password ', {'label_attr': {'class': 'font-weight-bold'}}) }}
-					{{ form_widget(form.password, {'attr': {'class': 'form-control'}}) }}
+								<input class="form-check-input" type="radio" name="flexRadioDefault" id="flexRadioDefault1">
+								<label class="form-check-label" for="flexRadioDefault1">
+									une personne
+								</label>
 
-                    {{ form_label(form.confirmation, 'Confirmation', {'label_attr': {'class': 'font-weight-bold'}}) }}
-					{{ form_widget(form.confirmation, {'attr': {'class': 'form-control'}}) }}
+								<input class="form-check-input" type="radio" name="flexRadioDefault" id="flexRadioDefault2">
+								<label class="form-check-label" for="flexRadioDefault1">
+									une entreprise
+								</label>
 
-                    {{ form_label(form.lastname, 'Nom ', {'label_attr': {'class': 'font-weight-bold'}}) }}
-					{{ form_widget(form.lastname, {'attr': {'class': 'form-control'}}) }}
-
-                    {{ form_label(form.firstname, 'Prénom ', {'label_attr': {'class': 'font-weight-bold'}}) }}
-					{{ form_widget(form.firstname, {'attr': {'class': 'form-control'}}) }}
-
-                    {{ form_label(form.birthday, 'Date de naissance', {'label_attr': {'class': 'font-weight-bold'}}) }}
-					{{ form_widget(form.birthday, {'attr': {'class': 'form-control'}}) }}
-
-                    {{ form_label(form.nationality, 'Nationalité', {'label_attr': {'class': 'font-weight-bold'}}) }}
-					{{ form_widget(form.nationality, {'attr': {'class': 'form-control'}}) }}
-
-                    {{ form_label(form.countryofresidence, 'Pays de résidence', {'label_attr': {'class': 'font-weight-bold'}}) }}
-					{{ form_widget(form.countryofresidence, {'attr': {'class': 'form-control'}}) }}
-
-                    {{ form_label(form.phone, 'Téléphone', {'label_attr': {'class': 'font-weight-bold'}}) }}
-					{{ form_widget(form.phone, {'attr': {'class': 'form-control'}}) }}
-
-                    </br>
-
-                    {{ form_label(form.inscription, 'Inscription', {'label_attr': {'class': 'font-weight-bold'}}) }}
-					{{ form_widget(form.inscription, {'attr': {'class': 'form-control'}}) }}
-
-                    
-
-                    
+								</div>#}
 
 
-				</div>
-                </div>
+
+								<div class="input_groupe field-row validate-row">
+
+									{{ form_label(form.lastname, 'Nom: * ',) }}
+
+									{{ form_widget(form.lastname , {
+                    					'attr': {
+                        					'class': "text_input form-control required",
+                        					'placeholder': "Votre nom"
+                    				}
+                				}) }}
+								</div>
 
 
-				{{ form_end(form) }}
+								<div class="input_groupe field-row validate-row">
+									{{ form_label(form.firstname, 'Prénom: * ', ) }}
+
+									{{ form_widget(form.firstname, {
+                        					'attr': {
+                            			'class': "text_input form-control required",
+                            			'placeholder': "Votre prenom"
+                        				}
+                    				}) }}
+								</div>
+
+
+								 <div class="input_groupe field-row validate-row">
+										{{ form_label(form.birthday, 'Date de naissance: *', {
+											'label_attr': {
+												'data-label-legal': 'form.birthday.legal'|trans
+											}
+										}) }}
+
+										<div class="field-holder">
+											<div class="field-day">
+												{{ form_widget(form.birthday.day, {
+													'attr': {
+														'class': "form-control required no-arrow"
+													}
+												} ) }}
+											</div>
+											<div class="field-month">
+												{{ form_widget(form.birthday.month, {
+													'attr': {
+														'class': "form-control required no-arrow",
+													}
+												} ) }}
+											</div>
+											<div class="field-year">
+												{{ form_widget(form.birthday.year, {
+													'attr': {
+														'class': "form-control required no-arrow"
+													}
+												} ) }}
+											</div>
+										</div>
+										</div>
+									
+
+
+								<div class="input_groupe field-row validate-row">
+
+									{{ form_label(form.nationality, 'Nationalité: * ',{
+										'label_attr':{
+											'data-label-legal': 'form.nationality.legal'|trans
+										}
+
+									}) }}
+
+								<div class="field-holder">
+									{{ form_widget(form.nationality, {
+                        					'attr': {
+                            			'class': "form-control required no-arrow"
+										
+                    					}
+                    				}) }}
+								</div>
+								</div>
+
+								<div class="input_groupe field-row validate-row">
+									<span class="label">
+										{{ form_label(form.countryofresidence, 'Pays de résidence: *',) }}
+
+										<div class="field-holder">
+
+										{{ form_widget(form.countryofresidence, {
+                        						'attr': {
+                            				'class': "text_input form-control",
+                    						}
+                   						}) }}
+									</span>
+										</div>
+								</div>
+
+								<div class="input_groupe field-row validate-row">
+								<span class="label">
+									{{ form_label(form.phone, 'Téléphone: *',) }}
+
+									{{ form_widget(form.phone, {
+										'attr': {
+											'class': "text_input form-control",
+											'data-parsley-type': 'digits'
+											
+										}
+									}) }}
+									</span>
+								</div>
+
+
+								<div class="submit_div">
+									<button type="submit" class="submit_form">Enregistrer</button>
+								</div>
+
+							</div>
+
+						</div>
+					</div>
+
+
+					<div class="col-md-6 right_part">
+
+						<a href="{{ path('connexion') }}" class="link_compte">J'ai déja un compte</a>
+
+						<div class="facebook_connect">
+							<p>Ou connectez-vous avec votre compte Facebook</p>
+							<a href="#" onclick="fb_login();" class="connect_face btn-facebook">
+								<i class="fa fa-facebook" aria-hidden="true"></i>
+								<span>connexion avec facebook</span>
+							</a>
+							<div id="fb-root"></div>
+						</div>
+
+					</div>
+
+					{{ form_end(form) }}
+
+				</form>
 			</div>
 		</div>
 	</div>
+</div>
 {% endblock %}

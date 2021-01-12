@@ -1,0 +1,29 @@
+<div class="album mt-lg-4 pt-lg-4">
+    <div class="container">
+
+        <div class="row block_2 m-0 p-0">
+            <h3 class="title_section">Top prestataires</h3>
+            <p class="stitle_section mb20">Lorem Ipsum is simply dummy text of the printing and typesetting industry. Lorem Ipsum has been.</p>
+
+  
+          {%- for uneCategorie in categories -%}
+                <div class="col-lg-4 col-md-4 col-sm-6 col-xs-12" style="margin-bottom: 30px">
+                    <div class="hovereffect">
+                       <img class="img-responsive" src="{{asset('images/'~uneCategorie.imageaccueil)}}" alt="{{uneCategorie.name}}">
+                        <div class="overlay">
+                        <h2>
+                        {% if uneCategorie.url is empty %}
+                          <a href="{{path('prestataire',{'id': uneCategorie.id})}}" class="bold text-white">{{uneCategorie.name}}</a>
+                        {% else %}
+                          <a href="{{path(uneCategorie.url)}}" class="bold text-white">{{uneCategorie.name}}</a>
+                        {% endif %}
+                        </h2>
+                         <p class="info">{{uneCategorie.texteaccueil}}</p>
+                        </div>
+                    </div>
+                </div>
+            {%- endfor -%}
+
+        </div>
+    </div>
+</div>

@@ -1,7 +1,113 @@
 {% extends 'base.html.twig' %}
 
-{% block title %}Inscription{% endblock %}
+{% block title %}Log in!
+{% endblock %}
 
-{% block body %}
-BONSOIR
+{% block main %}
+	<div class="album py-5">
+		<div class="container">
+            {% include 'base/_flash.html.twig' %}
+			<div class="row">
+				<div id="form-registerlogin" class="form-signup validate-form create_acompte">
+					<h1 class="title_form">Se connecter</h1>
+
+					{{ form_start(form) }}
+
+					<div class="col-md-6 left_part">
+						<div class="form_create_acompte">
+							<div class="input_infos">
+								<div class="input_groupe field-row validate-row">
+									<span class="label">
+										{{ form_label(form._username, 'E-mail:* ', ) }}
+										{{ form_widget(form._username, {
+												'attr': {
+											'class': "text_input form-control required",
+											'placeholder': "Votre adresse email"
+							
+											}
+										}) }}
+									</span>
+								</div>
+
+								<div class="input_groupe field-row validate-row">
+									<span class="label">
+										{{ form_label(form._password, 'Mot de passe:* ', ) }}
+
+										{{ form_widget(form._password, {
+												'attr': {
+											'class': "text_input form-control required",
+											'placeholder': "Votre mot de passe sécurisé"
+				
+											}
+										}) }}
+									</span>
+								</div>
+
+								<div class="submit_div">
+									<button type="submit" class="submit_form">Connexion</button>
+								</div>
+
+							</div>
+						</div>
+					</div>
+
+					<div class="col-md-6 right_part">
+						<div class="facebook_connect">
+							<p>Ou connectez-vous avec votre compte Facebook</p>
+							<a href="#" onclick="fb_login();" class="connect_face btn-facebook">
+								<i class="fa fa-facebook" aria-hidden="true"></i>
+								<span>conection avec facebook</span>
+							</a>
+							<div id="fb-root"></div>
+						</div>
+					</div>
+
+					{{ form_end(form) }}
+				</div>
+			</div>
+		</div>
+	</div>
+
+
+	{#{% embed 'base/layout.html.twig' %}
+	
+	        {% trans_default_domain 'cocorico_user' %}
+	        
+	            {% include 'base/_flash.html.twig' %}
+	
+	            {# Création des variables et "categories" vide en attendant 
+	            {% set categories = [] %}
+	
+	        <div class="album py-5">
+	            <div class="container">
+	                <div class="row">
+	                    <div id="form-registerlogin" class="form-signup validate-form create_acompte">
+	                        <h1 class="title_form">{{ 'listing.new.signup.title'|trans({},'cocorico_listing') }}</h1>
+	                        <div id="form-registerlogin" class="validate-form">
+	                            {#Login And Register Form 
+	                            <form class="" action="" method="POST">
+	                                {% include 'login/Common/_login_register.html.twig' with {
+	                                'form_registration': false,
+	                                'form_login': form
+	                                } only %}
+	
+	                            <div class="col-md-6 right_part">
+	
+	                                <div class="column right_facebook_connect">
+	                                    <h3>{{ 'user.facebook.login.title'|trans }}</h3>
+	                                    <div class="div_facebook">
+	                                        <a href="#" onclick="fb_login();" class="connect_face btn-facebook">
+	                                            <i class="fa fa-facebook" aria-hidden="true"></i>
+	                                            <span>{{ 'user.facebook.login'|trans }}</span>
+	                                        </a>
+	                                    </div>
+	                                    <div id="fb-root"></div>
+	                                </div>
+	                            </form>
+	                        </div>
+	                    </div>
+	                </div>
+	            </div>
+	
+	    {#{% endembed %}#}
 {% endblock %}

@@ -1,0 +1,185 @@
+<div class="album mt-lg-4 pt-lg-4">
+    <div class="container">
+
+        <div class="row block_2  m-0 p-0 ">
+
+            <h3 class="title_section">Découvrez nos nouveaux "Wedder"</h3>
+            <p class="stitle_section mb20">Lorem Ipsum is simply dummy text of the printing and typesetting industry. Lorem Ipsum has been.</p>
+{#
+            {%- for listingTmp in listings -%}
+ 
+                {% set listing             = listingTmp[0] %}
+                {% set listing_translation = listing.translations[app.request.locale] %}
+                {% set listing_location    = listing.location %}
+                {% set listing_user        = listing.user %}
+                {% set unformated_price    =  (listing.price / 100) %}
+                {% set price               = unformated_price | format_price(app.request.locale, 0) %}
+                {% set listing_image       = listing.images|length ? listing.images[0].name : ListingImageConstants.IMAGE_DEFAULT %}
+
+            <div class="col-md-4 col-lg-3 cardwedding">
+                  <div class="card card-inverse card-info">
+                  <a href="{{ path('cocorico_listing_show', { 'slug': listing_translation.slug }) }}">
+                      <img
+                          src="{{ (ListingImageConstants.IMAGE_FOLDER ~  listing_image) | imagine_filter('listing_large') }}"
+                          alt="{{ listing_translation.title ~ " " ~ price }}"
+                          class="card-img-top" />
+                      </a>
+                      <div class="card-block">
+                          <figure class="profile">
+                            {% set image_user = listing_user.images|length ? listing_user.images[0].name : UserImageConstants.IMAGE_DEFAULT %}
+                              <img class="profile-avatar" src="{{ (UserImageConstants.IMAGE_FOLDER ~ image_user) | imagine_filter('user_xsmall') }}"
+                                   alt="{{ listing_user.firstName }}" />
+
+                            <a href="{{ path('cocorico_listing_show', { 'slug': listing_translation.slug }) }}">
+                            </a>
+                          </figure>
+                          <p class="categorycard">
+                                 {% if listing.listingListingCategories | length > 0%}
+                                   {% for listingListingCategory in listing.listingListingCategories %}
+                                     {{ listingListingCategory.category.translations[app.request.locale].name }}{% if loop.index < loop.length %},{% endif %}
+
+                                   {% endfor %}
+                                 {% else %}
+                                      Aucune catégorie spécifiée
+                                 {% endif %}
+                          </p>
+                          <h4 class="card-title mt-3 titlecard">
+                            <a href="{{ path('cocorico_listing_show', { 'slug': listing_translation.slug }) }}">{{ listing_translation.title }}
+                              {% if  listing.certified %}
+                                  <i class="fa fa-certificate colorcertif" aria-hidden="true" data-toggle="tooltip" data-placement="right" title="C'est un Wedder certifié."></i>
+                              {% endif %}
+                            </a>
+                          </h4>
+                          <div class="meta card-text locationcard text-center">
+                            <span><i class="fa fa-map-marker" aria-hidden="true"></i> {{ listing_location.city }}
+                            </span>
+                          </div>
+
+                      </div>
+                      <div class="card-footer text-center">
+                          <p class="nameprixcard">Prix de location:</p>
+                          <p class="prixcard">
+                            {% if unformated_price == 0 %}
+                                Sur devis
+                            {% else %}
+                                {{ price }}
+                                    {{ vatInclusionText(app.request.getLocale()) }}
+                                    / {{ (0)|add_time_unit_text }}
+                            {% endif %}
+                          </p>
+                      </div>
+                  </div>
+              </div>
+
+            {%- endfor -%}
+#}
+        </div>
+
+    </div>
+</div>
+{#
+    Old code - do not delete (recommanded)
+<section class="listing-area col-md-12 tips-section">
+    <div class="listing-holder row">
+        <h2 class="high-rank-title">{{ 'home.high.rank.section.header'|trans({}, 'cocorico_listing') }}</h2>
+        <!-- post -->
+        <div class="slider-secondary">
+            <div class="slider-clip">
+                <ul class="slides">
+                    {%- for listingTmp in listings -%}
+                        {% set listing = listingTmp[0] %}
+                        {% set listing_translation = listing.translations[app.request.locale] %}
+                        {% set listing_location = listing.location %}
+                        {% set listing_user = listing.user %}
+                        {% set unformated_price =  (listing.price / 100) %}
+                        {% set price = unformated_price | format_price(app.request.locale, 0) %}
+                        {% set listing_image = listing.images|length ? listing.images[0].name : ListingImageConstants.IMAGE_DEFAULT %}
+
+                        <article class="listing-post col-sm-4 col-xs-12">
+                            <div class="listing-content">
+                                <a href="javascript:void(0)" id="favourite-{{ listing.id }}" class="favourit">
+                                    <i class="icon-heart"></i>
+                                    <span class="hidden">favourit</span>
+                                </a>
+                                <a href="{{ path('cocorico_listing_show', { 'slug': listing_translation.slug }) }}"
+                                   class="listing-box">
+                                    <div class="frame">
+                                        <div class="post-info">
+                                            <div class="img-holder">
+                                                <img src="{{ (ListingImageConstants.IMAGE_FOLDER ~  listing_image) | imagine_filter('listing_large') }}"
+                                                     alt="{{ listing_translation.title ~ " " ~ price }}"/>
+                                            </div>
+
+                                            <div class="box">
+                                                <div class="box-holder">
+                                                    <div class="head">
+                                                        {% if unformated_price == 0 %}
+                                                            <div class="time-price">
+                                                                <strong class="price-devis">
+                                                                    Sur devis
+                                                                </strong>
+                                                            </div>
+                                                        {% else %}
+                                                            <div class="time-price">
+                                                                <strong class="price">{{ price }}</strong>
+
+                                                                <p>
+                                                                    {{ vatInclusionText(app.request.getLocale()) }}
+                                                                    / {{ (0)|add_time_unit_text }}
+                                                                </p>
+                                                            </div>
+                                                        {% endif %}
+                                                    </div>
+                                                    <div class="foot">
+                                                        <div class="area">
+                                                            <!-- rating -->
+                                                            {% if listing.averageRating %}
+                                                                {{ listing.averageRating | cocorico_star_rating }}
+                                                            {% endif %}
+                                                            {% if  listing.certified %}
+                                                                <span class="certified">
+                                                                    <i class="icon-ok"></i>
+                                                                    {{ 'listing.search.result.certified'|trans({}, 'cocorico_listing') }}
+                                                                </span>
+                                                            {% endif %}
+                                                        </div>
+                                                        <strong class="title">
+                                                            {% for listingListingCategory in listing.listingListingCategories %}
+                                                                {{ listingListingCategory.category.translations[app.request.locale].name }},
+                                                            {% endfor %}
+                                                        </strong>
+                                                    </div>
+                                                </div>
+                                            </div>
+                                        </div>
+
+                                        <div class="post-content">
+                                            {% set image_user = listing_user.images|length ? listing_user.images[0].name : UserImageConstants.IMAGE_DEFAULT %}
+                                            <div class="alignleft">
+                                                <img src="{{ (UserImageConstants.IMAGE_FOLDER ~ image_user) | imagine_filter('user_xsmall') }}"
+                                                     alt="{{ listing_user.firstName }}"/>
+                                            </div>
+                                            <div class="textbox">
+                                                <h2>{{ listing_translation.title }}</h2>
+
+                                                <p>{{ listing_location.city }} </p>
+                                            </div>
+                                        </div>
+                                    </div>
+                                </a>
+                            </div>
+                        </article>
+                    {%- endfor -%}
+                </ul>
+            </div><!-- slider-clip -->
+            <div class="slider-secondary-actions">
+                <a href="#" class="slider-prev">Previous Slide</a>
+
+                <a href="#" class="slider-next">Next Slide</a>
+            </div>
+
+            <div class="slider-secondary-paging"></div>
+        </div>
+    </div>
+</section>
+#}

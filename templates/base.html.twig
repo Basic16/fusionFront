@@ -164,11 +164,9 @@
 
     </main>
 
-    {% block footer %}
-        {% include 'base/_new_footer.html.twig' only %}
-    {% endblock %}
-</div>
+    
 
+</div>
 {% block javascripts %}
 {#
     <script>
@@ -274,4 +272,8 @@
 {% endblock %}
 
 </body>
+
+{% block footer %}
+    {% include 'base/_new_footer.html.twig' only %}
+{% endblock %}
 </html>

@@ -13,27 +13,26 @@
 <header>
     <div class="navbar navbar-dark">
         <div class="container d-flex justify-content-between">
-            <a href="" class="navbar-brand d-flex align-items-center">
-                <img src="{{ asset('images/logo.png') }}" alt="{{ 'nav.home.link'|trans }}" />
+            <a href="{{path("home")}}" class="navbar-brand d-flex align-items-center">
+                <img src="{{ asset('images/logo.png') }}" alt="{{'nav.home.link'|trans }}" />
             </a>
-            <div class="right_menu {% if app.user is not null and is_granted("IS_AUTHENTICATED_FULLY") %} new_header {% endif %}   ">
-
+            <div class="right_menu {% if app.user is not null and is_granted("IS_AUTHENTICATED_FULLY") %} new_header {% endif %}">
                 <a href="/fr/page/comment-ca-marche" class="fav_link" abindex="5">
                     Comment ça marche ?
                 </a>
-		 <a href="/blog" class="fav_link" abindex="6">
+		        <a href="https://blog.weddingyourself.fr/" class="fav_link" abindex="6">
                     Blog
                 </a>
-                <!-- <a href="" class="fav_link" abindex="5">
+                {#
+                <a href="" class="fav_link" abindex="5">
                     <i class="fa fa-heart" aria-hidden="true"></i> {{ 'nav.favorites.link'|trans }} <span id="fav-count"></span>
-                </a> -->
+                </a>
+                #}
                 <!-- User info -->
                 {%- if app.user is not null and is_granted("IS_AUTHENTICATED_FULLY") -%}
                     <ul class="nav navbar-nav ">
                         <li id="dashboard-dropdown" class="dropdown">
-                            <a id="dashboard-link" class="dropdown-toggle"
-                               href="" tabindex="6"
-                               title="My Dashboard" data-toggle="dropdown" role="button" aria-expanded="false">
+                            <a id="dashboard-link" class="dropdown-toggle" href="" tabindex="6" title="My Dashboard" data-toggle="dropdown" role="button" aria-expanded="false">
                                 {{ 'nav.dashboard.link'|trans }} {#( {{ app.user.firstName | capitalize }} )#}
                                 <span id="nb-unread-msg"></span>
                                 <span class="icon-down-open-mini"></span>
@@ -42,23 +41,26 @@
                         </li>
                     </ul>
                 {%- else -%}
-                    {# <a class="conn_link" href="" tabindex="7">
+                    {#
+                    <a class="conn_link" href="" tabindex="7"
                         {{ 'nav.register.link'|trans }}
-                    </a> #}
-                    <a class="conn_link" href="" tabindex="7">
-                        {# {{ 'nav.login.link'|trans }}  #}
+                    </a>
+                    #}
+                    <a class="conn_link" href="{{path("connexion")}}" tabindex="7">
+                        {#{{ 'nav.login.link'|trans }}#}
                         Connectez-vous
                     </a>
                 {%- endif -%}
                 <!-- New listing link -->
 
                 {%- if app.user is not null and is_granted("IS_AUTHENTICATED_FULLY") -%}
-                    <a href="" class="wedder_link" tabindex="9">
+                    <a href="{{path("")}}" class="wedder_link" tabindex="9">
                         Déposer votre annonce
                     </a>
                 {%- else -%}
-                    <a href="" class="wedder_link" tabindex="9">
-                        {{ 'nav.listing.new.link'|trans }}
+                    <a href="{{path("inscrire")}}" class="wedder_link" tabindex="9">
+                        DEVENEZ WEDDER
+                        {#{{ 'nav.listing.new.link'|trans }}#}
                     </a>
                 {%- endif -%}
 

@@ -10,16 +10,25 @@ use App\Entity\User;
 use App\Form\InscriptionType;
 use App\Controller\UserPasswordEncoderInterface;
 use Symfony\Component\Form\Extension\Core\Type\DateType;
+use App\Form\ConnexionType;
 
 class LoginController extends AbstractController
 {
     /**
      * @Route("/connexion", name="connexion")
      */
-    public function ConnexionController(): Response
+    public function ConnexionController(Request $request): Response
     {
+
+        if ($request->isMethod('POST')) {   
+            $this->addFlash('notice', 'L\'espace membre n\'est  pas encore opérationelle');
+            return $this->redirectToRoute('connexion');
+        }
+
+        $form = $this->createForm(ConnexionType::class);
+
         return $this->render('login/Connexion.html.twig', [
-            'controller_name' => 'ConnexionController',
+            'form' => $form->createView(),
         ]);
     }
     
@@ -46,7 +55,6 @@ class LoginController extends AbstractController
                     $this->addFlash('notice', 'Inscription réussie');
                     return $this->redirectToRoute('inscrire');
                 }
-                
                 else{
                     $this->addFlash('notice', 'Erreur de mot de passe');
                     return $this->redirectToRoute('inscrire');

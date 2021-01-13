@@ -17,7 +17,7 @@
                 <img src="{{ asset('images/logo.png') }}" alt="{{'nav.home.link'|trans }}" />
             </a>
             <div class="right_menu {% if app.user is not null and is_granted("IS_AUTHENTICATED_FULLY") %} new_header {% endif %}">
-                <a href="/fr/page/comment-ca-marche" class="fav_link" abindex="5">
+                <a href="{{path("comment-ca-marche")}}" class="fav_link" abindex="5">
                     Comment ça marche ?
                 </a>
 		        <a href="https://blog.weddingyourself.fr/" class="fav_link" abindex="6">

@@ -4,8 +4,6 @@
     <title>{% block title %}WeddingYourself{% endblock %}</title>
     {#<meta name="description" content="{%- block meta_description -%}{{ cocorico_short_description }}{%- endblock -%}">#}
 
-    {%- block open_graph_data -%}{%- endblock -%}
-
     <meta charset="utf-8">
     <!-- set the viewport width and initial-scale on mobile devices -->
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
@@ -19,6 +17,7 @@
 
     <link href='//fonts.googleapis.com/css?family=Raleway:400,100,200,300,500,600,700,800,900' rel='stylesheet' type='text/css'>
 
+
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/4.7.0/css/font-awesome.min.css">
 
     <!-- include HTML5 IE enabling script and stylesheet for IE -->
@@ -31,7 +30,6 @@
 
 
     {% block stylesheets %}
-
 
         <link rel="stylesheet" href="{{ asset('css/shared.css') }}">
         <link rel="stylesheet" href="{{ asset('css/new-style.css') }}">

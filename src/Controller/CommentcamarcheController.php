@@ -9,12 +9,35 @@ use Symfony\Component\Routing\Annotation\Route;
 class CommentcamarcheController extends AbstractController
 {
     /**
-     * @Route("/commentcamarche", name="commentcamarche")
+     * @Route("/comment-ca-marche", name="comment-ca-marche")
      */
-    public function index(): Response
+    public function Commentcamarche(): Response
     {
-        return $this->render('commentcamarche/C.html.twig', [
+        return $this->render('commentcamarche/Comment-ca-marche.html.twig', [
             'controller_name' => 'CommentcamarcheController',
         ]);
     }
+
+
+    /**
+     * @Route("/qui-sommes-nous", name="qui-sommes-nous")
+     */
+    public function Quisommesnous(): Response
+    {
+        return $this->render('commentcamarche/Qui-sommes-nous.html.twig', [
+            'controller_name' => 'CommentcamarcheController',
+        ]);
+    }
+
+
+    /**
+     * @Route("/mentions-legales", name="mentions-legales")
+     */
+    public function Mentionslegales(): Response
+    {
+        return $this->render('commentcamarche/Mentions-legales.html.twig', [
+            'controller_name' => 'CommentcamarcheController',
+        ]);
+    }
+
 }

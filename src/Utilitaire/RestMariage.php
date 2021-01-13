@@ -17,13 +17,15 @@ class RestMariage {
                 $content = $response->toArray();
                 $mariages = array();
                 foreach($content as $unMariage){
+                    
                     $a = new Mariage();
                     $a->setId($unMariage['id']);
                     $a->setNom($unMariage['nom']);
-                    $a->setText($unMariage['text']);
-                    $a->setUrl($unMariage['url']);
+                    $a->setText($unMariage['texte']);
+                    $a->setImages($unMariage['image']);
+                    //$a->setUrl($unMariage['url']);
                     $a->setTraduction($unMariage['traduction']);
-                    $a->setLogo($unMariage['logo']);
+                    //$a->setLogo($unMariage['logo']);
                     $a->setImageaccueil($unMariage['imageaccueil']);
                     if (isset($unMariage['images'])){
                         $a->setImages($unMariage['images']);

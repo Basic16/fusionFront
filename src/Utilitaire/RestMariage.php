@@ -23,7 +23,7 @@ class RestMariage {
                     $a->setText($unMariage['text']);
                     $a->setUrl($unMariage['url']);
                     $a->setTraduction($unMariage['traduction']);
-                    $a->setTLogo($unMariage['logo']);
+                    $a->setLogo($unMariage['logo']);
                     $a->setImageaccueil($unMariage['imageaccueil']);
                     if (isset($unMariage['images'])){
                         $a->setImages($unMariage['images']);

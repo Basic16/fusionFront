@@ -23,15 +23,12 @@ class HomeController extends AbstractController
         $this->client = $client;//new CurlHttpClient();
     }
 
-
-
-    
     /**
      * @Route("/home", name="home")
      */
     public function index(): Response
     {
-        $mariages = RestMariage::getLesMariages($this->client, $this->getParameter('apiAdress'), $this->getParameter('apiServer'));
+       // $mariages = RestMariage::getLesMariages($this->client, $this->getParameter('apiAdress'), $this->getParameter('apiServer'));
         $mariages = [];
         return $this->render('home/index.html.twig', ['mariages' => $mariages]);
     }

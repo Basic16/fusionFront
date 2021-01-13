@@ -1,20 +1,10 @@
 {% extends 'base.html.twig' %}
 
-
-{%- block meta_title -%}
-    {{ cocorico_site_name ~ " - Un mariage à votre image"  }}
-{%- endblock -%}
-
-{%- block meta_description -%}
-    {{ 'home.meta_desc'|trans({}, 'cocorico_meta') }}
-{%- endblock -%}
+{% block meta_title %}{{parent()}} - Un mariage à votre image{% endblock %}
 
 {% block theme %}home-page{% endblock %}
 
-
-
 {% block layout %}
-        
 
         {% trans_default_domain 'cocorico_home' %}
 
@@ -173,14 +163,4 @@
     </script>
 {% endblock %}
 
-{% block markup_jsonld %}
-    {{ parent() }}
-
-{% endblock %}
-
-        
-        
-
-
-
-
+{% block markup_jsonld %}{{ parent() }}{% endblock %}

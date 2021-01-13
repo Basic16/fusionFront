@@ -54,6 +54,9 @@
         "symfony/web-profiler-bundle": "^5.2"
     },
     "config": {
+        "platform": {
+            "php": "7.3.21"
+        },
         "optimize-autoloader": true,
         "preferred-install": {
             "*": "dist"

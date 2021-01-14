@@ -1,6 +1,6 @@
 {% extends 'base.html.twig' %}
 
-{% block meta_title %}{{parent()}} - Un mariage à votre image{% endblock %}
+{% block title %}{{parent()}} - Un mariage à votre image{% endblock %}
 
 {% block theme %}home-page{% endblock %}
 
@@ -178,77 +178,27 @@
 
 <!--<a class="carousel-control-prev" href="#myCarousel" role="button" data-slide="prev"> <span class="carousel-control-prev-icon" aria-hidden="true"></span> <span class="sr-only">Previous</span> </a> <a class="carousel-control-next" href="#myCarousel" role="button" data-slide="next"> <span class="carousel-control-next-icon" aria-hidden="true"></span> <span class="sr-only">Next</span> </a> </div> -->
 <!-- END HOME SLIDE-->
-
 {% endblock %}
 
 {% block main %}
 
-{# Création des variables "mariages" et "categories" vide en attendant #}
+    {# AFFICHAGE LISTE STYLE MARIAGE #}
+    {% include 'home/listings_weddings.html.twig' with {'mariages': mariages} only %}
 
-{% set categories = [] %}
+    {# AFFICHAGE FONCTIONALITE DE SITE #}
+    {% include 'home/feature_site.html.twig' %}
 
-{% include 'home/listings_weddings.html.twig' with {'mariages': mariages} only %}
-{% include 'home/listings_categories.html.twig' with {'categories': categories} only %}
+    {# AFFICHAGE DES CATEGORIES #}
+    {% include 'home/listings_categories.html.twig' with {'categories': categories} only %}
 
-<div class="album mt-lg-4 pt-lg-4">
-    <div class="container">
-
-        <div class="row">
-
-            <div class="col-md-4">
-                <div class="card mb-4">
-                    <div class="icon_center">
-                        <img src="{{ asset('images/checked.png') }}">
-                    </div>
-                    <div class="card-body">
-                        <p class="card-text">{{ 'home.subinfo.desc1'|trans|raw }}</p>
-                    </div>
-                    <!-- <span class="link_bottom">{{ 'home.subinfo.title1'|trans|raw }}</span> -->
-                </div>
-            </div>
-
-            <div class="col-md-4">
-                <div class="card mb-4">
-                    <div class="icon_center">
-                        <img src="{{ asset('images/shield.png') }}">
-                    </div>
-                    <div class="card-body">
-                        <p class="card-text">
-                            {{ 'home.subinfo.desc2'|trans|raw }}
-                        </p>
-                    </div>
-                    <!-- <span class="link_bottom">{{ 'home.subinfo.title2'|trans|raw }}</span> -->
-                </div>
-            </div>
-
-            <div class="col-md-4">
-                <div class="card mb-4">
-                    <div class="icon_center">
-                        <img src="{{ asset('images/teamwork.png') }}">
-                    </div>
-                    <div class="card-body">
-                        <p class="card-text">
-                            {{ 'home.subinfo.desc3'|trans|raw }}
-                        </p>
-                    </div>
-                    <!-- <span class="link_bottom">{{ 'home.subinfo.title3'|trans|raw }}</span> -->
-                </div>
-            </div>
-
-        </div>
-    </div>
-</div>
-
-{% set listings = [] %}
-{% include 'home/_high_rank.html.twig' with {'listings': listings} only %}
+    {# AFFICHAGE NOUVEAU WEDDER #}
+    {% include 'home/high_rank.html.twig' with {'wedders': wedders} only %}
 
 {% endblock %}
 
 {% block modal %}
-{% include 'base/_modal.html.twig' only %}
+    {% include 'base/_modal.html.twig' only %}
 {% endblock %}
-
-
 
 {% block javascripts %}
 {{ parent() }}

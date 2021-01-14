@@ -58,9 +58,24 @@ class User
     private $countryofresidence;
 
     /**
+     * @ORM\Column(type="string", length=255)
+     */
+    private $companyName; //pas de getter et de setter pour l'instant
+
+    /**
      * @ORM\Column(type="string", length=10)
      */
     private $phone;
+
+    /**
+     * @ORM\Column(type="string", length=255)
+     */
+    private $profession;//pas de getter et de setter pour l'instant
+
+    /**
+     * @ORM\column(type="integer", length=2)
+     */    
+    private $persontype;
 
 
 
@@ -74,6 +89,13 @@ class User
     public function getId(): ?int
     {
         return $this->id;
+    }
+
+    public function setId(int $id): self
+    {
+        $this->id = $id;
+
+        return $this;
     }
 
     public function getUsername(): ?string

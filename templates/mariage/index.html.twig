@@ -6,7 +6,6 @@
 
 <style media="screen">
     /* Mariages */
-
     .lead a {
         color: #665600;
     }
@@ -85,12 +84,35 @@
         margin: 0 40px 15px;
         color: #222 !important;
     }
+
+    /* Pagination */
+    .pagination>li>a { border-radius: 50% !important;margin: 0 5px;}
+
+    .pagination {
+    justify-content: center;
+    margin-bottom: 20px;
+    }
+
+    .page-item.active .page-link {
+    color: #fff;
+    background-color: #cab437;
+    border-color: #cab437;
+    }
+
+    .page-link {
+    color: #cab437;
+    }
+
+    .page-link:hover {
+    background-color: #cab437;
+    color: #fff;
+    }
 </style>
 
 <div class="container-fluid pb-2 mb-2">
     <div class="row">
         <div class="col-12 text-center p-0 m-0">
-            <img src="https://weddingyourself.fr/images/Type-Mariage5ed63da2d4b87.png" alt="" class="img-fluid">
+            <img src="images/{{mariage.images}}" alt="" class="img-fluid">
         </div>
     </div>
 </div>
@@ -98,10 +120,10 @@
 <!-- Page Content -->
 <div class="container">
     <div class="col-12">
-        <h1 class="text-center text-secondary titlemariages">Mariage maghrébin</h1>
+        <h1 class="text-center text-secondary titlemariages">{{mariage.nom}}</h1>
     </div>
     <div class="col-12 text-center pb-4 mb-4">
-        <span class="text-secondary stitlemariages">Si vous souhaitez vous marier selon la tradition maghrébine, nous vous proposons une liste de prestataires qui vous permettront de bien vous préparer à ce rituel.</span>
+        <span class="text-secondary stitlemariages">{{mariage.text}}</span>
     </div>
 
     <div class="row">
@@ -111,144 +133,68 @@
             <div class="container">
                 <div class="row block_2  m-0 p-0">
 
-                    <div class="col-md-4 col-lg-4 cardwedding">
-                        <div class="card card-inverse card-info">
-                            <a href="/fr/annonce/wedding-cake-piece-montee-312130732/voir">
-                                <img src="https://weddingyourself.fr/media/cache/listing_large/uploads/listings/images/3794be05ee52292b3bd0be4dfbd62af7076d7516.jpeg" alt="Wedding cake pièce montée 0 €" class="card-img-top" />
-                            </a>
-                            <div class="card-block">
-                                <figure class="profile">
-                                    <img class="profile-avatar" src="https://weddingyourself.fr/media/cache/user_xsmall/uploads/users/images/default-user.png" alt="Assa" />
+                    {% for wedder in wedders %}
+                        <div class="col-md-4 col-lg-4 cardwedding">
+                            <div class="card card-inverse card-info">
+                                <a href="/fr/annonce/wedding-cake-piece-montee-312130732/voir">
+                                    <img src="https://weddingyourself.fr/media/cache/listing_large/uploads/listings/images/3794be05ee52292b3bd0be4dfbd62af7076d7516.jpeg" alt="Wedding cake pièce montée 0 €" class="card-img-top" />
+                                </a>
+                                <div class="card-block">
+                                    <figure class="profile">
+                                        <img class="profile-avatar" src="https://weddingyourself.fr/media/cache/user_xsmall/uploads/users/images/default-user.png" alt="Assa" />
 
-                                    <a href="/fr/annonce/wedding-cake-piece-montee-312130732/voir">
-                                    </a>
-                                </figure>
-                                <p class="categorycard">
-                                    Cake designer
-                                </p>
-                                <h4 class="card-title mt-3 titlecard">
-                                    <a href="/fr/annonce/wedding-cake-piece-montee-312130732/voir">Wedding cake pièce montée
-                                    </a>
-                                </h4>
-                                <div class="meta card-text locationcard text-center">
-                                    <span><i class="fa fa-map-marker" aria-hidden="true"></i> Villepinte
-                                    </span>
+                                        <a href="/fr/annonce/wedding-cake-piece-montee-312130732/voir">
+                                        </a>
+                                    </figure>
+                                    <p class="categorycard">
+                                        LES categorycard
+                                    </p>
+                                    <h4 class="card-title mt-3 titlecard">
+                                        <a href="/fr/annonce/wedding-cake-piece-montee-312130732/voir">{{wedder.firstName}} {{wedder.lastName}}</a>
+                                    </h4>
+                                    <div class="meta card-text locationcard text-center">
+                                        <span><i class="fa fa-map-marker" aria-hidden="true"></i> Villepinte
+                                        </span>
+                                    </div>
+
                                 </div>
-
-                            </div>
-                            <div class="card-footer text-center">
-                                <p class="nameprixcard">Prix de location:</p>
-                                <p class="prixcard">
-                                    Sur devis
-                                </p>
+                                <div class="card-footer text-center">
+                                    <p class="nameprixcard">Prix de location:</p>
+                                    <p class="prixcard">
+                                        Sur devis
+                                    </p>
+                                </div>
                             </div>
                         </div>
-                    </div>
-
-                    <div class="col-md-4 col-lg-4 cardwedding">
-                        <div class="card card-inverse card-info">
-                            <a href="/fr/annonce/organisation-et-decoration-evenementiel-1263058314/voir">
-                                <img src="https://weddingyourself.fr/media/cache/listing_large/uploads/listings/images/9dc5c8bafe6ef9f51a968673618f723843f2ad26.jpg" alt="Organisation et décoration événementiel 0 €" class="card-img-top" />
-                            </a>
-                            <div class="card-block">
-                                <figure class="profile">
-                                    <img class="profile-avatar" src="https://weddingyourself.fr/media/cache/user_xsmall/uploads/users/images/15352e614ce17c51c243d3e3b090d92815f42587.jpg" alt="Wendy" />
-
-                                    <a href="/fr/annonce/organisation-et-decoration-evenementiel-1263058314/voir">
-                                    </a>
-                                </figure>
-                                <p class="categorycard">
-                                    Décoration,
-                                    Wedding planner
-                                </p>
-                                <h4 class="card-title mt-3 titlecard">
-                                    <a href="/fr/annonce/organisation-et-decoration-evenementiel-1263058314/voir">Organisation et décoration événementiel
-                                    </a>
-                                </h4>
-                                <div class="meta card-text locationcard text-center">
-                                    <span><i class="fa fa-map-marker" aria-hidden="true"></i> Fismes
-                                    </span>
-                                </div>
-
-                            </div>
-                            <div class="card-footer text-center">
-                                <p class="nameprixcard">Prix de location:</p>
-                                <p class="prixcard">
-                                    Sur devis
-                                </p>
-                            </div>
-                        </div>
-                    </div>
-
-                    <div class="col-md-4 col-lg-4 cardwedding">
-                        <div class="card card-inverse card-info">
-                            <a href="/fr/annonce/wedding-photographer-1274355894/voir">
-                                <img src="https://weddingyourself.fr/media/cache/listing_large/uploads/listings/images/49d570f5770b5c6ace91ceac82fda69ff07bf85c.jpg" alt="Wedding Photographer 0 €" class="card-img-top" />
-                            </a>
-                            <div class="card-block">
-                                <figure class="profile">
-                                    <img class="profile-avatar" src="https://weddingyourself.fr/media/cache/user_xsmall/uploads/users/images/default-user.png" alt="Ana" />
-
-                                    <a href="/fr/annonce/wedding-photographer-1274355894/voir">
-                                    </a>
-                                </figure>
-                                <p class="categorycard">
-                                    Photo et vidéo
-                                </p>
-                                <h4 class="card-title mt-3 titlecard">
-                                    <a href="/fr/annonce/wedding-photographer-1274355894/voir">Wedding Photographer
-                                    </a>
-                                </h4>
-                                <div class="meta card-text locationcard text-center">
-                                    <span><i class="fa fa-map-marker" aria-hidden="true"></i> Lonlay-l&#039;Abbaye
-                                    </span>
-                                </div>
-
-                            </div>
-                            <div class="card-footer text-center">
-                                <p class="nameprixcard">Prix de location:</p>
-                                <p class="prixcard">
-                                    Sur devis
-                                </p>
-                            </div>
-                        </div>
-                    </div>
-                    <div class="col-md-4 col-lg-4 cardwedding">
-                        <div class="card card-inverse card-info">
-                            <a href="/fr/annonce/la-gourmande-parisienne-836947353/voir">
-                                <img src="https://weddingyourself.fr/media/cache/listing_large/uploads/listings/images/7edb45c09a8f5219a52ee8f3d5aa073a2aa2ca7a.PNG" alt="La Gourmande Parisienne 0 €" class="card-img-top" />
-                            </a>
-                            <div class="card-block">
-                                <figure class="profile">
-                                    <img class="profile-avatar" src="https://weddingyourself.fr/media/cache/user_xsmall/uploads/users/images/default-user.png" alt="Myriam" />
-
-                                    <a href="/fr/annonce/la-gourmande-parisienne-836947353/voir">
-                                    </a>
-                                </figure>
-                                <p class="categorycard">
-                                    Traiteurs
-                                </p>
-                                <h4 class="card-title mt-3 titlecard">
-                                    <a href="/fr/annonce/la-gourmande-parisienne-836947353/voir">La Gourmande Parisienne
-                                    </a>
-                                </h4>
-                                <div class="meta card-text locationcard text-center">
-                                    <span><i class="fa fa-map-marker" aria-hidden="true"></i> Paris
-                                    </span>
-                                </div>
-
-                            </div>
-                            <div class="card-footer text-center">
-                                <p class="nameprixcard">Prix de location:</p>
-                                <p class="prixcard">
-                                    Sur devis
-                                </p>
-                            </div>
-                        </div>
-                    </div>
+                    {% endfor %}
 
                 </div>
             </div>
+            <!-- Pagination -->
+            <div class="row">
+                <div class="col-md-12">
+                    <nav aria-label="Page navigation example">
+                    <ul class="pagination">
+                        <li class="page-item">
+                            <a class="page-link" href="#" aria-label="Previous">
+                                <span aria-hidden="true">«</span>
+                                <span class="sr-only">Previous</span>
+                            </a>
+                        </li>
+                        <li class="page-item active"><a class="page-link" href="#">1</a></li>
+                        <li class="page-item"><a class="page-link" href="#">2</a></li>
+                        <li class="page-item"><a class="page-link" href="#">3</a></li>
+                        <li class="page-item">
+                            <a class="page-link" href="#" aria-label="Next">
+                                <span aria-hidden="true">»</span>
+                                <span class="sr-only">Next</span>
+                            </a>
+                        </li>
+                    </ul>
+                    </nav>
+                </div>
+            </div>
+            <!-- Fin pagination -->
         </div>
 
         <!-- Sidebar Widgets Column -->

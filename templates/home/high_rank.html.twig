@@ -1,11 +1,68 @@
+
 <div class="album mt-lg-4 pt-lg-4">
+    <div class="container">
+        <div class="row block_2  m-0 p-0">
+            <h3 class="title_section">Découvrez nos nouveaux "Wedder"</h3>
+
+			{% for w in wedders %}
+            <div class="col-md-4 col-lg-3 cardwedding">
+                  <div class="card card-inverse card-info">
+                  <a href="#">
+                  {% if w.name == null %}
+                      <img src="{{asset("images/"~w.name)}}" alt="" class="card-img-top">
+                    {% else %}    
+                      <img src="https://weddingyourself.fr/media/cache/listing_large/uploads/listings/images/9dc5c8bafe6ef9f51a968673618f723843f2ad26.jpg" alt="Organisation et décoration événementiel 0&nbsp;€" class="card-img-top">
+                    {% endif %}
+                      </a>
+                      <div class="card-block">
+                          <figure class="profile">
+                            <img class="profile-avatar" src="https://weddingyourself.fr/media/cache/user_xsmall/uploads/users/images/15352e614ce17c51c243d3e3b090d92815f42587.jpg" alt="Wendy">
+
+                            <a href="/fr/annonce/organisation-et-decoration-evenementiel-1263058314/voir">
+                            </a>
+                          </figure>
+                          <p class="categorycard">{{w.profession}}</p>
+                          <h4 class="card-title mt-3 titlecard">
+                            <a href="/fr/annonce/organisation-et-decoration-evenementiel-1263058314/voir">{{w.companyName}}</a>
+                          </h4>
+                          <div class="meta card-text locationcard text-center">
+                            <span><i class="fa fa-map-marker" aria-hidden="true"></i> Fismes
+                            </span>
+                          </div>
+
+                      </div>
+                      <div class="card-footer text-center">
+                          <p class="nameprixcard">Prix de location:</p>
+                          <p class="prixcard">Sur devis</p>
+                      </div>
+                  </div>
+            </div>
+			{% endfor %}
+
+		</div>
+	</div>
+</div>
+
+
+
+
+
+
+
+
+
+
+
+
+
+{#<div class="album mt-lg-4 pt-lg-4">
     <div class="container">
 
         <div class="row block_2  m-0 p-0 ">
 
             <h3 class="title_section">Découvrez nos nouveaux "Wedder"</h3>
             <p class="stitle_section mb20">Lorem Ipsum is simply dummy text of the printing and typesetting industry. Lorem Ipsum has been.</p>
-{#
+
             {%- for listingTmp in listings -%}
  
                 {% set listing             = listingTmp[0] %}
@@ -13,22 +70,22 @@
                 {% set listing_location    = listing.location %}
                 {% set listing_user        = listing.user %}
                 {% set unformated_price    =  (listing.price / 100) %}
-                {% set price               = unformated_price | format_price(app.request.locale, 0) %}
-                {% set listing_image       = listing.images|length ? listing.images[0].name : ListingImageConstants.IMAGE_DEFAULT %}
+                {#{% set price               = unformated_price | format_price(app.request.locale, 0) %}#}
+                {#{% set listing_image       = listing.images|length ? listing.images[0].name : ListingImageConstants.IMAGE_DEFAULT %}
 
             <div class="col-md-4 col-lg-3 cardwedding">
                   <div class="card card-inverse card-info">
                   <a href="{{ path('cocorico_listing_show', { 'slug': listing_translation.slug }) }}">
                       <img
-                          src="{{ (ListingImageConstants.IMAGE_FOLDER ~  listing_image) | imagine_filter('listing_large') }}"
-                          alt="{{ listing_translation.title ~ " " ~ price }}"
+                          {#src="{{ (ListingImageConstants.IMAGE_FOLDER ~  listing_image) | imagine_filter('listing_large') }}"#}
+                          {#alt="{{ listing_translation.title ~ " " ~ price }}"
                           class="card-img-top" />
                       </a>
                       <div class="card-block">
                           <figure class="profile">
                             {% set image_user = listing_user.images|length ? listing_user.images[0].name : UserImageConstants.IMAGE_DEFAULT %}
-                              <img class="profile-avatar" src="{{ (UserImageConstants.IMAGE_FOLDER ~ image_user) | imagine_filter('user_xsmall') }}"
-                                   alt="{{ listing_user.firstName }}" />
+                              {#<img class="profile-avatar" src="{{ (UserImageConstants.IMAGE_FOLDER ~ image_user) | imagine_filter('user_xsmall') }}"#}
+                                   {#alt="{{ listing_user.firstName }}" />
 
                             <a href="{{ path('cocorico_listing_show', { 'slug': listing_translation.slug }) }}">
                             </a>
@@ -63,16 +120,16 @@
                                 Sur devis
                             {% else %}
                                 {{ price }}
-                                    {{ vatInclusionText(app.request.getLocale()) }}
-                                    / {{ (0)|add_time_unit_text }}
-                            {% endif %}
+                                    {#{{ vatInclusionText(app.request.getLocale()) }}
+                                    / {{ (0)|add_time_unit_text }}#}
+                            {#{% endif %}
                           </p>
                       </div>
                   </div>
               </div>
 
             {%- endfor -%}
-#}
+
         </div>
 
     </div>

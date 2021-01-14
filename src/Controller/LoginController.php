@@ -47,7 +47,7 @@ class LoginController extends AbstractController
                 $mdpConf = $form->get('confirmation')->getData();
                 $mdp = $user->getPassword();
                 if($mdp == $mdpConf){
-                    $user->setRoles(array('ROLE_USER'));
+                    //$user->setRoles(array('ROLE_USER'));
                     //$user->setPassword($passwordEncoder->encodePassword($user, $user->getPassword()));
                     $em = $this->getDoctrine()->getManager();
                     $em->persist($user);

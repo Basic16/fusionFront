@@ -4,7 +4,8 @@
             <h3 class="title_section">Choisissez votre style de mariage</h3>
             <p class="stitle_section mb20">Lorem Ipsum is simply dummy text of the printing and typesetting industry. Lorem Ipsum has been.</p>
 
-			{% for unMariage in mariages %}          				
+			{% for unMariage in mariages %}          
+			<div class="col-md-3" style="margin-bottom: 30px; ">				
 				<div class="cardmariage mb-3 card-mariages-accueil">
 					<div class="innermariage">
 						{% if unMariage.imageaccueil is empty %}
@@ -44,6 +45,7 @@
 						{% endif %}
 					</div>
 				</div>
+			</div>
 			{% endfor %}
 
 		</div>

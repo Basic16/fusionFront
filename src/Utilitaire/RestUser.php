@@ -27,6 +27,10 @@ class RestUser
         $content = $response->toArray();
         $wedders = [];
 
+        /*echo '<pre>';
+        var_dump($content);
+        echo '</pre>';*/
+
         foreach($content as $w){
             $unWeeder["id"] = $w['id'];
             $unWeeder["email"] = $w['email'];
@@ -36,19 +40,10 @@ class RestUser
             $unWeeder["nationality"] = $w['nationality'];
             $unWeeder["companyName"] = $w['companyName'];
             $unWeeder["profession"] = $w['profession'];
-            $unWeeder["url"] = "null";
-            //$unWeeder["country"] = $unWeeder['country'];
-            //$unWeeder["phone"] = $unWeeder['phone'];
+            $unWeeder["country"] = "";
 
-            $responseImage = $client->request('GET', $apiAdress . 'user_images?page=1&user='.$w['id'], ['headers' => ['Accept' => 'application/json',],]);
-            $image = $responseImage->toArray();
-
-
-            if(count($image) > 0){
-                $unWeeder["name"] = $image[0]["name"];
-            }else{
-                $unWeeder["name"] = null;
-            }
+            $unWeeder["images"] = "";
+            $unWeeder["phone"] = "";
 
             $wedders[] = $unWeeder;
         }

@@ -234,14 +234,14 @@
     border-color: #000;
 }
 
- 
+
 .topbar ul li.welcome-user {
     float: right;
-    margin: 0; 
+    margin: 0;
 }
 
 /* Billing CSS Invoice  */
- 
+
 .table-section-bottom {
     padding-bottom: 45px !important;
 }
@@ -559,7 +559,7 @@ li.time-fields {
 
 /*Listing new.html.twig*/
 .btns-area.new-listing {
-    margin-bottom: 60px;
+    /*margin-bottom: 60px;*/
 }
 
 .price-box .field-row .info {
@@ -881,6 +881,7 @@ li.time-fields {
 
 /** register / login **/
 #form-registerlogin h1 {
+    font-family: Merriweather,"Times New Roman",Times,serif;
     margin: 0 0 23px 2px;
     font-size: 30px;
 }
@@ -1371,7 +1372,7 @@ images css for making it 4:3
     font-size: 20px;
     line-height: auto;
     color: #58595b;
-} 
+}
 #booking-new .total-reservation .list-inline li .tooltip-button {margin-top: -4px;}
 #booking-new .total-reservation .list-inline{padding-bottom: 20px;}
 #booking-new .form-area {
@@ -1380,7 +1381,7 @@ images css for making it 4:3
     background-color: #ffffff;
     padding: 0px;
 }
- 
+
 .col.expiry input {
     width: 49%;
     display: inline-block;
@@ -2443,8 +2444,8 @@ ul.collection {
 .listing-categories .jcf-list .jcf-optgroup-caption, .listing-categories .jcf-list .jcf-option {
     padding: 9px 38px 9px 19px;
 }
-  
-.listing-categories .jcf-list-box { 
+
+.listing-categories .jcf-list-box {
     border: 1px solid #e6e6e6;
     border-radius: 5px;
 }
@@ -2614,7 +2615,7 @@ ul.collection {
 }
 
 #listing-location {
-    padding: 18px 17px;
+    /*padding: 18px 17px;*/
 }
 
 .featured-block #characteristics li .label {
@@ -3005,7 +3006,7 @@ div.cluster.cluster-overlay img {
 
 h1[data-id="result-title"] {
     font-size: 21px;
-} 
+}
 
 .price-devis {
     display: block;
@@ -3013,17 +3014,18 @@ h1[data-id="result-title"] {
     font-size: 22px;
     line-height: 39px;
 }
-   
+
 li.dropdown.display-tab ul.dropdown-menu a,ul.dropdown-menu ul.menu-sub-tabs li a{
     text-decoration: none;
-} 
+    border-bottom: 1px solid #d4d9dd;
+}
 .nav .open > a, .nav .open > a:hover, .nav .open > a:focus{
     background-color: #fff;
 }
 
 .postarea .posts-holder .border-black {
     border-color: #eaebec !important;
-} 
+}
 #form-contact.form-contact{
     float: left;
     width: 100%;
@@ -3031,7 +3033,7 @@ li.dropdown.display-tab ul.dropdown-menu a,ul.dropdown-menu ul.menu-sub-tabs li 
 #form-contact form{
     float: left;width: 100%;
 }
-#form-contact .field-row{float: left;width: 100%;} 
+#form-contact .field-row{float: left;width: 100%;}
 
 #time_range_nb_minutes .jcf-select-text:before{
     content: "\f017";
@@ -3042,4 +3044,3 @@ li.dropdown.display-tab ul.dropdown-menu a,ul.dropdown-menu ul.menu-sub-tabs li 
     -webkit-font-smoothing: antialiased;
     -moz-osx-font-smoothing: grayscale;
 }
- 

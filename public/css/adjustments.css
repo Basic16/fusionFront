@@ -121,7 +121,8 @@ z-index: 100;
 }
 .right_menu{
 float: right;
-margin-top: 2.3rem;
+margin-top: 2.5rem;
+margin-right: 5px;
 }
 
 .fav_link{
@@ -991,6 +992,22 @@ margin-top: 20px;
 border-radius: 0px 4px 4px 4px;
 /*box-shadow: 0px 5px 20px -15px #000;*/
 }
+
+
+.sectiondepotann .tab-content{
+float: none !important;
+width: 100%;
+padding: 0 !important;
+line-height: 30px;
+min-height: 150px;
+background-color: #fff;
+border: none !important;
+margin-top: 20px;
+margin-bottom: 20px;
+border-radius: 0px 4px 4px 4px;
+/*box-shadow: 0px 5px 20px -15px #000;*/
+}
+
 .nav-tabs {
   position: absolute;
   border: 0px;
@@ -1180,8 +1197,8 @@ font-weight: bold;
 }
 
 .form-radio ul label.jcf-label-active {
-  color: #d4c05b;
-  background: #58595b;
+  color: #fff;
+  background: #d4c05b;
 }
 
 .login_pannel{

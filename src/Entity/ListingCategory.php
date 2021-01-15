@@ -87,6 +87,11 @@ class ListingCategory
         return $this->id;
     }
 
+    public function setId(): ?int
+    {
+        return $this->id;
+    }
+
     public function getParentId(): ?int
     {
         return $this->parent_id;

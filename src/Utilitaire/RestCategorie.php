@@ -24,12 +24,20 @@ class RestCategorie
         foreach ($content as $unListing) {
             $a = new ListingCategory();
             $a->setId($unListing['id']);
+            $a->setTexte($unListing['texte']);
+            $a->setTexteaccueil($unListing['texteaccueil']);
+            $a->setImage($unListing['image']);
+            $a->setImageaccueil($unListing['imageaccueil']);
+            $a->setTitle($unListing['title']);
+            $a->setDescription($unListing['description']);
+            $a->setAccueil($unListing['accueil']);
+
             //$a->setLocationId($unListing['location_id']);
             //$a->setUserId($unListing['user_id']);
-            $a->setStatus($unListing['status']);
+            //$a->setStatus($unListing['status']);
             //$a->setType($unListing['type']);
-            $a->setPrice($unListing['price']);
-            $a->setCertified($unListing['certified']);
+            //$a->setPrice($unListing['price']);
+            //$a->setCertified($unListing['certified']);
             //$a->setMaxDuration($unListing['max_duration']);
             //$a->setCancellationPolicy($unListing['cancellation_policy']);
             //$a->setAverageRating($unListing['average_rating']);

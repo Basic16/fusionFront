@@ -33,11 +33,6 @@ class MariageController extends AbstractController
         // GET wedder list
         $wedders = RestUser::getLesWedders($this->client, $this->getParameter('apiAdress'), $this->getParameter('apiServer'));
 
-
-        //echo '<pre>';
-        //var_dump($wedders);
-        //echo '</pre>';
-
         return $this->render('mariage/index.html.twig', [
             'mariage' => $mariage,
             'wedders' => $wedders,    

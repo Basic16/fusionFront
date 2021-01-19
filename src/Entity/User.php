@@ -2,7 +2,6 @@
 
 namespace App\Entity;
 
-use App\Repository\UserRepository;
 use Doctrine\Common\Collections\ArrayCollection;
 use Doctrine\Common\Collections\Collection;
 use Doctrine\ORM\Mapping as ORM;
@@ -60,7 +59,7 @@ class User
     /**
      * @ORM\Column(type="string", length=255)
      */
-    private $companyName; //pas de getter et de setter pour l'instant
+    private $companyName;
 
     /**
      * @ORM\Column(type="string", length=10)
@@ -70,18 +69,34 @@ class User
     /**
      * @ORM\Column(type="string", length=255)
      */
-    private $profession;//pas de getter et de setter pour l'instant
+    private $profession;
 
     /**
      * @ORM\column(type="integer", length=2)
      */    
     private $persontype;
 
+    /**
+     * @ORM\Column(type="string", length=255)
+     */
+    private $email;
 
+    /**
+     * @ORM\OneToMany(targetEntity=UserAddress::class, mappedBy="user")
+     */
+    private $address;
+
+    /**
+     * @ORM\OneToMany(targetEntity=UserImage::class, mappedBy="user")
+     */
+    private $images;
 
     public function __construct()
     {
         $this->fichiers = new ArrayCollection();
+        $this->address = new ArrayCollection();
+        $this->addresses = new ArrayCollection();
+        $this->images = new ArrayCollection();
     }
 
 
@@ -157,7 +172,7 @@ class User
 
         return $this;
     }
-
+    
     public function getBirthday(): ?\DateTimeInterface
     {
         return $this->birthday;
@@ -166,6 +181,19 @@ class User
     public function setBirthday(\DateTimeInterface $birthday): self
     {
         $this->birthday = $birthday;
+
+        return $this;
+    }
+
+
+    public function getProfession(): ?string
+    {
+        return $this->profession;
+    }
+
+    public function setProfession(string $profession): self
+    {
+        $this->profession = $profession;
 
         return $this;
     }
@@ -194,6 +222,19 @@ class User
         return $this;
     }
 
+    
+    public function getCompanyName(): ?string
+    {
+        return $this->companyName;
+    }
+
+    public function setCompanyName(string $companyName): self
+    {
+        $this->companyName = $companyName;
+
+        return $this;
+    }
+
     public function getPhone(): ?string
     {
         return $this->phone;
@@ -202,6 +243,78 @@ class User
     public function setPhone(string $phone): self
     {
         $this->phone = $phone;
+
+        return $this;
+    }
+
+    public function getEmail(): ?string
+    {
+        return $this->email;
+    }
+
+    public function setEmail(string $email): self
+    {
+        $this->email = $email;
+
+        return $this;
+    }
+
+    /**
+     * @return Collection|UserAddress[]
+     */
+    public function getAddress(): Collection
+    {
+        return $this->address;
+    }
+
+    public function addAddress(UserAddress $address): self
+    {
+        if (!$this->address->contains($address)) {
+            $this->address[] = $address;
+            $address->setUser($this);
+        }
+
+        return $this;
+    }
+
+    public function removeAddress(UserAddress $address): self
+    {
+        if ($this->address->removeElement($address)) {
+            // set the owning side to null (unless already changed)
+            if ($address->getUser() === $this) {
+                $address->setUser(null);
+            }
+        }
+
+        return $this;
+    }
+
+    /**
+     * @return Collection|UserImage[]
+     */
+    public function getImages(): Collection
+    {
+        return $this->images;
+    }
+
+    public function addImage(UserImage $image): self
+    {
+        if (!$this->images->contains($image)) {
+            $this->images[] = $image;
+            $image->setUser($this);
+        }
+
+        return $this;
+    }
+
+    public function removeImage(UserImage $image): self
+    {
+        if ($this->images->removeElement($image)) {
+            // set the owning side to null (unless already changed)
+            if ($image->getUser() === $this) {
+                $image->setUser(null);
+            }
+        }
 
         return $this;
     }

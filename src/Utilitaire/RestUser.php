@@ -3,14 +3,13 @@
 namespace App\Utilitaire;
 
 use App\Entity\User;
-use PhpParser\Node\Expr\Cast\Array_;
+use App\Entity\UserAddress;
+use App\Entity\UserImage;
 
 class RestUser
 {
 
-    public function __construct(){
-
-    }
+    public function __construct(){}
 
     /**
      * Afficher tout les wedder du plus récent au plus vieux
@@ -25,35 +24,35 @@ class RestUser
 
         $statusCode = $response->getStatusCode();
         $content = $response->toArray();
-        $wedders = [];
-
-        /*echo '<pre>';
-        var_dump($content);
-        echo '</pre>';*/
+        $listWedders = [];
 
         foreach($content as $w){
-            $unWeeder["id"] = $w['id'];
-            $unWeeder["email"] = $w['email'];
-            $unWeeder["enabled"] = $w['enabled'];
-            $unWeeder["lastName"] = $w['lastName'];
-            $unWeeder["firstName"] = $w['firstName'];
-            $unWeeder["nationality"] = $w['nationality'];
-            $unWeeder["companyName"] = $w['companyName'];
-            $unWeeder["profession"] = $w['profession'];
-            $unWeeder["country"] = "";
+            
+            $wedder = new User();
+            $wedder->setId($w["id"]);
+            $wedder->setLastname($w['lastName']);
+            $wedder->setFirstname($w['firstName']);
+            $wedder->setEmail($w['email']);
+            $wedder->setPhone($w['phone']);
+            $wedder->setNationality($w['nationality']);
+            $wedder->setCompanyName($w['companyName']);
+            $wedder->setProfession($w['profession']);
 
-            $unWeeder["images"] = "";
-            $unWeeder["phone"] = "";
+            $wedderAddress = new UserAddress();
+            $wedderAddress->setAddress($w["addresses"][0]["address"]);
+            $wedderAddress->setCity($w["addresses"][0]["city"]);
 
-            $wedders[] = $unWeeder;
+            $wedderImage = new UserImage();
+            $wedderImage->setName($w["images"][0]["name"]);
+
+            $wedder->addAddress($wedderAddress);
+            $wedder->addImage($wedderImage);
+
+            $listWedders[] = $wedder;
+            
         }
 
-        return $wedders;
+        return $listWedders;
     }
 
-
-    public static function getLastWedders($client, $apiAdress, $apiServer)
-    {
-       
-    }
 }

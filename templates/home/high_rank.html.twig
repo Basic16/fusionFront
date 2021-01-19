@@ -3,33 +3,24 @@
     <div class="container">
         <div class="row block_2  m-0 p-0">
             <h3 class="title_section">Découvrez nos nouveaux "Wedder"</h3>
-
-			{% for w in wedders %}
+		
+            {% for w in wedders %}
+             
             <div class="col-md-4 col-lg-3 cardwedding">
                   <div class="card card-inverse card-info">
-                  <a href="#">
-                  {#{% if w.images == null %}
-                      <img src="{{asset("images/"~w.images)}}" alt="" class="card-img-top">
-                    {% else %}    
-                      <img src="https://weddingyourself.fr/media/cache/listing_large/uploads/listings/images/9dc5c8bafe6ef9f51a968673618f723843f2ad26.jpg" alt="Organisation et décoration événementiel 0&nbsp;€" class="card-img-top">
-                    {% endif %}#}
-                      </a>
+                  <img class="card-img-top" src="images/{{w.images[0].name}}" alt="Wendy" >
                       <div class="card-block">
                           <figure class="profile">
-                            <img class="profile-avatar" src="https://weddingyourself.fr/media/cache/user_xsmall/uploads/users/images/15352e614ce17c51c243d3e3b090d92815f42587.jpg" alt="Wendy">
-
-                            <a href="/fr/annonce/organisation-et-decoration-evenementiel-1263058314/voir">
-                            </a>
+                            <img class="profile-avatar" src="images/{{w.images[0].name}}" alt="Wendy">
                           </figure>
                           <p class="categorycard">{{w.profession}}</p>
                           <h4 class="card-title mt-3 titlecard">
-                            <a href="/fr/annonce/organisation-et-decoration-evenementiel-1263058314/voir">{{w.companyName}}</a>
+                            <a href="{{path("listing", {"name": w.companyName})}}">{{w.companyName}}</a>
                           </h4>
                           <div class="meta card-text locationcard text-center">
-                            <span><i class="fa fa-map-marker" aria-hidden="true"></i> Fismes
-                            </span>
+                          
+                            <span><i class="fa fa-map-marker" aria-hidden="true"></i>{{w.address[0].city | capitalize}}</span>
                           </div>
-
                       </div>
                       <div class="card-footer text-center">
                           <p class="nameprixcard">Prix de location:</p>
@@ -37,8 +28,8 @@
                       </div>
                   </div>
             </div>
-			{% endfor %}
-
+			
+            {% endfor %}
 		</div>
 	</div>
 </div>

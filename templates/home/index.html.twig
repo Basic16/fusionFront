@@ -1,7 +1,6 @@
 {% extends 'base.html.twig' %}
 
-{% block title %}{{parent()}}- Un mariage à votre image
-{% endblock %}
+{% block title %}{{parent()}}- Un mariage à votre image{% endblock %}
 
 {% block theme %}home-page{% endblock %}
 
@@ -10,7 +9,7 @@
 	{% trans_default_domain 'cocorico_home' %}
 
 	{% block sub_header %}
-		{#<!-- visual -->#}
+		<!-- visual -->
 		{# Carousel here #}
 
 		<!-- début new slide -->
@@ -182,6 +181,7 @@
 		{% include 'home/feature_site.html.twig' %}
 
 		{# AFFICHAGE DES CATEGORIES #}
+		
 		{% include 'home/listings_categories.html.twig' with {'categories': categories} only %}
 
 		{# AFFICHAGE NOUVEAU WEDDER #}

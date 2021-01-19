@@ -3,6 +3,8 @@
 namespace App\Entity;
 
 use App\Repository\ListingCategoryRepository;
+use Doctrine\Common\Collections\ArrayCollection;
+use Doctrine\Common\Collections\Collection;
 use Doctrine\ORM\Mapping as ORM;
 
 /**
@@ -81,6 +83,11 @@ class ListingCategory
      * @ORM\Column(type="integer", nullable=true)
      */
     private $root;
+
+
+    public function __construct()
+    {
+    }
 
     public function getId(): ?int
     {
@@ -247,4 +254,13 @@ class ListingCategory
 
         return $this;
     }
+
+    /**
+     * @return Collection|ListingCategoryTranslation[]
+     */
+    public function getListingCategoryTranslations(): Collection
+    {
+        return $this->listingCategoryTranslations;
+    }
+
 }

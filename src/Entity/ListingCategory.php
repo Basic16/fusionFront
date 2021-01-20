@@ -84,6 +84,11 @@ class ListingCategory
      */
     private $root;
 
+    /**
+     * @ORM\ManyToOne(targetEntity=ListingCategoryTranslation::class, inversedBy="translatable_id")
+     */
+    private $ListingCategoryTranslation;
+
 
     public function __construct()
     {
@@ -261,6 +266,18 @@ class ListingCategory
     public function getListingCategoryTranslations(): Collection
     {
         return $this->listingCategoryTranslations;
+    }
+
+    public function getListingCategoryTranslation(): ?ListingCategoryTranslation
+    {
+        return $this->ListingCategoryTranslation;
+    }
+
+    public function setListingCategoryTranslation(?ListingCategoryTranslation $ListingCategoryTranslation): self
+    {
+        $this->ListingCategoryTranslation = $ListingCategoryTranslation;
+
+        return $this;
     }
 
 }

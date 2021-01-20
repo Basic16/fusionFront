@@ -32,6 +32,8 @@ class RestCategorie
             $a->setDescription($unListing['description']);
             $a->setAccueil($unListing['accueil']);
 
+            
+
             //$a->setLocationId($unListing['location_id']);
             //$a->setUserId($unListing['user_id']);
             //$a->setStatus($unListing['status']);

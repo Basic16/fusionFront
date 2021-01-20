@@ -1,23 +1,29 @@
 <div class="album mt-lg-4 pt-lg-4">
     <div class="container">
         <div class="row block_2 m-0 p-0">
-            <h3 class="title_section">Top prestataires</h3>
-            <p class="stitle_section mb20">Lorem Ipsum is simply dummy text of the printing and typesetting industry. Lorem Ipsum has been.</p>
+            <h3 class="title_section">Top prestataires </h3>
+            <style>
+
+                h2{
+                  background-color: black;
+                 color:blue;
+                }
+            </style>
 
   
-              {% for uneCategorie in categories %}
+              {% for a in categories %}
                     <div class="col-lg-4 col-md-4 col-sm-6 col-xs-12" style="margin-bottom: 30px">
                         <div class="hovereffect">
-                          <img class="img-responsive" src="{{asset('images/'~uneCategorie.imageaccueil)}}" alt="{{uneCategorie.name}}">
+                          <img class="img-responsive" src="{{asset('images/'~ a.imageaccueil)}}" alt="{{a.texte}}">
                             <div class="overlay">
                                 <h2>
-                                {% if uneCategorie.url is empty %}
-                                  <a href="{{path('prestataire',{'id': uneCategorie.id})}}" class="bold text-white">{{uneCategorie.name}}</a>
+                                {% if a.url is empty %}
+                                  <a href="www.youtube.com" class="bold text-white">{{a.description}}</a>
                                 {% else %}
-                                  <a href="{{path(uneCategorie.url)}}" class="bold text-white">{{uneCategorie.name}}</a>
+                                 <a href="www.youtube.com" class="bold text-white">{{a.description}}</a>
                                 {% endif %}
                                 </h2>
-                                  <p class="info">{{uneCategorie.texteaccueil}}</p>
+                                  <p class="info">{{a.texte}}</p>
                             </div>
                         </div>
                     </div>

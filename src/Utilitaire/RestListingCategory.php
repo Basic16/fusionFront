@@ -26,12 +26,12 @@ class RestListingCategory
                 $a = new ListingCategory();
                 $a->setId($uneCategorie['id']);
                 //$a->setUrl();
-                //$a->setTexte();
+                $a->setTexte($uneCategorie['texte']);
                 //$a->setTexteaccueil($uneCategorie['id']);
                 //$a->setImage();
                 $a->setImageaccueil($uneCategorie['imageaccueil']);
                 //$a->setTitle();
-                //$a->setDescription();
+                $a->setDescription($uneCategorie['description']);
                 //$a->setAccueil();
                 //$a->setLft();
                 //$a->setLvl();

@@ -2,6 +2,8 @@
 
 namespace App\Utilitaire;
 
+use App\Entity\Listing;
+use App\Entity\ListingImage;
 use App\Entity\User;
 use App\Entity\UserAddress;
 use App\Entity\UserImage;
@@ -26,6 +28,8 @@ class RestUser
         $content = $response->toArray();
         $listWedders = [];
 
+        //dump($content);
+
         foreach($content as $w){
             
             $wedder = new User();
@@ -48,8 +52,23 @@ class RestUser
             $wedder->addAddress($wedderAddress);
             $wedder->addImage($wedderImage);
 
+            $listing = new Listing();
+            $listingImage = new ListingImage();
+            if(count($w["Listing"])>0){
+
+                $listing->setPrice($w['Listing'][0]["price"]);
+
+                if($w["Listing"][0]["ListingImage"]>0){
+                    $listingImage->setName($w["Listing"][0]["ListingImage"][0]["name"]);
+                }
+
+            }
+
+            $wedder->addListing($listing);
+            $listing->addListingImage($listingImage);
+        
             $listWedders[] = $wedder;
-            
+    
         }
 
         return $listWedders;

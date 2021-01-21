@@ -35,13 +35,13 @@ class ListingCategoryTranslation
     private $locale;
 
     /**
-     * @ORM\OneToMany(targetEntity=ListingCategory::class, mappedBy="ListingCategoryTranslation")
+     * @ORM\ManyToOne(targetEntity=ListingCategory::class, inversedBy="ListingCategorieTranslation")
      */
-    private $translatable_id;
+    private $ListingCategory;
+
 
     public function __construct()
     {
-        $this->translatable_id = new ArrayCollection();
     }
 
     public function getId(): ?int
@@ -85,33 +85,16 @@ class ListingCategoryTranslation
         return $this;
     }
 
-    /**
-     * @return Collection|ListingCategory[]
-     */
-    public function getTranslatableId(): Collection
+    public function getListingCategory(): ?ListingCategory
     {
-        return $this->translatable_id;
+        return $this->ListingCategory;
     }
 
-    public function addTranslatableId(ListingCategory $translatableId): self
+    public function setListingCategory(?ListingCategory $ListingCategory): self
     {
-        if (!$this->translatable_id->contains($translatableId)) {
-            $this->translatable_id[] = $translatableId;
-            $translatableId->setListingCategoryTranslation($this);
-        }
+        $this->ListingCategory = $ListingCategory;
 
         return $this;
     }
 
-    public function removeTranslatableId(ListingCategory $translatableId): self
-    {
-        if ($this->translatable_id->removeElement($translatableId)) {
-            // set the owning side to null (unless already changed)
-            if ($translatableId->getListingCategoryTranslation() === $this) {
-                $translatableId->setListingCategoryTranslation(null);
-            }
-        }
-
-        return $this;
-    }
 }

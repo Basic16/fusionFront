@@ -1,6 +1,5 @@
-{% trans_default_domain 'cocorico_user' %}
 
-{{ form_errors(form_registration) }}
+{{ form_start(form_registration) }}
 
 <div class="col-md-6 left_part">
     <div class="form_create_acompte">
@@ -8,45 +7,35 @@
         <div class="input_infos">
 
             <div class="input_groupe field-row validate-row">
-                <div class="error-container">{{ form_errors(form_registration.email) }}</div>
-                {{ form_label(form_registration.email) }}
-                {{ form_widget(form_registration.email, {
+                {{ form_label(form_registration.username) }}
+                {{ form_widget(form_registration.username, {
                     'attr': {
                         'class': "text_input form-control required",
-                        'placeholder': "Votre adresse email",
-                        'data-parsley-required-message': 'cocorico_user.email.blank'|trans({},'validators'),
-                        'data-parsley-invalid-message': 'cocorico_user.email.invalid'|trans({}, 'validators'),
-                        'data-parsley-type-message': 'cocorico_user.email.invalid'|trans({}, 'validators')
+                        'placeholder': "Votre adresse email"
                     }
                 }) }}
             </div>
 
             <div class="input_groupe field-row validate-row">
-                <div class="error-container">{{ form_errors(form_registration.plainPassword.first) }}</div>
-                {{ form_label(form_registration.plainPassword.first) }}
+                {{ form_label(form_registration.password) }}
 
-                {{ form_widget(form_registration.plainPassword.first, {
+                {{ form_widget(form_registration.password, {
                     'attr': {
                         'class': "text_input form-control required",
-                        'placeholder': "Votre mot de passe sécurisé",
-                        'data-parsley-required-message': 'cocorico_user.plainPassword.first.blank'|trans({},'validators'),
-                        'data-parsley-invalid-message': 'cocorico_user.plainPassword.first.invalid'|trans({}, 'validators')
+                        'placeholder': "Votre mot de passe sécurisé"
+                    
                     }
                 }) }}
             </div>
 
             <div class="input_groupe field-row validate-row">
-                <div class="error-container">{{ form_errors(form_registration.plainPassword.second) }}</div>
-                {{ form_label(form_registration.plainPassword.second) }}
+                {{ form_label(form_registration.confirmation) }}
 
-                {{ form_widget(form_registration.plainPassword.second , {
+                {{ form_widget(form_registration.confirmation , {
                     'attr': {
                         'class': "text_input form-control required",
-                        'placeholder': "Votre mot de passe à nouveau",
-                        'data-parsley-equalto': "#"~ form_registration.plainPassword.first.vars.id,
-                        'data-parsley-equalto-message': 'fos_user.password.mismatch'|trans({},'validators'),
-                        'data-parsley-required-message': 'cocorico_user.plainPassword.second.blank'|trans({},'validators'),
-                        'data-parsley-invalid-message': 'cocorico_user.plainPassword.second.invalid'|trans({}, 'validators')
+                        'placeholder': "Votre mot de passe à nouveau"
+                        
                     }
                 }) }}
             </div>
@@ -84,14 +73,14 @@
 
 
             <div class="input_groupe field-row validate-row">
-                <div class="error-container">{{ form_errors(form_registration.lastName) }}</div>
-                {{ form_label(form_registration.lastName, null, {
+                <div class="error-container">{{ form_errors(form_registration.lastname) }}</div>
+                {{ form_label(form_registration.lastname, null, {
                     'label_attr': {
                         'data-label-legal': 'form.last_name.legal'|trans
                     }
                 }) }}
 
-                {{ form_widget(form_registration.lastName, {
+                {{ form_widget(form_registration.lastname, {
                     'attr': {
                         'class': 'text_input form-control required',
                         'data-parsley-required-message': 'cocorico_user.last_name.blank'|trans({},'validators'),
@@ -101,14 +90,14 @@
             </div>
 
             <div class="input_groupe field-row validate-row">
-                <div class="error-container">{{ form_errors(form_registration.firstName) }}</div>
-                {{ form_label(form_registration.firstName, null, {
+                <div class="error-container">{{ form_errors(form_registration.firstname) }}</div>
+                {{ form_label(form_registration.firstname, null, {
                     'label_attr': {
                         'data-label-legal': 'form.first_name.legal'|trans
                     }
                 }) }}
 
-                {{ form_widget(form_registration.firstName, {
+                {{ form_widget(form_registration.firstname, {
                     'attr': {
                         'class': "text_input form-control required",
                         'data-parsley-required-message': 'cocorico_user.first_name.blank'|trans({},'validators'),
@@ -170,9 +159,9 @@
             </div>
 
             <div class="input_groupe field-row validate-row">
-                <div class="error-container">{{ form_errors(form_registration.countryOfResidence) }}</div>
+                <div class="error-container">{{ form_errors(form_registration.countryofresidence) }}</div>
                 <span class="label">
-                    {{ form_label(form_registration.countryOfResidence, null, {
+                    {{ form_label(form_registration.countryofresidence, null, {
                         'label_attr': {
                             'data-label-legal': 'form.country_of_residence.legal'|trans
                         }
@@ -180,7 +169,7 @@
                 </span>
 
                 <div class="field-holder">
-                    {{ form_widget(form_registration.countryOfResidence, {
+                    {{ form_widget(form_registration.countryofresidence, {
                         'attr': {
                             'class': "form-control required no-arrow",
                             'data-parsley-required-message': 'cocorico_user.countryOfResidence.blank'|trans({},'validators'),
@@ -190,7 +179,7 @@
                 </div>
             </div>
 
-           <!--  <div class="input_groupe field-row validate-row">
+          {# <!--  <div class="input_groupe field-row validate-row">
                 <div class="error-container">{{ form_errors(form_registration.phonePrefix) }}</div>
                 {{ form_label(form_registration.phonePrefix) }}
                 
@@ -199,7 +188,7 @@
                         'class': "text_input form-control"
                     }
                 }) }}
-            </div>-->
+            </div>-->#}
 
             <div class="input_groupe field-row validate-row">
                 <div class="error-container">{{ form_errors(form_registration.phone) }}</div>
@@ -226,7 +215,7 @@
 
 <div class="col-md-6 right_part">
 
-    <a href="{{ path('cocorico_user_login') }}" class="link_compte">J'ai déja un compte</a>
+    <a href="{{ path('connexion') }}" class="link_compte">J'ai déja un compte</a>
 
     <div class="facebook_connect">
         <p>{{ 'user.facebook.login.title'|trans }}</p>
@@ -239,7 +228,7 @@
 
 </div>
 
-{{ form_rest(form_registration) }}
+{{ form_end(form_registration) }}
 
 {#
 <div role="tabpanel" class="tab-pane{{ register_class }}" id="home">

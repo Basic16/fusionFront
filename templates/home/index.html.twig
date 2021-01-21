@@ -1,4 +1,4 @@
-{% extends 'base.html.twig' %}
+  {% extends 'base.html.twig' %}
 
 {% block title %}{{parent()}}- Un mariage à votre image{% endblock %}
 
@@ -177,13 +177,11 @@
 		{# AFFICHAGE LISTE STYLE MARIAGE #}
 		{% include 'home/listings_weddings.html.twig' with {'mariages': mariages} only %}
 
-		
 		{# AFFICHAGE DES CATEGORIES #}
 		{% include 'home/listings_categories.html.twig' with {'categories': categories} only %}
 
 		{# AFFICHAGE FONCTIONALITE DE SITE #}
 		{% include 'home/feature_site.html.twig' %}
-
 
 		{# AFFICHAGE NOUVEAU WEDDER #}
 		{% include 'home/high_rank.html.twig' with {'wedders': wedders} only %}

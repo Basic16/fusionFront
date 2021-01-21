@@ -2,6 +2,7 @@
 
 namespace App\Utilitaire;
 
+use App\Entity\Listing;
 use App\Entity\Mariage;
 
 class RestMariage
@@ -9,6 +10,9 @@ class RestMariage
 
     public function __construct(){}
 
+    /**
+     * Récupère tout les type de mariage
+     */
     public static function getLesMariages($client, $apiAdress, $apiServer)
     {
         $response = $client->request('GET', $apiAdress . 'mariages', [
@@ -38,28 +42,40 @@ class RestMariage
         return $mariages;
     }
 
-    public static function getUnMariage($client, $apiAdress, $apiServer, $idMariage)
+    /*
+        Récupère les information ainsi que les listing d'un mariage en particulier
+     */
+    public static function getUnMariage($client, $apiAdress, $apiServer, $nameMariage)
     {
-        $response = $client->request('GET', $apiAdress . 'mariages?id=' . $idMariage . '&page=1', [
+        $response = $client->request('GET', $apiAdress . 'mariages?nom=' . $nameMariage . '&page=1', [
             'headers' => [
                 'Accept' => 'application/json',
             ],
         ]);
 
+
         $statusCode = $response->getStatusCode();
         $content = $response->toArray();
+        dump($content);
         $a = new Mariage();
-            $a->setId($content[0]['id']);
-            $a->setNom($content[0]['nom']);
-            $a->setText($content[0]['texte']);
-            $a->setImages($content[0]['image']);
-            //$a->setUrl($unMariage['url']);
-            $a->setTraduction($content[0]['traduction']);
-            //$a->setLogo($unMariage['logo']);
-            $a->setImageaccueil($content[0]['imageaccueil']);
-            if (isset($content[0]['images'])) {
-                $a->setImages($content[0]['images']);
-            }
+        $a->setId($content[0]['id']);
+        $a->setNom($content[0]['nom']);
+        $a->setText($content[0]['texte']);
+        $a->setImages($content[0]['image']);
+        //$a->setUrl($unMariage['url']);
+        $a->setTraduction($content[0]['traduction']);
+        //$a->setLogo($unMariage['logo']);
+        $a->setImageaccueil($content[0]['imageaccueil']);
+        if (isset($content[0]['images'])) {
+            $a->setImages($content[0]['images']);
+        }
+
+        $listListing = [];
+        foreach ($content[0]["listings"] as $l) {
+            $listing = new Listing();
+        }
+
+        
         return $a;
     }
 }

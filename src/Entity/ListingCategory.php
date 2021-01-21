@@ -2,7 +2,6 @@
 
 namespace App\Entity;
 
-use App\Repository\ListingCategoryRepository;
 use Doctrine\Common\Collections\ArrayCollection;
 use Doctrine\Common\Collections\Collection;
 use Doctrine\ORM\Mapping as ORM;
@@ -85,23 +84,20 @@ class ListingCategory
     private $root;
 
     /**
-     * @ORM\ManyToOne(targetEntity=ListingCategoryTranslation::class, inversedBy="translatable_id")
+     * @ORM\OneToMany(targetEntity=ListingCategoryTranslation::class, mappedBy="ListingCategory")
      */
-    private $ListingCategoryTranslation;
-
+    private $ListingCategorieTranslation;
 
     public function __construct()
     {
+        $this->ListingCategorieTranslation = new ArrayCollection();
     }
-
-    public function getId(): ?int
+    
+    public function setId(int $id): self
     {
-        return $this->id;
-    }
+        $this->id = $id;
 
-    public function setId(): ?int
-    {
-        return $this->id;
+        return $this;
     }
 
     public function getParentId(): ?int
@@ -263,19 +259,29 @@ class ListingCategory
     /**
      * @return Collection|ListingCategoryTranslation[]
      */
-    public function getListingCategoryTranslations(): Collection
+    public function getListingCategorieTranslation(): Collection
     {
-        return $this->listingCategoryTranslations;
+        return $this->ListingCategorieTranslation;
     }
 
-    public function getListingCategoryTranslation(): ?ListingCategoryTranslation
+    public function addListingCategorieTranslation(ListingCategoryTranslation $listingCategorieTranslation): self
     {
-        return $this->ListingCategoryTranslation;
+        if (!$this->ListingCategorieTranslation->contains($listingCategorieTranslation)) {
+            $this->ListingCategorieTranslation[] = $listingCategorieTranslation;
+            $listingCategorieTranslation->setListingCategory($this);
+        }
+
+        return $this;
     }
 
-    public function setListingCategoryTranslation(?ListingCategoryTranslation $ListingCategoryTranslation): self
+    public function removeListingCategorieTranslation(ListingCategoryTranslation $listingCategorieTranslation): self
     {
-        $this->ListingCategoryTranslation = $ListingCategoryTranslation;
+        if ($this->ListingCategorieTranslation->removeElement($listingCategorieTranslation)) {
+            // set the owning side to null (unless already changed)
+            if ($listingCategorieTranslation->getListingCategory() === $this) {
+                $listingCategorieTranslation->setListingCategory(null);
+            }
+        }
 
         return $this;
     }

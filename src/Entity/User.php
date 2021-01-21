@@ -13,6 +13,12 @@ class User
 {
 
     const PERSON_TYPE_NATURAL = 1;
+    const PERSON_TYPE_LEGAL = 2;
+
+    public static $personTypeValues = array(
+        self::PERSON_TYPE_NATURAL => 'une personne',
+        self::PERSON_TYPE_LEGAL => 'une entreprise',
+    );
 
     /**
      * @ORM\Id
@@ -72,9 +78,9 @@ class User
     private $profession;
 
     /**
-     * @ORM\column(type="integer", length=2)
+     * @ORM\column(type="smallint", length=2)
      */    
-    private $persontype;
+    private $personType = self::PERSON_TYPE_NATURAL;
 
     /**
      * @ORM\Column(type="string", length=255)
@@ -91,12 +97,18 @@ class User
      */
     private $images;
 
+    /**
+     * @ORM\OneToMany(targetEntity=Listing::class, mappedBy="user")
+     */
+    private $listing;
+
     public function __construct()
     {
         $this->fichiers = new ArrayCollection();
         $this->address = new ArrayCollection();
         $this->addresses = new ArrayCollection();
         $this->images = new ArrayCollection();
+        $this->listing = new ArrayCollection();
     }
 
 
@@ -137,14 +149,24 @@ class User
         return $this;
     }
 
-    public function getPersontype(): ?string
+    public function getPersonType()
     {
-        return $this->persontype;
+        if (!$this->personType) {
+            $this->personType = self::PERSON_TYPE_NATURAL;
+        }
+
+        return $this->personType;
     }
 
-    public function setPersontype(string $persontype): self
+    public function setPersonType($personType)
     {
-        $this->persontype = $persontype;
+        if (!in_array($personType, array_keys(self::$personTypeValues))) {
+            throw new \InvalidArgumentException(
+                sprintf('Invalid value for user.person_type : %s.', $personType)
+            );
+        }
+
+        $this->personType = $personType;
 
         return $this;
     }
@@ -319,5 +341,33 @@ class User
         return $this;
     }
 
+    /**
+     * @return Collection|Listing[]
+     */
+    public function getListing(): Collection
+    {
+        return $this->listing;
+    }
 
+    public function addListing(Listing $listing): self
+    {
+        if (!$this->listing->contains($listing)) {
+            $this->listing[] = $listing;
+            $listing->setUser($this);
+        }
+
+        return $this;
+    }
+
+    public function removeListing(Listing $listing): self
+    {
+        if ($this->listing->removeElement($listing)) {
+            // set the owning side to null (unless already changed)
+            if ($listing->getUser() === $this) {
+                $listing->setUser(null);
+            }
+        }
+
+        return $this;
+    }
 }

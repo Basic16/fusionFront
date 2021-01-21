@@ -1,18 +1,11 @@
-{% extends 'base.html.twig' %}
-
-{% block title %}Inscription - {{parent()}}{% endblock %}
-
-{% block main %}
 	<div class="album py-5">
 		<div class="container">
-            {% include 'base/_flash.html.twig' %}
+            {#{% include 'base/_flash.html.twig' %}#}
 			<div class="row">
 				<div id="form-registerlogin" class="form-signup validate-form create_acompte">
 					<h1 class="title_form">Créer un compte</h1>
 
-
-					{{ form_start(form) }}
-
+				{{ form_start(form)}}
 					<div class="col-md-6 left_part">
 
 						<div class="form_create_acompte">
@@ -57,26 +50,20 @@
 							</div>
 
 							<div class="input_infos">
-
-
-							
-							
-								
 				
-							{#<div class="form-check">
-							Vous êtes *
+							<div class="input_groupe field-row validate-row">
+									{{ form_label(form.personType, 'Vous êtes: *') }}
+								
 
-								<input class="form-check-input" type="radio" name="flexRadioDefault" id="flexRadioDefault1">
-								<label class="form-check-label" for="flexRadioDefault1">
-									une personne
-								</label>
+								<div class="field-holder radio_box" data-id="person-type">
 
-								<input class="form-check-input" type="radio" name="flexRadioDefault" id="flexRadioDefault2">
-								<label class="form-check-label" for="flexRadioDefault1">
-									une entreprise
-								</label>
-
-								</div>#}
+									{{ form_widget(form.personType, {
+										'attr': {
+											'class': " form-control-radio required"
+										}
+									}) }}
+								</div>
+							</div>
 
 
 
@@ -213,11 +200,10 @@
 
 					</div>
 
-					{{ form_end(form) }}
+					{{ form_end(form)}}
 
 				</form>
 			</div>
 		</div>
 	</div>
 </div>
-{% endblock %}

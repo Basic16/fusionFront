@@ -8,9 +8,8 @@ use Symfony\Component\Routing\Annotation\Route;
 use Symfony\Component\HttpFoundation\Request;
 use App\Entity\User;
 use App\Form\InscriptionType;
-use App\Controller\UserPasswordEncoderInterface;
-use Symfony\Component\Form\Extension\Core\Type\DateType;
 use App\Form\ConnexionType;
+use PhpParser\Node\Expr\BinaryOp\Equal;
 
 class LoginController extends AbstractController
 {
@@ -40,15 +39,29 @@ class LoginController extends AbstractController
     {
         $user = new User();
         $form = $this->createForm(InscriptionType::class, $user);
+       
+        $insc =1;
+        
+        if ($form->get('personType') == 'self::PERSON_TYPE_NATURAL') {
+            $insc = 1;
+        }
+        if ($form->get('personType') == 'self::PERSON_TYPE_LEGAL') {
+            $insc = 2;
+        }
 
-        if ($request->isMethod('POST')) {            
+       /* if(isset($form->get('personType')) === 'self::PERSON_TYPE_LEGAL'){
+            $insc = 2;
+            var_dump($insc);
+        }*/
+        var_dump($insc);
+        
+        if ($request->isMethod('POST')) {
+                    
             $form->handleRequest($request);            
             if ($form->isSubmitted() && $form->isValid()) {
                 $mdpConf = $form->get('confirmation')->getData();
                 $mdp = $user->getPassword();
                 if($mdp == $mdpConf){
-                    //$user->setRoles(array('ROLE_USER'));
-                    //$user->setPassword($passwordEncoder->encodePassword($user, $user->getPassword()));
                     $em = $this->getDoctrine()->getManager();
                     $em->persist($user);
                     $em->flush();
@@ -60,11 +73,17 @@ class LoginController extends AbstractController
                     return $this->redirectToRoute('inscrire');
                 }
             }
-        }        
+        }   
 
-        return $this->render('login/Inscription.html.twig', [
+        
+        
+        return $this->render('login/index_inscription.html.twig', ['insc' => $insc,
+            'form'=>$form->createView()
+         ]);
+
+        /*return $this->render('login/Inscription.html.twig', [
            'form'=>$form->createView()
-        ]);
+        ]);*/
     }
 
 }

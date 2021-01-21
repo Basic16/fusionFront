@@ -1,0 +1,39 @@
+{% extends 'base.html.twig' %}
+
+{% block title %}Inscription - {{parent()}}{% endblock %}
+
+{% block main %}
+{#
+<script>
+        /**
+         * @param personType
+         */
+    function inscription(){
+        var insc;
+        if (!$(personType).is(':checked')){
+            return;
+        }
+        
+        if ($(personType).val() == 1) {
+           var insc = 1;
+           return;
+            
+        }else{
+            var insc = 2;
+            return;
+        }
+    }
+</script>#}
+{% if insc == 1 %}
+
+    {% include 'login/Inscription.html.twig' with {'form': form} only %}
+
+{% endif %}
+
+{% if insc == 2 %}
+
+    {% include 'login/Inscription_entreprise.html.twig' with {'form': form} only %}
+
+{% endif %}
+
+{% endblock %}

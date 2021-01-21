@@ -8,9 +8,10 @@ use Symfony\Component\Routing\Annotation\Route;
 use Symfony\Component\HttpFoundation\Request;
 use App\Utilitaire\RestMariage;
 use App\Utilitaire\RestUser;
+use PhpParser\Node\Expr\Cast\String_;
 use Symfony\Contracts\HttpClient\HttpClientInterface;
 
-class MariageController extends AbstractController
+class ListingListController extends AbstractController
 {
     private $client;
 
@@ -20,15 +21,15 @@ class MariageController extends AbstractController
     }
 
     /**
-     * @Route("/mariage", name="mariage")
+     * @Route("/annonceur/{name}", name="listingList",  requirements={"d"="en|fr"})))
      */
-    public function mariage(Request $request): Response
+    public function listingList(String $name, Request $request): Response
     {
-        // GET idMariage value in url
-        $idMariage =  $request->query->get('id');
 
-        // GET mariage info
-        $mariage = RestMariage::getUnMariage($this->client, $this->getParameter('apiAdress'), $this->getParameter('apiServer'), $idMariage);
+        // GET idMariage value in url
+        $mariage = RestMariage::getUnMariage($this->client, $this->getParameter('apiAdress'), $this->getParameter('apiServer'), $name);
+
+        //dump($mariage);
 
         // GET wedder list
         $wedders = RestUser::getLesWedders($this->client, $this->getParameter('apiAdress'), $this->getParameter('apiServer'));

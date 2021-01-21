@@ -2,125 +2,148 @@
 
 namespace App\Entity;
 
-use App\Repository\ListingRepository;
+use Doctrine\Common\Collections\ArrayCollection;
+use Doctrine\Common\Collections\Collection;
 use Doctrine\ORM\Mapping as ORM;
+use App\Entity\User;
 
 /**
- * @ORM\Entity(repositoryClass=ListingRepository::class)
+ * Listing
+ *
+ * @ORM\Table(name="listing")
+ * @ORM\Entity
  */
 class Listing
 {
     /**
+     * @var int
+     *
+     * @ORM\Column(name="id", type="integer", nullable=false)
      * @ORM\Id
-     * @ORM\GeneratedValue
-     * @ORM\Column(type="integer")
+     * @ORM\GeneratedValue(strategy="IDENTITY")
      */
     private $id;
 
     /**
-     * @ORM\Column(type="integer")
-     */
-    private $location_id;
-
-    /**
-     * @ORM\Column(type="integer")
-     */
-    private $user_id;
-
-    /**
-     * @ORM\Column(type="integer")
+     * @var int
+     *
+     * @ORM\Column(name="status", type="smallint", nullable=false)
      */
     private $status;
 
     /**
-     * @ORM\Column(type="string", length=255, nullable=true)
+     * @var int|null
+     *
+     * @ORM\Column(name="type", type="smallint", nullable=true)
      */
     private $type;
 
     /**
-     * @ORM\Column(type="integer")
+     * @var string|null
+     *
+     * @ORM\Column(name="price", type="decimal", precision=8, scale=0, nullable=true)
      */
     private $price;
 
     /**
-     * @ORM\Column(type="integer")
+     * @var bool|null
+     *
+     * @ORM\Column(name="certified", type="boolean", nullable=true)
      */
     private $certified;
 
     /**
-     * @ORM\Column(type="string", length=255, nullable=true)
+     * @var int|null
+     *
+     * @ORM\Column(name="min_duration", type="smallint", nullable=true)
      */
-    private $max_duration;
+    private $minDuration;
 
     /**
-     * @ORM\Column(type="integer")
+     * @var int|null
+     *
+     * @ORM\Column(name="max_duration", type="smallint", nullable=true)
      */
-    private $cancellation_policy;
+    private $maxDuration;
 
     /**
-     * @ORM\Column(type="string", length=255, nullable=true)
+     * @var int
+     *
+     * @ORM\Column(name="cancellation_policy", type="smallint", nullable=false)
      */
-    private $average_rating;
+    private $cancellationPolicy;
 
     /**
-     * @ORM\Column(type="integer")
+     * @var int|null
+     *
+     * @ORM\Column(name="average_rating", type="smallint", nullable=true)
      */
-    private $comment_count;
+    private $averageRating;
 
     /**
-     * @ORM\Column(type="string", length=255, nullable=true)
+     * @var int|null
+     *
+     * @ORM\Column(name="comment_count", type="integer", nullable=true)
      */
-    private $admin_notation;
+    private $commentCount;
 
     /**
-     * @ORM\Column(type="datetime", nullable=true)
+     * @var string|null
+     *
+     * @ORM\Column(name="admin_notation", type="decimal", precision=3, scale=1, nullable=true)
      */
-    private $availabilities_updated_at;
+    private $adminNotation;
 
     /**
-     * @ORM\Column(type="datetime")
+     * @var \DateTime|null
+     *
+     * @ORM\Column(name="availabilities_updated_at", type="datetime", nullable=true)
      */
-    private $createdAt;
+    private $availabilitiesUpdatedAt;
 
     /**
-     * @ORM\Column(type="datetime")
+     * @var \DateTime|null
+     *
+     * @ORM\Column(name="createdAt", type="datetime", nullable=true)
      */
-    private $updatedAt;
+    private $createdat;
+
+    /**
+     * @var \DateTime|null
+     *
+     * @ORM\Column(name="updatedAt", type="datetime", nullable=true)
+     */
+    private $updatedat;
+
+    /**
+     * @var \Doctrine\Common\Collections\Collection
+     *
+     * @ORM\ManyToMany(targetEntity="Mariage", mappedBy="listing")
+     */
+    private $mariage;
+
+    /**
+     * @ORM\OneToMany(targetEntity=ListingImage::class, mappedBy="Listing")
+     */
+    private $ListingImage;
+
+    /**
+     * @ORM\ManyToOne(targetEntity=User::class, inversedBy="listing")
+     */
+    private $user;
+
+    /**
+     * Constructor
+     */
+    public function __construct()
+    {
+        $this->mariage = new \Doctrine\Common\Collections\ArrayCollection();
+        $this->ListingImage = new ArrayCollection();
+    }
 
     public function getId(): ?int
     {
         return $this->id;
-    }
-
-    public function setId(int $id): self
-    {
-        $this->id = $id;
-
-        return $this;
-    }
-
-    public function getLocationId(): ?int
-    {
-        return $this->location_id;
-    }
-
-    public function setLocationId(int $location_id): self
-    {
-        $this->location_id = $location_id;
-
-        return $this;
-    }
-
-    public function getUserId(): ?int
-    {
-        return $this->user_id;
-    }
-
-    public function setUserId(int $user_id): self
-    {
-        $this->user_id = $user_id;
-
-        return $this;
     }
 
     public function getStatus(): ?int
@@ -135,135 +158,190 @@ class Listing
         return $this;
     }
 
-    public function getType(): ?string
+    public function getType(): ?int
     {
         return $this->type;
     }
 
-    public function setType(?string $type): self
+    public function setType(?int $type): self
     {
         $this->type = $type;
 
         return $this;
     }
 
-    public function getPrice(): ?int
+    public function getPrice(): ?string
     {
         return $this->price;
     }
 
-    public function setPrice(int $price): self
+    public function setPrice(?string $price): self
     {
         $this->price = $price;
 
         return $this;
     }
 
-    public function getCertified(): ?int
+    public function getCertified(): ?bool
     {
         return $this->certified;
     }
 
-    public function setCertified(int $certified): self
+    public function setCertified(?bool $certified): self
     {
         $this->certified = $certified;
 
         return $this;
     }
 
-    public function getMaxDuration(): ?string
+    public function getMinDuration(): ?int
     {
-        return $this->max_duration;
+        return $this->minDuration;
     }
 
-    public function setMaxDuration(?string $max_duration): self
+    public function setMinDuration(?int $minDuration): self
     {
-        $this->max_duration = $max_duration;
+        $this->minDuration = $minDuration;
+
+        return $this;
+    }
+
+    public function getMaxDuration(): ?int
+    {
+        return $this->maxDuration;
+    }
+
+    public function setMaxDuration(?int $maxDuration): self
+    {
+        $this->maxDuration = $maxDuration;
 
         return $this;
     }
 
     public function getCancellationPolicy(): ?int
     {
-        return $this->cancellation_policy;
+        return $this->cancellationPolicy;
     }
 
-    public function setCancellationPolicy(int $cancellation_policy): self
+    public function setCancellationPolicy(int $cancellationPolicy): self
     {
-        $this->cancellation_policy = $cancellation_policy;
+        $this->cancellationPolicy = $cancellationPolicy;
 
         return $this;
     }
 
-    public function getAverageRating(): ?string
+    public function getAverageRating(): ?int
     {
-        return $this->average_rating;
+        return $this->averageRating;
     }
 
-    public function setAverageRating(?string $average_rating): self
+    public function setAverageRating(?int $averageRating): self
     {
-        $this->average_rating = $average_rating;
+        $this->averageRating = $averageRating;
 
         return $this;
     }
 
     public function getCommentCount(): ?int
     {
-        return $this->comment_count;
+        return $this->commentCount;
     }
 
-    public function setCommentCount(int $comment_count): self
+    public function setCommentCount(?int $commentCount): self
     {
-        $this->comment_count = $comment_count;
+        $this->commentCount = $commentCount;
 
         return $this;
     }
 
     public function getAdminNotation(): ?string
     {
-        return $this->admin_notation;
+        return $this->adminNotation;
     }
 
-    public function setAdminNotation(?string $admin_notation): self
+    public function setAdminNotation(?string $adminNotation): self
     {
-        $this->admin_notation = $admin_notation;
+        $this->adminNotation = $adminNotation;
 
         return $this;
     }
 
     public function getAvailabilitiesUpdatedAt(): ?\DateTimeInterface
     {
-        return $this->availabilities_updated_at;
+        return $this->availabilitiesUpdatedAt;
     }
 
-    public function setAvailabilitiesUpdatedAt(?\DateTimeInterface $availabilities_updated_at): self
+    public function setAvailabilitiesUpdatedAt(?\DateTimeInterface $availabilitiesUpdatedAt): self
     {
-        $this->availabilities_updated_at = $availabilities_updated_at;
+        $this->availabilitiesUpdatedAt = $availabilitiesUpdatedAt;
 
         return $this;
     }
 
-    public function getCreatedAt(): ?\DateTimeInterface
+    public function getCreatedat(): ?\DateTimeInterface
     {
-        return $this->createdAt;
+        return $this->createdat;
     }
 
-    public function setCreatedAt(\DateTimeInterface $createdAt): self
+    public function setCreatedat(?\DateTimeInterface $createdat): self
     {
-        $this->createdAt = $createdAt;
+        $this->createdat = $createdat;
 
         return $this;
     }
 
-    public function getUpdatedAt(): ?\DateTimeInterface
+    public function getUpdatedat(): ?\DateTimeInterface
     {
-        return $this->updatedAt;
+        return $this->updatedat;
     }
 
-    public function setUpdatedAt(\DateTimeInterface $updatedAt): self
+    public function setUpdatedat(?\DateTimeInterface $updatedat): self
     {
-        $this->updatedAt = $updatedAt;
+        $this->updatedat = $updatedat;
 
         return $this;
     }
+
+    /**
+     * @return Collection|ListingImage[]
+     */
+    public function getListingImage(): Collection
+    {
+        return $this->ListingImage;
+    }
+
+    public function addListingImage(ListingImage $listingImage): self
+    {
+        if (!$this->ListingImage->contains($listingImage)) {
+            $this->ListingImage[] = $listingImage;
+            $listingImage->setListing($this);
+        }
+
+        return $this;
+    }
+
+    public function removeListingImage(ListingImage $listingImage): self
+    {
+        if ($this->ListingImage->removeElement($listingImage)) {
+            // set the owning side to null (unless already changed)
+            if ($listingImage->getListing() === $this) {
+                $listingImage->setListing(null);
+            }
+        }
+
+        return $this;
+    }
+
+    public function getUser(): ?User
+    {
+        return $this->user;
+    }
+
+    public function setUser(?User $user): self
+    {
+        $this->user = $user;
+
+        return $this;
+    }
+
 }

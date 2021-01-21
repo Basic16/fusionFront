@@ -1,0 +1,8 @@
+{% spaceless %}
+    {# initialize facebook SDK #}
+
+    <a class="btn btn-sm btn-social btn-fb" href="http://www.facebook.com/sharer/sharer.php?{{ {'u': url, 'title': title }|url_encode }}" target="_blank" title="Partagez cet article sur Facebook">
+      <i class="fa fa-facebook-square"></i>
+      Partager
+    </a>
+{% endspaceless %}

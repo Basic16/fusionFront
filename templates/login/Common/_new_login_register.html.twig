@@ -1,4 +1,8 @@
-{% trans_default_domain 'cocorico_user' %}
+{% extends 'base.html.twig' %}
+
+{% block title %}Inscription - {{parent()}}{% endblock %}
+
+{% block javascripts %}
 
 {# For debugging purpose #}
 {% if app.environment == 'dev'  %}
@@ -6,15 +10,15 @@
         var filename = "font-size: 1.5em; color: #519657; font-weight: bold; margin-top: 0.5em;";
         var filepath = "font-size: 1.2em; color: #81c784;";
         console.log("%cFile: %s", filename, '_new_login_register.html.twig');
-        console.log("%cPath: %s", filepath, 'UserBundle:Frontend/Common');
+        console.log("%cPath: %s", filepath, 'login/Common');
     </script>
 {% endif %}
 
-{% if form_login %}
+{#{% if form_login %}
     {#{{ form_errors(form_login) }}#}
-    {% set login_class= " active" %}
+    {#{% set login_class= " active" %}
     {% set register_class= "" %}
-{% endif %}
+{% endif %}#}
 
 {% if form_registration %}
     {#{{ form_errors(form_registration) }}#}
@@ -25,19 +29,19 @@
 
 {% if form_registration %}
     <!-- Registration Form -->
-    {% include '@CocoricoUser/Frontend/Common/_new_register.html.twig'  with {
+    {% include 'login/Common/_new_register.html.twig'  with {
     'form_registration' : form_registration,
     'register_class' : register_class
     } only %}
 {% endif %}
 
-{% if form_login %}
+{#{% if form_login %}
     <!-- Login Form -->
-    {% include '@CocoricoUser/Frontend/Common/_new_login.html.twig'  with {
+    {% include 'login/Common/_new_login.html.twig'  with {
     'form_login' : form_login,
     'login_class' : login_class
     } only %}
-{% endif %}
+{% endif %}#}
 
 
 {#Redirect after login on referer except for some routes #}
@@ -116,7 +120,7 @@
 #}
 
 {#Facebook #}
-{% include '@CocoricoCore/Frontend/Common/js/_facebook_js.html.twig' only %}
+{#{% include '@CocoricoCore/Frontend/Common/js/_facebook_js.html.twig' only %}#}
 
 <script>
     $(function () {
@@ -198,3 +202,5 @@
         });
     });
 </script>
+
+{% endblock %}

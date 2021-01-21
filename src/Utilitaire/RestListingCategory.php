@@ -8,7 +8,9 @@ use App\Entity\ListingCategoryTranslation;
 class RestListingCategory
 {
 
-    public function __construct(){}
+    public function __construct()
+    {
+    }
 
     public static function getLesListinCategory($client, $apiAdress, $apiServer)
     {
@@ -25,30 +27,28 @@ class RestListingCategory
             if(array_key_exists ( 'imageaccueil' , $uneCategorie )){
                 $a = new ListingCategory();
                 $a->setId($uneCategorie['id']);
-                //$a->setUrl();
-                $a->setTexte($uneCategorie['texte']);
-                //$a->setTexteaccueil($uneCategorie['id']);
-                //$a->setImage();
-                $a->setImageaccueil($uneCategorie['imageaccueil']);
-                //$a->setTitle();
-                $a->setDescription($uneCategorie['description']);
-                //$a->setAccueil();
-                //$a->setLft();
-                //$a->setLvl();
-                //$a->setRgt();
+                if (isset($uneCategorie['texte'])) {
+                    $a->setTexte($uneCategorie['texte']);
+                }
+                if (isset($uneCategorie["imageaccueil"])) {
+                    $a->setImageaccueil($uneCategorie['imageaccueil']);
+                }
+                if (isset($uneCategorie["imageaccueil"])) {
+                    $a->setDescription($uneCategorie['description']);
+                }
                 //$a->setListingCategoryTranslations();
 
-                $listingsCategoryTranslation = new ListingCategoryTranslation();
-                $listingsCategoryTranslation->setName($uneCategorie['listingCategoryTranslations'][0]['name']);
-                //$listingsCategoryTranslation->setSlug($uneCategorie['listingCategoryTranslations'][0]['slug']);
-    
-                //$a->add($listingsCategoryTranslation);
+                $translation = new ListingCategoryTranslation();
+                $translation->setName($uneCategorie["listingCategoryTranslations"][0]["name"]);
+                $translation->setSlug($uneCategorie["listingCategoryTranslations"][0]["slug"]);
+
+                $a->addListingCategorieTranslation($translation);
 
                 $listingsCategory[] = $a;
-
             }
-           
+            
         }
+
         return $listingsCategory;
     }
 }

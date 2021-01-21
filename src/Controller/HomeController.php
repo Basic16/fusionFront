@@ -29,12 +29,12 @@ class HomeController extends AbstractController
 
         // Permet l'affichage des Top Wedder
         $categories = RestListingCategory::getLesListinCategory($this->client, $this->getParameter('apiAdress'), $this->getParameter('apiServer'));
-        //$categories = [];
+        
         // Permet l'affichage des dernier Wedder
         $wedders = RestUser::getLesWedders($this->client, $this->getParameter('apiAdress'), $this->getParameter('apiServer'));
 
-        dump($wedders);
-        dump($categories);
+        //dump($mariages);
+        
         return $this->render('home/index.html.twig', ['mariages' => $mariages, 'categories' => $categories, 'wedders' => $wedders]);
     }
 

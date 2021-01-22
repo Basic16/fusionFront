@@ -2,13 +2,14 @@
 
 namespace App\Controller;
 
+use App\Utilitaire\RestListing;
 use App\Utilitaire\RestListingCategory;
 use Symfony\Bundle\FrameworkBundle\Controller\AbstractController;
 use Symfony\Component\HttpFoundation\Response;
 use Symfony\Component\Routing\Annotation\Route;
 use App\Utilitaire\RestMariage;
-use App\Utilitaire\RestUser;
 use Symfony\Contracts\HttpClient\HttpClientInterface;
+use Symfony\Component\HttpFoundation\Request;
 
 class HomeController extends AbstractController
 {
@@ -31,11 +32,24 @@ class HomeController extends AbstractController
         $categories = RestListingCategory::getLesListinCategory($this->client, $this->getParameter('apiAdress'), $this->getParameter('apiServer'));
         
         // Permet l'affichage des dernier Wedder
-        $wedders = RestUser::getLesWedders($this->client, $this->getParameter('apiAdress'), $this->getParameter('apiServer'));
+        $listing = RestListing::getLesListing($this->client, $this->getParameter('apiAdress'), $this->getParameter('apiServer'));
 
-        //dump($mariages);
+        //dump($listing);
         
-        return $this->render('home/index.html.twig', ['mariages' => $mariages, 'categories' => $categories, 'wedders' => $wedders]);
+        return $this->render('home/index.html.twig', ['mariages' => $mariages, 'categories' => $categories, 'listing' => $listing]);
+    }
+
+    
+    /**
+     * @Route("/recherche", name="recherche")
+     */
+    public function recherche(Request $request): Response
+    {
+        if($request->isMethod("POST") && !empty($request->get("recherche"))){
+            echo $request->get("recherche");
+        }
+        
+        return $this->render('recherche/index.html.twig', []);
     }
 
 

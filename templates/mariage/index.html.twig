@@ -112,7 +112,7 @@
 <div class="container-fluid pb-2 mb-2">
     <div class="row">
         <div class="col-12 text-center p-0 m-0">
-            <img src="images/{{mariage.images}}" alt="" class="img-fluid">
+            <img src="../images/{{mariage.image}}" alt="" class="img-fluid">
         </div>
     </div>
 </div>
@@ -123,7 +123,7 @@
         <h1 class="text-center text-secondary titlemariages">{{mariage.nom}}</h1>
     </div>
     <div class="col-12 text-center pb-4 mb-4">
-        <span class="text-secondary stitlemariages">{{mariage.text}}</span>
+        <span class="text-secondary stitlemariages">{{mariage.texte}}</span>
     </div>
 
     <div class="row">
@@ -133,36 +133,33 @@
             <div class="container">
                 <div class="row block_2  m-0 p-0">
 
-                    {% for wedder in wedders %}
+                    {% for l in mariage.listings %}
                         <div class="col-md-4 col-lg-4 cardwedding">
                             <div class="card card-inverse card-info">
-                                <a href="/fr/annonce/wedding-cake-piece-montee-312130732/voir">
-                                    <img src="https://weddingyourself.fr/media/cache/listing_large/uploads/listings/images/3794be05ee52292b3bd0be4dfbd62af7076d7516.jpeg" alt="Wedding cake pièce montée 0 €" class="card-img-top" />
+                                <a href="">
+                                    <img src="../images/{{l.ListingImage[0].name}} " alt="" class="card-img-top" />
                                 </a>
                                 <div class="card-block">
                                     <figure class="profile">
-                                        <img class="profile-avatar" src="https://weddingyourself.fr/media/cache/user_xsmall/uploads/users/images/default-user.png" alt="Assa" />
-
-                                        <a href="/fr/annonce/wedding-cake-piece-montee-312130732/voir">
-                                        </a>
+                                        <img class="profile-avatar" src="../images/{{l.user.images[0].name}}" alt="Assa" />
+                                        <a href=""></a>
                                     </figure>
-                                    <p class="categorycard">
-                                        LES categorycard
-                                    </p>
+                                    <p class="categorycard">{{l.user.profession}}</p>
                                     <h4 class="card-title mt-3 titlecard">
-                                        <a href="/fr/annonce/wedding-cake-piece-montee-312130732/voir">{{wedder.firstName}} {{wedder.lastName}}</a>
+                                        <a href="">{{l.user.companyName}}</a>
                                     </h4>
                                     <div class="meta card-text locationcard text-center">
-                                        <span><i class="fa fa-map-marker" aria-hidden="true"></i> Villepinte
-                                        </span>
+                                        <span><i class="fa fa-map-marker" aria-hidden="true"></i>{{l.user.address[0].city | capitalize}}</span>
                                     </div>
 
                                 </div>
                                 <div class="card-footer text-center">
                                     <p class="nameprixcard">Prix de location:</p>
-                                    <p class="prixcard">
-                                        Sur devis
-                                    </p>
+                                    {% if l.price is defined and l.price > 0 %}
+                                        <p class="prixcard">{{l.price}} €</p>
+                                    {% else %}
+                                        <p class="prixcard">Sur devis</p>
+                                    {% endif %}
                                 </div>
                             </div>
                         </div>

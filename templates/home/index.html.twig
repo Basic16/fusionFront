@@ -147,7 +147,7 @@
 		</section>
 		<section class="search-sec">
 			<div class="container">
-				<form action="#" method="post" novalidate="novalidate">
+				<form action="{{path("recherche")}}" method="post" novalidate="novalidate">
 					<div class="row text-center justify-content-md-center">
 						<div class="col-md-12">
 							<h1>Réalisez vous-même tous vos événements</h1>
@@ -155,15 +155,13 @@
 					</div>
 					<div class="row justify-content-md-center searchweddpad">
 						<div class="col-md-9 col-sm-12 p-0">
-							<input type="text" class="form-control search-slt" placeholder="Que cherchez-vous ?">
+							<input type="text" name="recherche" class="form-control search-slt" placeholder="Que cherchez-vous ?">
 						</div>
 
 						<div class="col-md-3 col-sm-12 p-0">
-							<button type="button" class="btn btn-default wrn-btn">Rechercher</button>
+							<button type="submit" name="validBt" class="btn btn-default wrn-btn">Rechercher</button>
 						</div>
 					</div>
-
-
 				</form>
 			</div>
 		</section>
@@ -175,16 +173,16 @@
 	{% block main %}
 
 		{# AFFICHAGE LISTE STYLE MARIAGE #}
-		{% include 'home/listings_weddings.html.twig' with {'mariages': mariages} only %}
+		{% include 'home/list_mariage.html.twig' with {'mariages': mariages} only %}
 
 		{# AFFICHAGE DES CATEGORIES #}
-		{% include 'home/listings_categories.html.twig' with {'categories': categories} only %}
+		{% include 'home/list_categories.html.twig' with {'categories': categories} only %}
 
 		{# AFFICHAGE FONCTIONALITE DE SITE #}
 		{% include 'home/feature_site.html.twig' %}
 
-		{# AFFICHAGE NOUVEAU WEDDER #}
-		{% include 'home/high_rank.html.twig' with {'wedders': wedders} only %}
+		{# AFFICHAGE NOUVEAU LISTING #}
+		{% include 'home/list_listing.html.twig' with {'listing': listing} only %}
 
 	{% endblock %}
 

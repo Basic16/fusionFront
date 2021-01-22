@@ -1,0 +1,54 @@
+<div class="album mt-lg-4 pt-lg-4">
+    <div class="container">
+        <div class="row block_2  m-0 p-0">
+            <h3 class="title_section">Choisissez votre style de mariage</h3>
+            <p class="stitle_section mb20">Lorem Ipsum is simply dummy text of the printing and typesetting industry. Lorem Ipsum has been.</p>
+
+			{% for unMariage in mariages %}          
+			<div class="col-md-3" style="margin-bottom: 30px; ">				
+				<div class="cardmariage mb-3 card-mariages-accueil">
+					<div class="innermariage">
+						{% if unMariage.imageaccueil is empty %}
+							<a href="{{path("mariage", {"url": unMariage.url})}}"><img class="card-img-top" style="" src="{{asset("images/"~unMariage.imageaccueil)}}" alt="Image {{ unMariage.nom }}"></a>
+						{% else %}
+							<a href="{{path("mariage", {"url": unMariage.url})}}"><img class="card-img-top" style="" src="{{asset("images/"~unMariage.imageaccueil)}}" alt="Image {{ unMariage.nom }}"></a>
+						{% endif %}
+					</div>
+
+					<div class="card-body text-center">
+						<h5 class="card-title border-bottom pb-3 text-dark">
+						{% if unMariage.url is empty %}
+								<a href="{{path("mariage", {"url": unMariage.url})}}" class="bold text-dark card-title pb-3">{{ unMariage.nom }}</a>
+							</h5>
+						{% else %}
+								<a href="{{path("mariage", {"url": unMariage.url})}}" class="bold text-dark card-title pb-3">{{ unMariage.nom }}</a>
+							</h5>
+						{% endif %}
+
+						{% if unMariage.traduction is not empty %}
+							<p class="card-text">
+								{% if unMariage.url is empty %}
+									<a href="{{path("mariage", {"url": unMariage.url})}}" class="text-dark">{{unMariage.traduction}}</a>
+								{% else %}
+									<a href="{{path("mariage", {"url": unMariage.url})}}" class="text-dark">{{unMariage.traduction}}</a>
+								{% endif %}
+                            </p>
+						{% endif %}
+
+						{% if unMariage.logo is not empty %}
+							{% if unMariage.url is empty %}
+								<a href="{{path("mariage", {"url": unMariage.url})}}"><img class="card-text" style="width: 2Opx; height: 20px;" src="{{asset("images/"~unMariage.logo)}}" alt"{{ unMariage.nom }}"/></a>
+							{% else %}
+        
+								<a href="{{path("mariage", {"url": unMariage.url})}}"><img class="card-text" style="width: 2Opx; height: 20px;" src="{{asset("images/"~unMariage.logo)}}" alt="{{ unMariage.nom }}"/></a>
+							{% endif %}
+						{% endif %}
+					</div>
+				</div>
+			</div>
+			{% endfor %}
+
+		</div>
+	</div>
+</div>
+

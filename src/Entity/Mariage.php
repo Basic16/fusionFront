@@ -2,66 +2,92 @@
 
 namespace App\Entity;
 
-use App\Repository\MariageRepository;
+use Doctrine\Common\Collections\ArrayCollection;
+use Doctrine\Common\Collections\Collection;
 use Doctrine\ORM\Mapping as ORM;
 
 /**
- * @ORM\Entity(repositoryClass=MariageRepository::class)
+ * Mariage
+ *
+ * @ORM\Table(name="mariage")
+ * @ORM\Entity
  */
 class Mariage
 {
     /**
+     * @var int
+     *
+     * @ORM\Column(name="id", type="integer", nullable=false)
      * @ORM\Id
-     * @ORM\GeneratedValue
-     * @ORM\Column(type="integer")
+     * @ORM\GeneratedValue(strategy="IDENTITY")
      */
     private $id;
 
     /**
-     * @ORM\Column(type="string", length=255)
+     * @var string
+     *
+     * @ORM\Column(name="nom", type="string", length=40, nullable=false)
      */
     private $nom;
 
     /**
-     * @ORM\Column(type="string", length=255)
+     * @var string|null
+     *
+     * @ORM\Column(name="texte", type="text", length=0, nullable=true)
      */
-    private $text;
+    private $texte;
 
     /**
-     * @ORM\Column(type="string", length=255)
+     * @var string|null
+     *
+     * @ORM\Column(name="image", type="string", length=255, nullable=true)
      */
-    private $images;
+    private $image;
 
     /**
-     * @ORM\Column(type="string", length=255)
+     * @var string|null
+     *
+     * @ORM\Column(name="traduction", type="string", length=255, nullable=true)
      */
     private $traduction;
 
     /**
-     * @ORM\Column(type="string", length=255)
+     * @var string|null
+     *
+     * @ORM\Column(name="logo", type="string", length=255, nullable=true)
      */
     private $logo;
 
     /**
-     * @ORM\Column(type="string", length=255)
+     * @var string|null
+     *
+     * @ORM\Column(name="imageaccueil", type="string", length=255, nullable=true)
      */
     private $imageaccueil;
 
     /**
-     * @ORM\Column(type="string", length=255)
+     * @var string|null
+     *
+     * @ORM\Column(name="url", type="string", length=255, nullable=true)
      */
     private $url;
+
+    /**
+     * @ORM\ManyToMany(targetEntity=Listing::class, mappedBy="mariages")
+     */
+    private $listings;
+
+    /**
+     * Constructor
+     */
+    public function __construct()
+    {
+        $this->listings = new ArrayCollection();
+    }
 
     public function getId(): ?int
     {
         return $this->id;
-    }
-
-    public function setId(string $id): self
-    {
-        $this->id = $id;
-
-        return $this;
     }
 
     public function getNom(): ?string
@@ -76,26 +102,26 @@ class Mariage
         return $this;
     }
 
-    public function getText(): ?string
+    public function getTexte(): ?string
     {
-        return $this->text;
+        return $this->texte;
     }
 
-    public function setText(string $text): self
+    public function setTexte(?string $texte): self
     {
-        $this->text = $text;
+        $this->texte = $texte;
 
         return $this;
     }
 
-    public function getImages(): ?string
+    public function getImage(): ?string
     {
-        return $this->images;
+        return $this->image;
     }
 
-    public function setImages(string $images): self
+    public function setImage(?string $image): self
     {
-        $this->images = $images;
+        $this->image = $image;
 
         return $this;
     }
@@ -105,7 +131,7 @@ class Mariage
         return $this->traduction;
     }
 
-    public function setTraduction(string $traduction): self
+    public function setTraduction(?string $traduction): self
     {
         $this->traduction = $traduction;
 
@@ -117,7 +143,7 @@ class Mariage
         return $this->logo;
     }
 
-    public function setLogo(string $logo): self
+    public function setLogo(?string $logo): self
     {
         $this->logo = $logo;
 
@@ -129,7 +155,7 @@ class Mariage
         return $this->imageaccueil;
     }
 
-    public function setImageaccueil(string $imageaccueil): self
+    public function setImageaccueil(?string $imageaccueil): self
     {
         $this->imageaccueil = $imageaccueil;
 
@@ -141,10 +167,38 @@ class Mariage
         return $this->url;
     }
 
-    public function setUrl(string $url): self
+    public function setUrl(?string $url): self
     {
         $this->url = $url;
 
         return $this;
     }
+
+    /**
+     * @return Collection|Listing[]
+     */
+    public function getListings(): Collection
+    {
+        return $this->listings;
+    }
+
+    public function addListing(Listing $listing): self
+    {
+        if (!$this->listings->contains($listing)) {
+            $this->listings[] = $listing;
+            $listing->addMariage($this);
+        }
+
+        return $this;
+    }
+
+    public function removeListing(Listing $listing): self
+    {
+        if ($this->listings->removeElement($listing)) {
+            $listing->removeMariage($this);
+        }
+
+        return $this;
+    }
+
 }

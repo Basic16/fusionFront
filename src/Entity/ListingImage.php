@@ -60,7 +60,7 @@ class ListingImage
         return $this->name;
     }
 
-    public function setName(string $name): self
+    public function setName(String $name): self
     {
         $this->name = $name;
 

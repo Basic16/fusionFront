@@ -7,11 +7,9 @@ use Symfony\Component\HttpFoundation\Response;
 use Symfony\Component\Routing\Annotation\Route;
 use Symfony\Component\HttpFoundation\Request;
 use App\Utilitaire\RestMariage;
-use App\Utilitaire\RestUser;
-use PhpParser\Node\Expr\Cast\String_;
 use Symfony\Contracts\HttpClient\HttpClientInterface;
 
-class ListingListController extends AbstractController
+class MariageController extends AbstractController
 {
     private $client;
 
@@ -21,22 +19,21 @@ class ListingListController extends AbstractController
     }
 
     /**
-     * @Route("/annonceur/{name}", name="listingList",  requirements={"d"="en|fr"})))
+     * @Route("/mariage/{url}", name="mariage",  requirements={"d"="en|fr"})))
      */
-    public function listingList(String $name, Request $request): Response
+    public function listingList(String $url, Request $request): Response
     {
 
         // GET idMariage value in url
-        $mariage = RestMariage::getUnMariage($this->client, $this->getParameter('apiAdress'), $this->getParameter('apiServer'), $name);
+        $mariage = RestMariage::getUnMariage($this->client, $this->getParameter('apiAdress'), $this->getParameter('apiServer'), $url);
 
-        //dump($mariage);
 
-        // GET wedder list
-        $wedders = RestUser::getLesWedders($this->client, $this->getParameter('apiAdress'), $this->getParameter('apiServer'));
+        dump($mariage);
+
+
 
         return $this->render('mariage/index.html.twig', [
             'mariage' => $mariage,
-            'wedders' => $wedders,    
             'controller_name' => 'MariageController',
         ]);
     }

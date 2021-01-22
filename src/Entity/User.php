@@ -29,13 +29,19 @@ class User
 
     /**
      * @ORM\Column(type="string", length=255)
+     * @Assert\Length(
+     *     min=3,
+     *     max="255",
+     *     minMessage="cocorico_user.username.short",
+     *     maxMessage="cocorico_user.username.long"   
+     * )
      */
     private $username;
 
     /**
      * @ORM\Column(type="string", length=255)
      */
-    private $password;
+    private $plainPassword;
 
     /**
      * @ORM\Column(type="string", length=255)
@@ -71,6 +77,11 @@ class User
      * @ORM\Column(type="string", length=10)
      */
     private $phone;
+
+    /**
+     * @ORM\Column(type="string", length=6)
+     */
+    protected $phonePrefix = '+33';
 
     /**
      * @ORM\Column(type="string", length=255)
@@ -137,14 +148,14 @@ class User
         return $this;
     }
 
-    public function getPassword(): ?string
+    public function getPlainPassword(): ?string
     {
-        return $this->password;
+        return $this->plainPassword;
     }
 
-    public function setPassword(string $password): self
+    public function setPlainPassword(string $plainPassword): self
     {
-        $this->password = $password;
+        $this->plainPassword = $plainPassword;
 
         return $this;
     }
@@ -267,6 +278,16 @@ class User
         $this->phone = $phone;
 
         return $this;
+    }
+
+    public function getPhonePrefix()
+    {
+        return $this->phonePrefix;
+    }
+
+    public function setPhonePrefix($phonePrefix)
+    {
+        $this->phonePrefix = $phonePrefix;
     }
 
     public function getEmail(): ?string

@@ -55,7 +55,7 @@ class Listing
     /**
      * @var int|null
      *
-     * @ORM\Column(name="min_duration", type="smallint", nullable=true)
+     * @ORM\Column(name="min_duration", type="smallint", nullable=true) 
      */
     private $minDuration;
 
@@ -116,11 +116,24 @@ class Listing
     private $updatedat;
 
     /**
-     * @var \Doctrine\Common\Collections\Collection
+     * @var \ListingLocation
      *
-     * @ORM\ManyToMany(targetEntity="Mariage", mappedBy="listing")
+     * @ORM\ManyToOne(targetEntity="ListingLocation")
+     * @ORM\JoinColumns({
+     *   @ORM\JoinColumn(name="location_id", referencedColumnName="id")
+     * })
      */
-    private $mariage;
+    private $location;
+
+    /**
+     * @var \User
+     *
+     * @ORM\ManyToOne(targetEntity="User")
+     * @ORM\JoinColumns({
+     *   @ORM\JoinColumn(name="user_id", referencedColumnName="id")
+     * })
+     */
+    private $user;
 
     /**
      * @ORM\OneToMany(targetEntity=ListingImage::class, mappedBy="Listing")
@@ -128,17 +141,14 @@ class Listing
     private $ListingImage;
 
     /**
-     * @ORM\ManyToOne(targetEntity=User::class, inversedBy="listing")
+     * @ORM\ManyToMany(targetEntity=Mariage::class, inversedBy="listings")
      */
-    private $user;
+    private $mariages;
 
-    /**
-     * Constructor
-     */
     public function __construct()
     {
-        $this->mariage = new \Doctrine\Common\Collections\ArrayCollection();
         $this->ListingImage = new ArrayCollection();
+        $this->mariages = new ArrayCollection();
     }
 
     public function getId(): ?int
@@ -302,6 +312,30 @@ class Listing
         return $this;
     }
 
+    /*public function getLocation(): ?ListingLocation
+    {
+        return $this->location;
+    }
+
+    public function setLocation(?ListingLocation $location): self
+    {
+        $this->location = $location;
+
+        return $this;
+    }*/
+
+    public function getUser():?User
+    {
+        return $this->user;
+    }
+
+    public function setUser(?User $user): self
+    {
+        $this->user = $user;
+
+        return $this;
+    }
+
     /**
      * @return Collection|ListingImage[]
      */
@@ -332,14 +366,26 @@ class Listing
         return $this;
     }
 
-    public function getUser(): ?User
+    /**
+     * @return Collection|Mariage[]
+     */
+    public function getMariages(): Collection
     {
-        return $this->user;
+        return $this->mariages;
     }
 
-    public function setUser(?User $user): self
+    public function addMariage(Mariage $mariage): self
     {
-        $this->user = $user;
+        if (!$this->mariages->contains($mariage)) {
+            $this->mariages[] = $mariage;
+        }
+
+        return $this;
+    }
+
+    public function removeMariage(Mariage $mariage): self
+    {
+        $this->mariages->removeElement($mariage);
 
         return $this;
     }

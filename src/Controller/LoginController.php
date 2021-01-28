@@ -37,12 +37,7 @@ class LoginController extends AbstractController
     public function inscrire(Request $request/*,  UserPasswordEncoderInterface $passwordEncoder*/)
     {
         $user = new User();
-        $form_registration = $this->createForm(InscriptionType::class, $user);
-        
-
-    
-      
-        
+        $form_registration = $this->createForm(InscriptionType::class, $user);   
         
         return $this->render('login/Common/_new_login_register.html.twig', [
             'form_registration'=>$form_registration->createView()

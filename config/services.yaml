@@ -6,6 +6,7 @@
 parameters:
   apiServer: 'http://serveur1.arras-sio.com'
   apiAdress: 'http://serveur1.arras-sio.com/symfony4-4149/API/public/index.php/api/'
+  locale: 'fr'
 
 services:
     # default configuration for services in *this* file

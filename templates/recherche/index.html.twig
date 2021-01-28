@@ -1,10 +1,356 @@
 {% extends 'base.html.twig' %}
 
-{% block title %}Recherche - {{parent()}}{% endblock %}
+{% block title %}Resultats de votre recherche - {{parent()}}{% endblock %}
 
 {% block body %}
+
+<style media="screen">
+    /* Mariages */
+    .lead a {
+        color: #665600;
+    }
+
+    li a {
+        color: #665600;
+    }
+
+    .card-header {
+        background-color: #cab437;
+        color: #fff;
+    }
+
+    .card-mariages .card-body {
+        max-height: 350px;
+        overflow-y: auto;
+        margin-top: 20px;
+        background: url(data:image/png;base64,iVBORw0KGgoAAAANSUhEUgAAAAEAAAAUCAMAAAB70KeTAAAADFBMVEX29vb7+/v////y8vIBesvrAAAAEklEQVR4AWNggkJGJIgAzDAIAAIvAB5vqnzBAAAAAElFTkSuQmCC) repeat-x left bottom;
+        border: 1px solid #d9d9d9;
+    }
+
+    .card-mariages .list-group-item {
+        background-color: transparent;
+        border: 0;
+        padding: 0 0 5px 0;
+
+    }
+
+    .card-mariages .label_card_mariages {
+        font-weight: 600;
+        padding-bottom: 10px;
+    }
+
+    .card-mariages label {
+        margin-bottom: 0;
+    }
+
+    .themeBtn {
+        background: #cab437;
+        color: #ffffff !important;
+        display: inline-block;
+        font-size: 15px;
+        font-weight: 500;
+        height: 40px;
+        line-height: 0.8;
+        padding: 14px 30px;
+        text-transform: capitalize;
+        border-radius: 1px;
+        letter-spacing: 0.5px;
+        border: 0px !important;
+        cursor: pointer;
+        border-radius: 100px;
+        margin-bottom: 5px;
+    }
+
+    .themeBtn:hover {
+        background: #fff;
+        color: #cab437 !important;
+        box-shadow: 0 10px 25px -2px #cab437;
+    }
+
+    .titlemariages {
+        font-family: Merriweather, "Times New Roman", Times, serif;
+        font-size: 30px;
+        line-height: 42px;
+        -webkit-font-smoothing: antialiased;
+        -moz-osx-font-smoothing: grayscale;
+        font-weight: 700;
+        margin: 10px 0;
+        color: #222 !important;
+    }
+
+    .stitlemariages {
+        font-size: 16px;
+        line-height: 24px;
+        margin: 0 40px 15px;
+        color: #222 !important;
+    }
+
+    /* Pagination */
+    .pagination>li>a { border-radius: 50% !important;margin: 0 5px;}
+
+    .pagination {
+    justify-content: center;
+    margin-bottom: 20px;
+    }
+
+    .page-item.active .page-link {
+    color: #fff;
+    background-color: #cab437;
+    border-color: #cab437;
+    }
+
+    .page-link {
+    color: #cab437;
+    }
+
+    .page-link:hover {
+    background-color: #cab437;
+    color: #fff;
+    }
+</style>
+
+<!-- Page Content -->
 <div class="container">
-	<h1>Recherche</h1>
-	<p>Résultat de votre recherche</p>
+    <div class="col-12">
+        <h1 class="text-center text-secondary titlemariages">{{recherche}}</h1>
+    </div>
+    <div class="col-12 text-center pb-4 mb-4">
+        <span class="text-secondary stitlemariages">Résultats de votre recherche</span>
+    </div>
+
+    <div class="row">
+
+        <!-- Blog Entries Column -->
+        <div class="col-lg-8">
+			{% if erreur == null %}
+				<div class="container">
+					<div class="row block_2  m-0 p-0">
+
+						{% for l in listings %}
+							<div class="col-md-4 col-lg-4 cardwedding">
+								<div class="card card-inverse card-info">
+									<a href="">
+										<img src="../images/{{l.ListingImage[0].name}} " alt="" class="card-img-top" />
+									</a>
+									<div class="card-block">
+										<figure class="profile">
+											<img class="profile-avatar" src="../images/{{l.user.images[0].name}}" alt="Assa" />
+											<a href=""></a>
+										</figure>
+										<p class="categorycard">{{l.user.profession}}</p>
+										<h4 class="card-title mt-3 titlecard">
+											<a href="">{{l.user.companyName}}</a>
+										</h4>
+										<div class="meta card-text locationcard text-center">
+											<span><i class="fa fa-map-marker" aria-hidden="true"></i>{{l.user.address[0].city | capitalize}}</span>
+										</div>
+
+									</div>
+									<div class="card-footer text-center">
+										<p class="nameprixcard">Prix de location:</p>
+										{% if l.price is defined and l.price > 0 %}
+											<p class="prixcard">{{l.price}} €</p>
+										{% else %}
+											<p class="prixcard">Sur devis</p>
+										{% endif %}
+									</div>
+								</div>
+							</div>
+						{% endfor %}
+
+					</div>
+				</div>
+				<!-- Pagination -->
+				<div class="row">
+					<div class="col-md-12">
+						<nav aria-label="Page navigation example">
+						<ul class="pagination">
+							<li class="page-item">
+								<a class="page-link" href="#" aria-label="Previous">
+									<span aria-hidden="true">«</span>
+									<span class="sr-only">Previous</span>
+								</a>
+							</li>
+							<li class="page-item active"><a class="page-link" href="#">1</a></li>
+							<li class="page-item"><a class="page-link" href="#">2</a></li>
+							<li class="page-item"><a class="page-link" href="#">3</a></li>
+							<li class="page-item">
+								<a class="page-link" href="#" aria-label="Next">
+									<span aria-hidden="true">»</span>
+									<span class="sr-only">Next</span>
+								</a>
+							</li>
+						</ul>
+						</nav>
+					</div>
+            	</div>
+            <!-- Fin pagination -->
+			{% else %}
+				<h1>{{erreur}}</h1>
+				<a href="#">Retour à l'accueil</a>
+			{% endif %}
+        </div>
+
+        <!-- Sidebar Widgets Column -->
+        <div class="col-md-4">
+
+            <!-- Search Widget -->
+            <div class="card card-mariages shadow border-0">
+                <h5 class="card-header">Types de prestataires</h5>
+                <div class="card-body">
+                    <ul class="list-group">
+                        <span class="label_card_mariages">Tous les types</span>
+                        <li class="list-group-item rounded-0">
+                            <div class="custom-control custom-checkbox">
+                                <input type="checkbox" class="all">
+                                <label>Tout cocher</label>
+                            </div>
+                        </li>
+                        <li class="list-group-item rounded-0">
+                            <hr>
+                        </li>
+                        <li class="list-group-item rounded-0">
+                            <div class="custom-control custom-checkbox">
+                                <input class="custom-control-input" id="customCheck1" type="checkbox">
+                                <label class="cursor-pointer" for="customCheck1">Lieu de réception</label>
+                            </div>
+                        </li>
+
+                        <li class="list-group-item">
+                            <div class="custom-control custom-checkbox">
+                                <input class="custom-control-input" id="customCheck2" type="checkbox">
+                                <label class="cursor-pointer " for="customCheck2">Traiteurs</label>
+                            </div>
+                        </li>
+                        <li class="list-group-item">
+                            <div class="custom-control custom-checkbox">
+                                <input class="custom-control-input" id="customCheck3" type="checkbox">
+                                <label class="cursor-pointer " for="customCheck3">Photo et vidéo</label>
+                            </div>
+                        </li>
+                        <li class="list-group-item">
+                            <div class="custom-control custom-checkbox">
+                                <input class="custom-control-input" id="customCheck4" type="checkbox">
+                                <label class="cursor-pointer " for="customCheck4">Fleuriste</label>
+                            </div>
+                        </li>
+                        <li class="list-group-item rounded-0">
+                            <div class="custom-control custom-checkbox">
+                                <input class="custom-control-input" id="customCheck5" type="checkbox">
+                                <label class="cursor-pointer " for="customCheck5">Décoration</label>
+                            </div>
+                        </li>
+                        <li class="list-group-item rounded-0">
+                            <div class="custom-control custom-checkbox">
+                                <input class="custom-control-input" id="customCheck5" type="checkbox">
+                                <label class="cursor-pointer " for="customCheck5">Musique et Animation</label>
+                            </div>
+                        </li>
+                        <li class="list-group-item rounded-0">
+                            <div class="custom-control custom-checkbox">
+                                <input class="custom-control-input" id="customCheck5" type="checkbox">
+                                <label class="cursor-pointer " for="customCheck5">Location de véhicules</label>
+                            </div>
+                        </li>
+                        <li class="list-group-item rounded-0">
+                            <div class="custom-control custom-checkbox">
+                                <input class="custom-control-input" id="customCheck5" type="checkbox">
+                                <label class="cursor-pointer " for="customCheck5">Bijoutiers</label>
+                            </div>
+                        </li>
+                        <li class="list-group-item rounded-0">
+                            <div class="custom-control custom-checkbox">
+                                <input class="custom-control-input" id="customCheck5" type="checkbox">
+                                <label class="cursor-pointer " for="customCheck5">Wedding planner</label>
+                            </div>
+                        </li>
+                        <li class="list-group-item rounded-0">
+                            <div class="custom-control custom-checkbox">
+                                <input class="custom-control-input" id="customCheck5" type="checkbox">
+                                <label class="cursor-pointer " for="customCheck5">Agences de voyages</label>
+                            </div>
+                        </li>
+                        <li class="list-group-item rounded-0">
+                            <div class="custom-control custom-checkbox">
+                                <input class="custom-control-input" id="customCheck5" type="checkbox">
+                                <label class="cursor-pointer " for="customCheck5">Robes de mariée</label>
+                            </div>
+                        </li>
+                        <li class="list-group-item rounded-0">
+                            <div class="custom-control custom-checkbox">
+                                <input class="custom-control-input" id="customCheck5" type="checkbox">
+                                <label class="cursor-pointer " for="customCheck5">Accessoires mariée</label>
+                            </div>
+                        </li>
+                        <li class="list-group-item rounded-0">
+                            <div class="custom-control custom-checkbox">
+                                <input class="custom-control-input" id="customCheck5" type="checkbox">
+                                <label class="cursor-pointer " for="customCheck5">Beauté</label>
+                            </div>
+                        </li>
+                        <li class="list-group-item rounded-0">
+                            <div class="custom-control custom-checkbox">
+                                <input class="custom-control-input" id="customCheck5" type="checkbox">
+                                <label class="cursor-pointer " for="customCheck5">Tenue du marié</label>
+                            </div>
+                        </li>
+                        <li class="list-group-item rounded-0">
+                            <div class="custom-control custom-checkbox">
+                                <input class="custom-control-input" id="customCheck5" type="checkbox">
+                                <label class="cursor-pointer " for="customCheck5">Faire-part</label>
+                            </div>
+                        </li>
+                        <li class="list-group-item rounded-0">
+                            <div class="custom-control custom-checkbox">
+                                <input class="custom-control-input" id="customCheck5" type="checkbox">
+                                <label class="cursor-pointer " for="customCheck5">Autres</label>
+                            </div>
+                        </li>
+                        <li class="list-group-item rounded-0">
+                            <div class="custom-control custom-checkbox">
+                                <input class="custom-control-input" id="customCheck5" type="checkbox">
+                                <label class="cursor-pointer " for="customCheck5">Cake designer</label>
+                            </div>
+                        </li>
+                    </ul>
+                </div>
+            </div>
+
+            <div class="field-holder p-2 m-2">
+
+                <input type="search" id="location" name="location[address]" value="" class="form-control" placeholder="Saisissez un endroit" style="box-shadow: 0px 0px 15px -5px #000;" />
+                <input type="hidden" id="location_lat" name="location[lat]" /><input type="hidden" id="location_lng" name="location[lng]" /><input type="hidden" id="location_viewport" name="location[viewport]" /><input type="hidden" id="location_country" name="location[country]" /><input type="hidden" id="location_area" name="location[area]" /><input type="hidden" id="location_department" name="location[department]" /><input type="hidden" id="location_city" name="location[city]" value="" /><input type="hidden" id="location_zip" name="location[zip]" value="" /><input type="hidden" id="location_route" name="location[route]" /><input type="hidden" id="location_streetNumber" name="location[streetNumber]" /><input type="hidden" id="location_addressType" name="location[addressType]" />
+            </div>
+            <div class="text-center">
+                <input type="submit" value="Rechercher" name="btRechercher" class="btn btn-default" style="color: #fff;background-color: #cab437;padding: 10px 20px;text-transform: uppercase;border-radius: 45px;font-size: 14px;border: 1px solid #cab437;">
+            </div>
+
+            <hr>
+
+            <!-- Archives Widget -->
+            <div class="card my-3">
+                <h5 class="card-header">Trier</h5>
+                <div class="card-body">
+                    <ul class="list-unstyled mb-0 text-center">
+                        <li>
+                            <button href="https://www.behance.net/sakiran" target="_blank" class="themeBtn">Les plus récents</button>
+                        </li>
+                        <li>
+                            <button href="https://www.behance.net/sakiran" target="_blank" class="themeBtn">Les plus anciens</button>
+                        </li>
+                        <li>
+                            <button href="https://www.behance.net/sakiran" target="_blank" class="themeBtn">Les mieux notés</button>
+                        </li>
+                    </ul>
+                </div>
+            </div>
+
+
+        </div>
+
+    </div>
+    <!-- /.row -->
+
 </div>
+<!-- /.container -->
 {% endblock %}

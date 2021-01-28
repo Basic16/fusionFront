@@ -58,7 +58,7 @@ class RestMariage
 
         $statusCode = $response->getStatusCode();
         $content = $response->toArray();
-        dump($content);
+        //dump($content);
 
         $mariage = new Mariage();
         $mariage->setNom($content[0]['nom']);

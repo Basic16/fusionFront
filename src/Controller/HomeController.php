@@ -34,22 +34,36 @@ class HomeController extends AbstractController
         // Permet l'affichage des dernier Wedder
         $listing = RestListing::getLesListing($this->client, $this->getParameter('apiAdress'), $this->getParameter('apiServer'));
 
-        //dump($listing);
+        dump($categories);
         
         return $this->render('home/index.html.twig', ['mariages' => $mariages, 'categories' => $categories, 'listing' => $listing]);
     }
-
     
     /**
-     * @Route("/recherche", name="recherche")
+     * @Route("/recherche/", name="recherche")
      */
     public function recherche(Request $request): Response
     {
+        $erreur = null;
+        $recherche = "";
+        $listings = [];
+        // Vérifie si un l'utilisateur à saisie quelque chose dans la barre de recherche
         if($request->isMethod("POST") && !empty($request->get("recherche"))){
-            echo $request->get("recherche");
+
+            $recherche = $request->get("recherche");
+            $listings = RestListing::getLesListingRecherche($this->client, $this->getParameter('apiAdress'), $this->getParameter('apiServer'), $recherche);
+            if(count($listings) <= 0){
+                $erreur = "Aucun résultat ne correspond à votre recherche";
+            }
+
+        }else{
+            $erreur = "Vous n'avez rien saisie dans le champ de recherche !";
         }
+
         
-        return $this->render('recherche/index.html.twig', []);
+        dump($listings);
+
+        return $this->render('recherche/index.html.twig', ["listings" => $listings, "recherche" => $recherche, "erreur" => $erreur]);
     }
 
 

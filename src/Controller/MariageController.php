@@ -2,6 +2,7 @@
 
 namespace App\Controller;
 
+use App\Utilitaire\RestListingCategory;
 use Symfony\Bundle\FrameworkBundle\Controller\AbstractController;
 use Symfony\Component\HttpFoundation\Response;
 use Symfony\Component\Routing\Annotation\Route;
@@ -19,21 +20,21 @@ class MariageController extends AbstractController
     }
 
     /**
-     * @Route("/mariage/{url}", name="mariage",  requirements={"d"="en|fr"})))
+     * @Route("/mariage/{url}", name="mariage",  requirements={"d"="en|fr"})
      */
     public function listingList(String $url, Request $request): Response
     {
-
-        // GET idMariage value in url
+        // GET url mariage and linsting value in url
         $mariage = RestMariage::getUnMariage($this->client, $this->getParameter('apiAdress'), $this->getParameter('apiServer'), $url);
 
+        // Get list listing catégory
+        $listingsCategory = RestListingCategory::getLesListinCategoryMariage($this->client, $this->getParameter('apiAdress'), $this->getParameter('apiServer'));
 
-        dump($mariage);
-
-
+        dump($listingsCategory);
 
         return $this->render('mariage/index.html.twig', [
             'mariage' => $mariage,
+            'listingsCategory' => $listingsCategory,
             'controller_name' => 'MariageController',
         ]);
     }

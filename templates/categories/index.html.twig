@@ -1,6 +1,6 @@
 {% extends 'base.html.twig' %} 
 
-{% block title %}{{mariage.nom}} - {{parent()}}{% endblock %}
+{% block title %} - {{parent()}}{% endblock %}
 
 {% block body %}
 <style media="screen">
@@ -111,10 +111,12 @@
     }
 </style>
 
+{% if data.category is defined %}
+
 <div class="container-fluid pb-2 mb-2">
     <div class="row">
         <div class="col-12 text-center p-0 m-0">
-            <img src="../images/{{mariage.image}}" alt="" class="img-fluid">
+            <img src="../images/{{data.category.image}}" alt="" class="img-fluid">
         </div>
     </div>
 </div>
@@ -122,10 +124,10 @@
 <!-- Page Content -->
 <div class="container">
     <div class="col-12">
-        <h1 class="text-center text-secondary titlemariages">{{mariage.nom}}</h1>
+        <h1 class="text-center text-secondary titlemariages">{{data.category.ListingCategorieTranslation[0].name}}</h1>
     </div>
     <div class="col-12 text-center pb-4 mb-4">
-        <span class="text-secondary stitlemariages">{{mariage.texte}}</span>
+        <span class="text-secondary stitlemariages">{{data.category.description | capitalize}} {{data.category.texte}}</span>
     </div>
 
     <div class="row">
@@ -135,7 +137,7 @@
             <div class="container">
                 <div class="row block_2  m-0 p-0">
 
-                    {% for l in mariage.listings %}
+                    {% for l in data.listings %}
                     <div class="col-md-4 col-lg-4 cardwedding">
                         <div class="card card-inverse card-info">
                             <a href="">
@@ -201,7 +203,7 @@
 
             <!-- Search Widget -->
             <div class="card card-mariages shadow border-0">
-                <h5 class="card-header">Types de prestataires</h5>
+                <h5 class="card-header">Types de mariages</h5>
                 <div class="card-body">
                     <ul class="list-group">
                         <span class="label_card_mariages">Tous les types</span>
@@ -214,11 +216,11 @@
                         <li class="list-group-item rounded-0">
                             <hr>
                         </li>
-                        {% for l in listingsCategory %}
+                        {% for m in mariages %}
                             <li class="list-group-item rounded-0">
                                 <div class="custom-control custom-checkbox">
-                                    <input class="custom-control-input" id="check-{{l.ListingCategorieTranslation[0].slug}}" type="checkbox">
-                                    <label class="cursor-pointer" for="check-{{l.ListingCategorieTranslation[0].slug}}">{{l.ListingCategorieTranslation[0].name}}</label>
+                                    <input class="custom-control-input" id="check-{{m.nom}}" type="checkbox">
+                                    <label class="cursor-pointer" for="check-{{m.nom}}">{{m.nom}}</label>
                                 </div>
                             </li>
                         {% endfor %}
@@ -258,7 +260,6 @@
                 </div>
             </div>
 
-
         </div>
 
     </div>
@@ -266,4 +267,10 @@
 
 </div>
 <!-- /.container -->
+
+{% else %}
+    <h1>Cette catégorie est vide pour le moment :(</h1>
+    <a href="#">Retour à l'accueil</a>
+{% endif %}
+
 {% endblock %}

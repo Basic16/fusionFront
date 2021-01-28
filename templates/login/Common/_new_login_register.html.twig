@@ -1,8 +1,7 @@
 {% extends 'base.html.twig' %}
-
 {% block title %}Inscription - {{parent()}}{% endblock %}
 
-{% block javascripts %}
+{% block main %}
 
 {# For debugging purpose #}
 {% if app.environment == 'dev'  %}
@@ -30,8 +29,7 @@
 {% if form_registration %}
     <!-- Registration Form -->
     {% include 'login/Common/_new_register.html.twig'  with {
-    'form_registration' : form_registration,
-    'register_class' : register_class
+    'form_registration' : form_registration
     } only %}
 {% endif %}
 
@@ -145,6 +143,7 @@
                 return;
             }
 
+
             if ($(personType).val() == 2) {//legal
                 $('[data-id=company-name]').show();
                 $('[data-id=company-name] input').addClass('required');
@@ -202,5 +201,6 @@
         });
     });
 </script>
+
 
 {% endblock %}

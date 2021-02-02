@@ -112,10 +112,22 @@
 <!-- Page Content -->
 <div class="container">
     <div class="col-12">
-        <h1 class="text-center text-secondary titlemariages">{{recherche}}</h1>
+        <h1 class="text-center text-secondary titlemariages">Résultats de votre recherche</h1>
     </div>
     <div class="col-12 text-center pb-4 mb-4">
-        <span class="text-secondary stitlemariages">Résultats de votre recherche</span>
+        <span class="text-secondary stitlemariages">
+            {% if recherche is not empty %}
+                {{recherche}} 
+            {% else %}
+                Tous les prestataires
+            {% endif %}
+
+            {% if lieu is not empty %}
+                à {{lieu}}
+            {% else %}
+                Partout en France
+            {% endif %}
+        </span>
     </div>
 
     <div class="row">
@@ -209,119 +221,11 @@
                         <li class="list-group-item rounded-0">
                             <hr>
                         </li>
-                        <li class="list-group-item rounded-0">
-                            <div class="custom-control custom-checkbox">
-                                <input class="custom-control-input" id="customCheck1" type="checkbox">
-                                <label class="cursor-pointer" for="customCheck1">Lieu de réception</label>
-                            </div>
-                        </li>
-
-                        <li class="list-group-item">
-                            <div class="custom-control custom-checkbox">
-                                <input class="custom-control-input" id="customCheck2" type="checkbox">
-                                <label class="cursor-pointer " for="customCheck2">Traiteurs</label>
-                            </div>
-                        </li>
-                        <li class="list-group-item">
-                            <div class="custom-control custom-checkbox">
-                                <input class="custom-control-input" id="customCheck3" type="checkbox">
-                                <label class="cursor-pointer " for="customCheck3">Photo et vidéo</label>
-                            </div>
-                        </li>
-                        <li class="list-group-item">
-                            <div class="custom-control custom-checkbox">
-                                <input class="custom-control-input" id="customCheck4" type="checkbox">
-                                <label class="cursor-pointer " for="customCheck4">Fleuriste</label>
-                            </div>
-                        </li>
-                        <li class="list-group-item rounded-0">
-                            <div class="custom-control custom-checkbox">
-                                <input class="custom-control-input" id="customCheck5" type="checkbox">
-                                <label class="cursor-pointer " for="customCheck5">Décoration</label>
-                            </div>
-                        </li>
-                        <li class="list-group-item rounded-0">
-                            <div class="custom-control custom-checkbox">
-                                <input class="custom-control-input" id="customCheck5" type="checkbox">
-                                <label class="cursor-pointer " for="customCheck5">Musique et Animation</label>
-                            </div>
-                        </li>
-                        <li class="list-group-item rounded-0">
-                            <div class="custom-control custom-checkbox">
-                                <input class="custom-control-input" id="customCheck5" type="checkbox">
-                                <label class="cursor-pointer " for="customCheck5">Location de véhicules</label>
-                            </div>
-                        </li>
-                        <li class="list-group-item rounded-0">
-                            <div class="custom-control custom-checkbox">
-                                <input class="custom-control-input" id="customCheck5" type="checkbox">
-                                <label class="cursor-pointer " for="customCheck5">Bijoutiers</label>
-                            </div>
-                        </li>
-                        <li class="list-group-item rounded-0">
-                            <div class="custom-control custom-checkbox">
-                                <input class="custom-control-input" id="customCheck5" type="checkbox">
-                                <label class="cursor-pointer " for="customCheck5">Wedding planner</label>
-                            </div>
-                        </li>
-                        <li class="list-group-item rounded-0">
-                            <div class="custom-control custom-checkbox">
-                                <input class="custom-control-input" id="customCheck5" type="checkbox">
-                                <label class="cursor-pointer " for="customCheck5">Agences de voyages</label>
-                            </div>
-                        </li>
-                        <li class="list-group-item rounded-0">
-                            <div class="custom-control custom-checkbox">
-                                <input class="custom-control-input" id="customCheck5" type="checkbox">
-                                <label class="cursor-pointer " for="customCheck5">Robes de mariée</label>
-                            </div>
-                        </li>
-                        <li class="list-group-item rounded-0">
-                            <div class="custom-control custom-checkbox">
-                                <input class="custom-control-input" id="customCheck5" type="checkbox">
-                                <label class="cursor-pointer " for="customCheck5">Accessoires mariée</label>
-                            </div>
-                        </li>
-                        <li class="list-group-item rounded-0">
-                            <div class="custom-control custom-checkbox">
-                                <input class="custom-control-input" id="customCheck5" type="checkbox">
-                                <label class="cursor-pointer " for="customCheck5">Beauté</label>
-                            </div>
-                        </li>
-                        <li class="list-group-item rounded-0">
-                            <div class="custom-control custom-checkbox">
-                                <input class="custom-control-input" id="customCheck5" type="checkbox">
-                                <label class="cursor-pointer " for="customCheck5">Tenue du marié</label>
-                            </div>
-                        </li>
-                        <li class="list-group-item rounded-0">
-                            <div class="custom-control custom-checkbox">
-                                <input class="custom-control-input" id="customCheck5" type="checkbox">
-                                <label class="cursor-pointer " for="customCheck5">Faire-part</label>
-                            </div>
-                        </li>
-                        <li class="list-group-item rounded-0">
-                            <div class="custom-control custom-checkbox">
-                                <input class="custom-control-input" id="customCheck5" type="checkbox">
-                                <label class="cursor-pointer " for="customCheck5">Autres</label>
-                            </div>
-                        </li>
-                        <li class="list-group-item rounded-0">
-                            <div class="custom-control custom-checkbox">
-                                <input class="custom-control-input" id="customCheck5" type="checkbox">
-                                <label class="cursor-pointer " for="customCheck5">Cake designer</label>
-                            </div>
-                        </li>
                     </ul>
                 </div>
             </div>
 
-            <div class="field-holder p-2 m-2">
-
-                <input type="search" id="location" name="location[address]" value="" class="form-control" placeholder="Saisissez un endroit" style="box-shadow: 0px 0px 15px -5px #000;" />
-                <input type="hidden" id="location_lat" name="location[lat]" /><input type="hidden" id="location_lng" name="location[lng]" /><input type="hidden" id="location_viewport" name="location[viewport]" /><input type="hidden" id="location_country" name="location[country]" /><input type="hidden" id="location_area" name="location[area]" /><input type="hidden" id="location_department" name="location[department]" /><input type="hidden" id="location_city" name="location[city]" value="" /><input type="hidden" id="location_zip" name="location[zip]" value="" /><input type="hidden" id="location_route" name="location[route]" /><input type="hidden" id="location_streetNumber" name="location[streetNumber]" /><input type="hidden" id="location_addressType" name="location[addressType]" />
-            </div>
-            <div class="text-center">
+            <div class="text-center p-2 m-2">
                 <input type="submit" value="Rechercher" name="btRechercher" class="btn btn-default" style="color: #fff;background-color: #cab437;padding: 10px 20px;text-transform: uppercase;border-radius: 45px;font-size: 14px;border: 1px solid #cab437;">
             </div>
 

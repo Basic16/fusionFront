@@ -1,6 +1,6 @@
   {% extends 'base.html.twig' %}
 
-{% block title %}{{parent()}}- Un mariage à votre image{% endblock %}
+{% block title %}{{parent()}} - Un mariage à votre image{% endblock %}
 
 {% block theme %}home-page{% endblock %}
 
@@ -154,11 +154,13 @@
 						</div>
 					</div>
 					<div class="row justify-content-md-center searchweddpad">
-						<div class="col-md-9 col-sm-12 p-0">
-							<input type="text" name="recherche" class="form-control search-slt" placeholder="Que cherchez-vous ?">
+						<div class="col-md-4 col-sm-12 p-0">
+							<input type="text" name="rechercheInput" class="form-control search-slt" placeholder="Que cherchez-vous ?">
 						</div>
-
-						<div class="col-md-3 col-sm-12 p-0">
+                        <div class="col-lg-4 col-md-3 col-sm-12 p-0">
+                            <input type="text" name="lieuInput" class="form-control search-slt" placeholder="Où ?">
+                        </div>
+						<div class="col-md-2 col-sm-12 p-0">
 							<button type="submit" name="validBt" class="btn btn-default wrn-btn">Rechercher</button>
 						</div>
 					</div>

@@ -92,36 +92,6 @@ class InscriptionType extends AbstractType
                 array('label' => 'form.email')
             )
             ->add(
-                'birthday',
-                BirthdayType::class,
-                array(
-                    'label' => 'form.user.birthday',
-                    'widget' => 'choice',
-                    'years' => range(date('Y') - 18, date('Y') - 100),
-                    'required' => true,
-                )
-            )
-            ->add(
-                'nationality',
-                CountryType::class,
-                array(
-                    'label' => 'form.user.nationality',
-                    'required' => true,
-                    'preferred_choices' => array("GB", "FR", "ES", "DE", "IT", "CH", "US", "RU"),
-                    'data' => 'FR',
-                )
-            )
-            ->add(
-                'countryOfResidence',
-                CountryType::class,
-                array(
-                    'label' => 'form.user.country_of_residence',
-                    'required' => true,
-                    'preferred_choices' => array('GB', 'FR', 'ES', 'DE', 'IT', 'CH', 'US', 'RU'),
-                    'data' => 'FR',
-                )
-            )
-            ->add(
                 'plainPassword',
                 RepeatedType::class,
                 array(

@@ -17,6 +17,9 @@ class RestListingCategory
     {
     }
 
+    /**
+     * Récupère la liste des catégorie de préstataire
+     */
     public static function getLesListinCategory($client, $apiAdress, $apiServer)
     {
         $response = $client->request('GET', $apiAdress . 'listing_categories', [
@@ -28,26 +31,21 @@ class RestListingCategory
         $statusCode = $response->getStatusCode();
         $content = $response->toArray();
         $listingsCategory = array();
+        //dump($content);
         foreach ($content as $uneCategorie) {
             if(array_key_exists ( 'imageaccueil' , $uneCategorie )){
                 $a = new ListingCategory();
                 $a->setId($uneCategorie['id']);
-                if (isset($uneCategorie['texte'])) {
-                    $a->setTexte($uneCategorie['texte']);
+                if (isset($uneCategorie['texteaccueil'])) {
+                    $a->setTexteaccueil($uneCategorie['texteaccueil']);
                 }
                 if (isset($uneCategorie["imageaccueil"])) {
                     $a->setImageaccueil($uneCategorie['imageaccueil']);
                 }
-                if (isset($uneCategorie["imageaccueil"])) {
-                    $a->setDescription($uneCategorie['description']);
-                }
                 $a->setUrl($uneCategorie["url"]);
-                //$a->setListingCategoryTranslations();
 
                 $translation = new ListingCategoryTranslation();
                 $translation->setName($uneCategorie["listingCategoryTranslations"][0]["name"]);
-                $translation->setSlug($uneCategorie["listingCategoryTranslations"][0]["slug"]);
-
                 $a->addListingCategorieTranslation($translation);
 
                 $listingsCategory[] = $a;
@@ -57,6 +55,7 @@ class RestListingCategory
 
         return $listingsCategory;
     }
+
 
     public static function getLesListinCategoryMariage($client, $apiAdress, $apiServer)
     {
@@ -68,7 +67,7 @@ class RestListingCategory
 
         $statusCode = $response->getStatusCode();
         $content = $response->toArray();
-        //dump($content);
+        dump($content);
 
         $listListingsCategory = array();
         foreach ($content as $c) {
@@ -79,7 +78,7 @@ class RestListingCategory
 
             $listingsCategoryTranslation = new ListingCategoryTranslation();
             $listingsCategoryTranslation->setName($c["listingCategoryTranslations"][0]["name"]);
-            $listingsCategoryTranslation->setSlug($c["listingCategoryTranslations"][0]["slug"]);
+            //$listingsCategoryTranslation->setSlug($c["listingCategoryTranslations"][0]["slug"]);
 
             $listingsCategory->addListingCategorieTranslation($listingsCategoryTranslation);
             $listListingsCategory[] = $listingsCategory;
@@ -103,11 +102,13 @@ class RestListingCategory
         $statusCode = $response->getStatusCode();
         $content = $response->toArray();
 
+        //dump($content);
         $donnees = null;
         if(count($content["category"])>0){
 
             $listingCategorie = new ListingCategory();
             $listingCategorie->setTexte($content["category"][0]["texte"]);
+            $listingCategorie->setTexteaccueil($content["category"][0]["texteaccueil"]);
             $listingCategorie->setDescription($content["category"][0]["description"]);
             $listingCategorie->setImage($content["category"][0]["image"]);
 
@@ -151,6 +152,21 @@ class RestListingCategory
             ];
 
         }
+
+        return $donnees;
+    }
+
+    public function getNameCategoryByNameListing($client, $apiAdress, $apiServer, $idListing){
+        // Récupère les ListingsCatégories ainsi que leurs listings asscociés
+        $response = $client->request('GET', $apiAdress . 'custom/getListingCategorie/'.$url, [
+            'headers' => [
+                'Accept' => 'application/json',
+            ],
+        ]);
+        $statusCode = $response->getStatusCode();
+        $content = $response->toArray();
+
+        $donnees = null;
 
         return $donnees;
     }

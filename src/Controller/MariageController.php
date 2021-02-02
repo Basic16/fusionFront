@@ -30,7 +30,7 @@ class MariageController extends AbstractController
         // Get list listing catégory
         $listingsCategory = RestListingCategory::getLesListinCategoryMariage($this->client, $this->getParameter('apiAdress'), $this->getParameter('apiServer'));
 
-        dump($listingsCategory);
+        //dump($listingsCategory);
 
         return $this->render('mariage/index.html.twig', [
             'mariage' => $mariage,

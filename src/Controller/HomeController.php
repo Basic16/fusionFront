@@ -28,13 +28,13 @@ class HomeController extends AbstractController
         // Permet l'affichage des styles de mariages
         $mariages = RestMariage::getLesMariages($this->client, $this->getParameter('apiAdress'), $this->getParameter('apiServer'));
 
-        // Permet l'affichage des Top Wedder
+        // Permet l'affichage des Top catégorie Wedder
         $categories = RestListingCategory::getLesListinCategory($this->client, $this->getParameter('apiAdress'), $this->getParameter('apiServer'));
         
         // Permet l'affichage des dernier Wedder
         $listing = RestListing::getLesListing($this->client, $this->getParameter('apiAdress'), $this->getParameter('apiServer'));
 
-        dump($categories);
+        //dump($categories);
         
         return $this->render('home/index.html.twig', ['mariages' => $mariages, 'categories' => $categories, 'listing' => $listing]);
     }
@@ -45,25 +45,31 @@ class HomeController extends AbstractController
     public function recherche(Request $request): Response
     {
         $erreur = null;
-        $recherche = "";
         $listings = [];
-        // Vérifie si un l'utilisateur à saisie quelque chose dans la barre de recherche
-        if($request->isMethod("POST") && !empty($request->get("recherche"))){
+        
+        $recherche = $request->get("rechercheInput");
+        $lieu = $request->get("lieuInput");
 
-            $recherche = $request->get("recherche");
-            $listings = RestListing::getLesListingRecherche($this->client, $this->getParameter('apiAdress'), $this->getParameter('apiServer'), $recherche);
-            if(count($listings) <= 0){
-                $erreur = "Aucun résultat ne correspond à votre recherche";
+        // Vérifie si un l'utilisateur à saisie quelque chose dans la barre de recherche
+        if($request->isMethod("POST")){
+
+            if(!empty($recherche) || !empty($lieu)){
+
+
+                $listings = RestListing::getLesListingRecherche($this->client, $this->getParameter('apiAdress'), $this->getParameter('apiServer'), $recherche, $lieu);
+                if(count($listings) <= 0){
+                    $erreur = "Aucun résultat ne correspond à votre recherche";
+                }
+
+            }else{
+                return $this->redirectToRoute("home");
             }
 
         }else{
-            $erreur = "Vous n'avez rien saisie dans le champ de recherche !";
+            return $this->redirectToRoute("home");
         }
 
-        
-        dump($listings);
-
-        return $this->render('recherche/index.html.twig', ["listings" => $listings, "recherche" => $recherche, "erreur" => $erreur]);
+        return $this->render('recherche/index.html.twig', ["listings" => $listings, "recherche" => $recherche, "erreur" => $erreur, "lieu" => $lieu]);
     }
 
 

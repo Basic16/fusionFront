@@ -34,13 +34,11 @@ class RestListing
             
             $listing = new Listing();
             $listing->setPrice($l["price"]);
-            //$listing->setUpdatedat($l["updatedat"]);
 
             $listingImage = new ListingImage();
             $listingImage->setName($l["ListingImage"][0]["name"]);
             $listing->addListingImage($listingImage);
         
-
             $user = new User();
             $user->setProfession($l["user"]["profession"]);
             $user->setCompanyName($l["user"]["companyName"]);
@@ -70,9 +68,10 @@ class RestListing
     /**
      * Affiche les listing selon leur nom et leur profession
      */
-    public static function getLesListingRecherche($client, $apiAdress, $apiServer, $recherche)
+    public static function getLesListingRecherche($client, $apiAdress, $apiServer, $recherche, $lieu)
     {
-        $response = $client->request('GET', $apiAdress . 'users?companyName='.$recherche.'&profession='."".'&page=1', [
+        $url = 'custom/getListingRecherche?search='.$recherche.'&location='.$lieu;
+        $response = $client->request('GET', $apiAdress . $url, [
             'headers' => [
                 'Accept' => 'application/json',
             ],
@@ -84,37 +83,35 @@ class RestListing
         //dump($content);
 
         $listingList = [];
-        foreach($content as $u){
+        foreach($content as $l){
             
+            $listing = new Listing();
+            $listing->setPrice($l["price"]);
+            $listing->setCertified($l["certified"]);
+
+            $listingImage = new ListingImage();
+            $listingImage->setName($l["listing_image"]);
+            $listing->addListingImage($listingImage);
+            
+
             $user = new User();
-            $user->setCompanyName($u["companyName"]);
-            $user->setProfession($u["profession"]);
+            $user->setCompanyName($l["company_name"]);
+            $user->setProfession($l["profession"]);
+            $listing->setUser($user);
             
             $userAdress = new UserAddress();
-            $userAdress->setCity($u["addresses"][0]["city"]);
+            $userAdress->setCity($l["city"]);
             $user->addAddress($userAdress);
 
             $userImage = new UserImage();
-            if(count($u["images"]) > 0){
-                $userImage->setName($u["images"][0]["name"]);
+            if($l["user_image"] != null){
+                $userImage->setName($l["user_image"]);
             }else{
                 $userImage->setName("default-user.png"); // Default image
             }
             $user->addImage($userImage);
             
-            foreach ($u["Listing"] as $l) {
-                $listing = new Listing();
-                $listing->setPrice($l["price"]);
-                $listing->setCertified($l["certified"]);
-
-                $listingImage = new ListingImage();
-                $listingImage->setName($l["ListingImage"][0]["name"]);
-                
-                $listing->addListingImage($listingImage);
-                $listing->setUser($user);
-
-                $listingList[] = $listing;
-            }
+            $listingList[] = $listing;
 
         }
 

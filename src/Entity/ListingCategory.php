@@ -7,109 +7,135 @@ use Doctrine\Common\Collections\Collection;
 use Doctrine\ORM\Mapping as ORM;
 
 /**
- * @ORM\Entity(repositoryClass=ListingCategoryRepository::class)
+ * ListingCategory
+ * 
+ * @ORM\Table(name="listing_category", indexes={@ORM\Index(name="IDX_E0307BBB727ACA70", columns={"parent_id"})})
+ * @ORM\Entity
  */
 class ListingCategory
 {
     /**
+     * @var int
+     *
+     * @ORM\Column(name="id", type="integer", nullable=false)
      * @ORM\Id
-     * @ORM\GeneratedValue
-     * @ORM\Column(type="integer")
+     * @ORM\GeneratedValue(strategy="IDENTITY")
      */
     private $id;
 
     /**
-     * @ORM\Column(type="integer", nullable=true)
-     */
-    private $parent_id;
-
-    /**
-     * @ORM\Column(type="string", length=255, nullable=true)
+     * @var string|null
+     *
+     * @ORM\Column(name="url", type="string", length=255, nullable=true)
      */
     private $url;
 
     /**
-     * @ORM\Column(type="string", length=255, nullable=true)
+     * @var string|null
+     *
+     * @ORM\Column(name="texte", type="text", length=0, nullable=true)
      */
     private $texte;
 
     /**
-     * @ORM\Column(type="string", length=255, nullable=true)
+     * @var string|null
+     *
+     * @ORM\Column(name="texteaccueil", type="text", length=0, nullable=true)
      */
     private $texteaccueil;
 
     /**
-     * @ORM\Column(type="string", length=255, nullable=true)
+     * @var string|null
+     *
+     * @ORM\Column(name="image", type="string", length=255, nullable=true)
      */
     private $image;
 
     /**
-     * @ORM\Column(type="string", length=255, nullable=true)
+     * @var string|null
+     *
+     * @ORM\Column(name="imageaccueil", type="string", length=255, nullable=true)
      */
     private $imageaccueil;
 
     /**
-     * @ORM\Column(type="string", length=255, nullable=true)
+     * @var string|null
+     *
+     * @ORM\Column(name="title", type="string", length=255, nullable=true)
      */
     private $title;
 
     /**
-     * @ORM\Column(type="string", length=255, nullable=true)
+     * @var string|null
+     *
+     * @ORM\Column(name="description", type="text", length=255, nullable=true)
      */
     private $description;
 
     /**
-     * @ORM\Column(type="string", length=255, nullable=true)
+     * @var bool|null
+     *
+     * @ORM\Column(name="accueil", type="boolean", nullable=true)
      */
     private $accueil;
 
     /**
-     * @ORM\Column(type="integer")
+     * @var int
+     *
+     * @ORM\Column(name="lft", type="integer", nullable=true)
      */
     private $lft;
 
     /**
-     * @ORM\Column(type="integer")
+     * @var int
+     *
+     * @ORM\Column(name="lvl", type="integer", nullable=true)
      */
     private $lvl;
 
     /**
-     * @ORM\Column(type="integer")
+     * @var int
+     *
+     * @ORM\Column(name="rgt", type="integer", nullable=true)
      */
     private $rgt;
 
     /**
-     * @ORM\Column(type="integer", nullable=true)
+     * @var int|null
+     *
+     * @ORM\Column(name="root", type="integer", nullable=true)
      */
     private $root;
 
     /**
-     * @ORM\OneToMany(targetEntity=ListingCategoryTranslation::class, mappedBy="ListingCategory")
+     * @var \ListingCategory
+     *
+     * @ORM\ManyToOne(targetEntity="ListingCategory")
+     * @ORM\JoinColumns({
+     *   @ORM\JoinColumn(name="parent_id", referencedColumnName="id")
+     * })
      */
-    private $ListingCategorieTranslation;
+    private $parent;
+
+    /**
+     * @ORM\OneToMany(targetEntity=ListingCategoryTranslation::class, mappedBy="translatable")
+     */
+    private $listingCategoryTranslations;
+
+    /**
+     * @ORM\ManyToMany(targetEntity=Listing::class, mappedBy="ListingCategory")
+     */
+    private $listings;
 
     public function __construct()
     {
-        $this->ListingCategorieTranslation = new ArrayCollection();
-    }
-    
-    public function setId(int $id): self
-    {
-        $this->id = $id;
-
-        return $this;
+        $this->listingCategoryTranslations = new ArrayCollection();
+        $this->listings = new ArrayCollection();
     }
 
-    public function getParentId(): ?int
+    public function getId(): ?int
     {
-        return $this->parent_id;
-    }
-
-    public function setParentId(?int $parent_id): self
-    {
-        $this->parent_id = $parent_id;
-
-        return $this;
+        return $this->id;
     }
 
     public function getUrl(): ?string
@@ -196,12 +222,12 @@ class ListingCategory
         return $this;
     }
 
-    public function getAccueil(): ?string
+    public function getAccueil(): ?bool
     {
         return $this->accueil;
     }
 
-    public function setAccueil(?string $accueil): self
+    public function setAccueil(?bool $accueil): self
     {
         $this->accueil = $accueil;
 
@@ -256,34 +282,74 @@ class ListingCategory
         return $this;
     }
 
+    public function getParent(): ?self
+    {
+        return $this->parent;
+    }
+
+    public function setParent(?self $parent): self
+    {
+        $this->parent = $parent;
+
+        return $this;
+    }
+
     /**
      * @return Collection|ListingCategoryTranslation[]
      */
-    public function getListingCategorieTranslation(): Collection
+    public function getListingCategoryTranslations(): Collection
     {
-        return $this->ListingCategorieTranslation;
+        return $this->listingCategoryTranslations;
     }
 
-    public function addListingCategorieTranslation(ListingCategoryTranslation $listingCategorieTranslation): self
+    public function addListingCategoryTranslation(ListingCategoryTranslation $listingCategoryTranslation): self
     {
-        if (!$this->ListingCategorieTranslation->contains($listingCategorieTranslation)) {
-            $this->ListingCategorieTranslation[] = $listingCategorieTranslation;
-            $listingCategorieTranslation->setListingCategory($this);
+        if (!$this->listingCategoryTranslations->contains($listingCategoryTranslation)) {
+            $this->listingCategoryTranslations[] = $listingCategoryTranslation;
+            $listingCategoryTranslation->setTranslatable($this);
         }
 
         return $this;
     }
 
-    public function removeListingCategorieTranslation(ListingCategoryTranslation $listingCategorieTranslation): self
+    public function removeListingCategoryTranslation(ListingCategoryTranslation $listingCategoryTranslation): self
     {
-        if ($this->ListingCategorieTranslation->removeElement($listingCategorieTranslation)) {
+        if ($this->listingCategoryTranslations->removeElement($listingCategoryTranslation)) {
             // set the owning side to null (unless already changed)
-            if ($listingCategorieTranslation->getListingCategory() === $this) {
-                $listingCategorieTranslation->setListingCategory(null);
+            if ($listingCategoryTranslation->getTranslatable() === $this) {
+                $listingCategoryTranslation->setTranslatable(null);
             }
         }
 
         return $this;
     }
+
+    /**
+     * @return Collection|Listing[]
+     */
+    public function getListings(): Collection
+    {
+        return $this->listings;
+    }
+
+    public function addListing(Listing $listing): self
+    {
+        if (!$this->listings->contains($listing)) {
+            $this->listings[] = $listing;
+            $listing->addListingCategory($this);
+        }
+
+        return $this;
+    }
+
+    public function removeListing(Listing $listing): self
+    {
+        if ($this->listings->removeElement($listing)) {
+            $listing->removeListingCategory($this);
+        }
+
+        return $this;
+    }
+
 
 }

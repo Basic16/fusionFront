@@ -51,18 +51,11 @@ class HomeController extends AbstractController
         $lieu = $request->get("lieuInput");
 
         // Vérifie si un l'utilisateur à saisie quelque chose dans la barre de recherche
-        if($request->isMethod("POST")){
+        if($request->isMethod("POST") != null && (!empty($recherche) || !empty($lieu))){
 
-            if(!empty($recherche) || !empty($lieu)){
-
-
-                $listings = RestListing::getLesListingRecherche($this->client, $this->getParameter('apiAdress'), $this->getParameter('apiServer'), $recherche, $lieu);
-                if(count($listings) <= 0){
-                    $erreur = "Aucun résultat ne correspond à votre recherche";
-                }
-
-            }else{
-                return $this->redirectToRoute("home");
+            $listings = RestListing::getLesListingRecherche($this->client, $this->getParameter('apiAdress'), $this->getParameter('apiServer'), $recherche, $lieu);
+            if(count($listings) <= 0){
+                $erreur = "Aucun résultat ne correspond à votre recherche";
             }
 
         }else{

@@ -1,6 +1,6 @@
 {% extends 'base.html.twig' %} 
 
-{% block title %} - {{parent()}}{% endblock %}
+{% block title %}{{category.listingCategoryTranslations[0].name}} - {{parent()}}{% endblock %}
 
 {% block body %}
 <style media="screen">
@@ -111,12 +111,11 @@
     }
 </style>
 
-{% if data.category is defined %}
 
 <div class="container-fluid pb-2 mb-2">
     <div class="row">
         <div class="col-12 text-center p-0 m-0">
-            <img src="../images/{{data.category.image}}" alt="" class="img-fluid">
+            <img src="../images/{{category.image}}" alt="" class="img-fluid">
         </div>
     </div>
 </div>
@@ -124,10 +123,10 @@
 <!-- Page Content -->
 <div class="container">
     <div class="col-12">
-        <h1 class="text-center text-secondary titlemariages">{{data.category.ListingCategorieTranslation[0].name}}</h1>
+        <h1 class="text-center text-secondary titlemariages">{{category.listingCategoryTranslations[0].name}}</h1>
     </div>
     <div class="col-12 text-center pb-4 mb-4">
-        <span class="text-secondary stitlemariages">{{data.category.texteaccueil | capitalize}} {{data.category.texte}}</span>
+        <span class="text-secondary stitlemariages">{{category.texteaccueil | capitalize}} {{category.texte}}</span>
     </div>
 
     <div class="row">
@@ -137,7 +136,7 @@
             <div class="container">
                 <div class="row block_2  m-0 p-0">
 
-                    {% for l in data.listings %}
+                    {% for l in category.listings %}
                     <div class="col-md-4 col-lg-4 cardwedding">
                         <div class="card card-inverse card-info">
                             <a href="">
@@ -148,7 +147,7 @@
                                     <img class="profile-avatar" src="../images/{{l.user.images[0].name}}" alt="Assa" />
                                     <a href=""></a>
                                 </figure>
-                                <p class="categorycard">{{l.user.profession}}</p>
+                                <p class="categorycard">{{category.listingCategoryTranslations[0].name}}</p>
                                 <h4 class="card-title mt-3 titlecard">
                                     <a href="">{{l.user.companyName}}</a>
                                 </h4>
@@ -267,10 +266,5 @@
 
 </div>
 <!-- /.container -->
-
-{% else %}
-    <h1>Cette catégorie est vide pour le moment :(</h1>
-    <a href="#">Retour à l'accueil</a>
-{% endif %}
 
 {% endblock %}

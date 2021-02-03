@@ -5,13 +5,12 @@ namespace App\Entity;
 use Doctrine\Common\Collections\ArrayCollection;
 use Doctrine\Common\Collections\Collection;
 use Doctrine\ORM\Mapping as ORM;
-use App\Entity\User;
 
 /**
  * Listing
  *
- * @ORM\Table(name="listing")
- * @ORM\Entity
+ * @ORM\Table(name="listing", uniqueConstraints={@ORM\UniqueConstraint(name="UNIQ_CB0048D464D218E", columns={"location_id"})}, indexes={@ORM\Index(name="status_l_idx", columns={"status"}), @ORM\Index(name="min_duration_idx", columns={"min_duration"}), @ORM\Index(name="admin_notation_idx", columns={"admin_notation"}), @ORM\Index(name="IDX_CB0048D4A76ED395", columns={"user_id"}), @ORM\Index(name="price_idx", columns={"price"}), @ORM\Index(name="max_duration_idx", columns={"max_duration"}), @ORM\Index(name="created_at_l_idx", columns={"createdAt"}), @ORM\Index(name="type_idx", columns={"type"}), @ORM\Index(name="average_rating_idx", columns={"average_rating"})})
+ * @ORM\Entity(repositoryClass=ListingRepository::class)
  */
 class Listing
 {
@@ -27,7 +26,7 @@ class Listing
     /**
      * @var int
      *
-     * @ORM\Column(name="status", type="smallint", nullable=false)
+     * @ORM\Column(name="status", type="smallint", nullable=true)
      */
     private $status;
 
@@ -41,14 +40,14 @@ class Listing
     /**
      * @var string|null
      *
-     * @ORM\Column(name="price", type="decimal", precision=8, scale=0, nullable=true)
+     * @ORM\Column(name="price", type="decimal", precision=8, scale=0, nullable=false)
      */
     private $price;
 
     /**
      * @var bool|null
      *
-     * @ORM\Column(name="certified", type="boolean", nullable=true)
+     * @ORM\Column(name="certified", type="boolean", nullable=false)
      */
     private $certified;
 
@@ -69,7 +68,7 @@ class Listing
     /**
      * @var int
      *
-     * @ORM\Column(name="cancellation_policy", type="smallint", nullable=false)
+     * @ORM\Column(name="cancellation_policy", type="smallint", nullable=true)
      */
     private $cancellationPolicy;
 
@@ -136,19 +135,25 @@ class Listing
     private $user;
 
     /**
-     * @ORM\OneToMany(targetEntity=ListingImage::class, mappedBy="Listing")
+     * @ORM\OneToMany(targetEntity=ListingImage::class, mappedBy="listing")
      */
     private $ListingImage;
-
+    
     /**
      * @ORM\ManyToMany(targetEntity=Mariage::class, inversedBy="listings")
      */
     private $mariages;
 
+    /**
+     * @ORM\ManyToMany(targetEntity=ListingCategory::class, inversedBy="listings")
+     */
+    private $ListingCategory;
+
     public function __construct()
     {
         $this->ListingImage = new ArrayCollection();
         $this->mariages = new ArrayCollection();
+        $this->ListingCategory = new ArrayCollection();
     }
 
     public function getId(): ?int
@@ -312,7 +317,7 @@ class Listing
         return $this;
     }
 
-    /*public function getLocation(): ?ListingLocation
+    public function getLocation(): ?ListingLocation
     {
         return $this->location;
     }
@@ -322,9 +327,9 @@ class Listing
         $this->location = $location;
 
         return $this;
-    }*/
+    }
 
-    public function getUser():?User
+    public function getUser(): ?User
     {
         return $this->user;
     }
@@ -386,6 +391,30 @@ class Listing
     public function removeMariage(Mariage $mariage): self
     {
         $this->mariages->removeElement($mariage);
+
+        return $this;
+    }
+
+    /**
+     * @return Collection|ListingCategory[]
+     */
+    public function getListingCategory(): Collection
+    {
+        return $this->ListingCategory;
+    }
+
+    public function addListingCategory(ListingCategory $listingCategory): self
+    {
+        if (!$this->ListingCategory->contains($listingCategory)) {
+            $this->ListingCategory[] = $listingCategory;
+        }
+
+        return $this;
+    }
+
+    public function removeListingCategory(ListingCategory $listingCategory): self
+    {
+        $this->ListingCategory->removeElement($listingCategory);
 
         return $this;
     }

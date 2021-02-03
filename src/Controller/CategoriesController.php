@@ -30,10 +30,10 @@ class CategoriesController extends AbstractController
         // Get list mariages
         $mariages = RestMariage::getLesMariages($this->client, $this->getParameter('apiAdress'), $this->getParameter('apiServer'));
 
-        dump($listingsCategories);
+        //dump($listingsCategories);
 
         return $this->render('categories/index.html.twig', [
-            'data' => $listingsCategories,
+            'category' => $listingsCategories,
             'mariages' => $mariages,
             'controller_name' => 'CategoriesController',
         ]);

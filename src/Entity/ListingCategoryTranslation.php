@@ -2,47 +2,50 @@
 
 namespace App\Entity;
 
-use App\Repository\ListingCategoryTranslationRepository;
-use Doctrine\Common\Collections\ArrayCollection;
-use Doctrine\Common\Collections\Collection;
 use Doctrine\ORM\Mapping as ORM;
 
 /**
- * @ORM\Entity(repositoryClass=ListingCategoryTranslationRepository::class)
+ * ListingCategoryTranslation
+ * @ORM\Table(name="listing_category_translation", uniqueConstraints={@ORM\UniqueConstraint(name="listing_category_translation_unique_translation", columns={"translatable_id", "locale"})}, indexes={@ORM\Index(name="name_idx", columns={"name"}), @ORM\Index(name="IDX_606EDC1F2C2AC5D3", columns={"translatable_id"})})
+ * @ORM\Entity
  */
 class ListingCategoryTranslation
 {
     /**
+     * @var int
+     *
+     * @ORM\Column(name="id", type="integer", nullable=false)
      * @ORM\Id
-     * @ORM\GeneratedValue
-     * @ORM\Column(type="integer")
+     * @ORM\GeneratedValue(strategy="IDENTITY")
      */
     private $id;
 
     /**
-     * @ORM\Column(type="string", length=255)
+     * @var string
+     *
+     * @ORM\Column(name="name", type="string", length=100, nullable=false)
      */
     private $name;
 
     /**
-     * @ORM\Column(type="string", length=255)
+     * @var string|null
+     *
+     * @ORM\Column(name="slug", type="string", length=255, nullable=true)
      */
     private $slug;
 
     /**
-     * @ORM\Column(type="string", length=255)
+     * @var string
+     *
+     * @ORM\Column(name="locale", type="string", length=255, nullable=false)
      */
     private $locale;
 
     /**
-     * @ORM\ManyToOne(targetEntity=ListingCategory::class, inversedBy="ListingCategorieTranslation")
+     * @ORM\ManyToOne(targetEntity=ListingCategory::class, inversedBy="listingCategoryTranslations")
      */
-    private $ListingCategory;
+    private $translatable;
 
-
-    public function __construct()
-    {
-    }
 
     public function getId(): ?int
     {
@@ -66,7 +69,7 @@ class ListingCategoryTranslation
         return $this->slug;
     }
 
-    public function setSlug(string $slug): self
+    public function setSlug(?string $slug): self
     {
         $this->slug = $slug;
 
@@ -85,16 +88,17 @@ class ListingCategoryTranslation
         return $this;
     }
 
-    public function getListingCategory(): ?ListingCategory
+    public function getTranslatable(): ?ListingCategory
     {
-        return $this->ListingCategory;
+        return $this->translatable;
     }
 
-    public function setListingCategory(?ListingCategory $ListingCategory): self
+    public function setTranslatable(?ListingCategory $translatable): self
     {
-        $this->ListingCategory = $ListingCategory;
+        $this->translatable = $translatable;
 
         return $this;
     }
+
 
 }

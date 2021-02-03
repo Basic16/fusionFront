@@ -4,6 +4,8 @@ namespace App\Utilitaire;
 
 use App\Entity\Listing;
 use App\Entity\ListingImage;
+use App\Entity\ListingCategory;
+use App\Entity\ListingCategoryTranslation;
 use App\Entity\Mariage;
 use App\Entity\User;
 use App\Entity\UserAddress;
@@ -68,7 +70,6 @@ class RestMariage
         $mariage->setTraduction($content[0]['traduction']);
         $mariage->setImageaccueil($content[0]['imageaccueil']);
 
-        $listListing = [];
         foreach ($content[0]["listings"] as $l) {
             $listing = new Listing();
             $listing->setPrice($l["price"]);
@@ -80,6 +81,13 @@ class RestMariage
                 $listingImage->setName($l["ListingImage"][0]["name"]);
                 $listing->addListingImage($listingImage);
             }
+
+            $listingCategory = new listingCategory();
+            $listing->addListingCategory($listingCategory);
+
+            $listingCategoryTranslation = new listingCategoryTranslation();
+            $listingCategoryTranslation->setName($l["ListingCategory"][0]["listingCategoryTranslations"][0]["name"]);
+            $listingCategory->addListingCategoryTranslation($listingCategoryTranslation);
 
             $user = new User();
             $user->setCompanyName($l["user"]["companyName"]);
@@ -94,16 +102,11 @@ class RestMariage
             if(count($l["user"]["images"]) > 0){
                 $userImage->setName($l["user"]["images"][0]["name"]);
             }else{
-                $userImage->setName("default-user.png"); // Default image
+                $userImage->setName("img2.png"); // Default image
             }
             $user->addImage($userImage);
 
-            $listListing[] = $listing;
-        }
-
-        // Ajoute tout les listing dans mariage
-        foreach ($listListing as $l) {
-            $mariage->addListing($l);
+            $mariage->addListing($listing);
         }
 
         return $mariage;

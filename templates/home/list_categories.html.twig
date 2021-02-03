@@ -13,14 +13,10 @@
             {% for a in categories %}
             <div class="col-lg-4 col-md-4 col-sm-6 col-xs-12" style="margin-bottom: 30px">
                 <div class="hovereffect">
-                    <img class="img-responsive" src="{{asset('images/'~ a.imageaccueil)}}" alt="{{a.texte}}">
+                    <img class="img-responsive" src="images/{{a.imageaccueil}}" alt="{{a.texte}}">
                     <div class="overlay">
                         <h2>
-                            {% if a.url is empty %}
-                            <a href="{{path("categories", {"url": a.url})}}" class="bold text-white">{{a.ListingCategorieTranslation[0].name}}</a>
-                            {% else %}
-                            <a href="{{path("categories", {"url": a.url})}}" class="bold text-white">{{a.ListingCategorieTranslation[0].name}}</a>
-                            {% endif %}
+                            <a href="{{path("categories", {"url": a.url})}}" class="bold text-white">{{a.ListingCategoryTranslations[0].name}}</a>
                         </h2>
                         <p class="info">{{a.texteaccueil}}</p>
                     </div>

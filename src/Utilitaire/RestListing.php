@@ -4,9 +4,12 @@ namespace App\Utilitaire;
 
 use App\Entity\Listing;
 use App\Entity\ListingImage;
+use App\Entity\ListingCategory;
+use App\Entity\ListingCategoryTranslation;
 use App\Entity\User;
 use App\Entity\UserAddress;
 use App\Entity\UserImage;
+
 
 class RestListing
 {
@@ -27,13 +30,21 @@ class RestListing
         $statusCode = $response->getStatusCode();
         $content = $response->toArray();
         $listListing = [];
-
         //dump($content);
 
         foreach($content as $l){
             
             $listing = new Listing();
             $listing->setPrice($l["price"]);
+
+            $listingCategory = new ListingCategory();
+            $listingCategory->setUrl($l["ListingCategory"][0]["url"]);
+            $listing->addListingCategory($listingCategory);
+
+            $listingCategoryTranslation = new ListingCategoryTranslation();
+            $listingCategoryTranslation->setName($l["ListingCategory"][0]["listingCategoryTranslations"][0]["name"]);
+            $listingCategoryTranslation->setLocale("FR");
+            $listingCategory->addListingCategoryTranslation($listingCategoryTranslation);
 
             $listingImage = new ListingImage();
             $listingImage->setName($l["ListingImage"][0]["name"]);
@@ -49,7 +60,7 @@ class RestListing
             if(count($l["user"]["images"]) > 0){
                 $userImage->setName($l["user"]["images"][0]["name"]);
             }else{
-                $userImage->setName("default-user.png"); // Default image
+                $userImage->setName("img2.png"); // Default image
             }
             $user->addImage($userImage);
 
@@ -93,6 +104,12 @@ class RestListing
             $listingImage->setName($l["listing_image"]);
             $listing->addListingImage($listingImage);
             
+            $listingCategory = new ListingCategory();
+            $listing->addListingCategory($listingCategory);
+
+            $listingCategoryTranslation = new ListingCategoryTranslation();
+            $listingCategoryTranslation->setName($l["category"]);
+            $listingCategory->addListingCategoryTranslation($listingCategoryTranslation);
 
             $user = new User();
             $user->setCompanyName($l["company_name"]);
@@ -107,7 +124,7 @@ class RestListing
             if($l["user_image"] != null){
                 $userImage->setName($l["user_image"]);
             }else{
-                $userImage->setName("default-user.png"); // Default image
+                $userImage->setName("img2.png"); // Default image
             }
             $user->addImage($userImage);
             

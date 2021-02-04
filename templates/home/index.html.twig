@@ -147,7 +147,7 @@
 		</section>
 		<section class="search-sec">
 			<div class="container">
-				<form action="{{path("recherche")}}" method="post" novalidate="novalidate">
+				<form action="{{path("recherche")}}" method="get" novalidate="novalidate">
 					<div class="row text-center justify-content-md-center">
 						<div class="col-md-12">
 							<h1>Réalisez vous-même tous vos événements</h1>
@@ -155,13 +155,18 @@
 					</div>
 					<div class="row justify-content-md-center searchweddpad">
 						<div class="col-md-4 col-sm-12 p-0">
-							<input type="text" name="rechercheInput" class="form-control search-slt" placeholder="Que cherchez-vous ?">
+							<input type="text" name="search" id="rechercheInput" class="form-control search-slt" placeholder="Que cherchez-vous ?">
+							{# auto-completion #}
+							<ul class="list-group" id="home_suggestion_search" style="display:none;">
+								<li class="list-group-item">Exemple item</li>
+							</ul>
+							{# fin #}
 						</div>
                         <div class="col-lg-4 col-md-3 col-sm-12 p-0">
-                            <input type="text" name="lieuInput" class="form-control search-slt" placeholder="Où ?">
+                            <input type="text" name="location" class="form-control search-slt" placeholder="Où ?">
                         </div>
 						<div class="col-md-2 col-sm-12 p-0">
-							<button type="submit" name="validBt" class="btn btn-default wrn-btn">Rechercher</button>
+							<button type="submit" class="btn btn-default wrn-btn">Rechercher</button>
 						</div>
 					</div>
 				</form>
@@ -212,6 +217,7 @@ initMultiSelect('#categories', '{{ "multiselect.all_selected"|trans({}, "cocoric
 		</script>
 			<script type="text/javascript"> $('#myCarousel').carousel({interval: 4000})
 		</script>
+		<script src="js/home_suggestion.js"></script>
 	{% endblock %}
 
 	{% block markup_jsonld %}

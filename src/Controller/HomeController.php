@@ -44,14 +44,12 @@ class HomeController extends AbstractController
      */
     public function recherche(Request $request): Response
     {
+        $recherche = $request->query->get('search');
+        $lieu = $request->query->get('location');
         $erreur = null;
-        $listings = [];
-        
-        $recherche = $request->get("rechercheInput");
-        $lieu = $request->get("lieuInput");
 
         // Vérifie si un l'utilisateur à saisie quelque chose dans la barre de recherche
-        if($request->isMethod("POST") != null && (!empty($recherche) || !empty($lieu))){
+        if(!empty($recherche) || !empty($lieu)){
 
             $listings = RestListing::getLesListingRecherche($this->client, $this->getParameter('apiAdress'), $this->getParameter('apiServer'), $recherche, $lieu);
             if(count($listings) <= 0){

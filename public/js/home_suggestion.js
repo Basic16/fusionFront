@@ -5,6 +5,9 @@
 let homeSuggestionSearch = document.getElementById("home_suggestion_search");
 let searchInput = document.getElementById("rechercheInput");
 
+let homeSuggestionLocation = document.getElementById("home_suggestion_location");
+let locationInput = document.getElementById("locationInput");
+
 searchInput.addEventListener("input", function (e) {
 	var saisie = e.target.value;
 	if(saisie.length > 0){
@@ -25,11 +28,36 @@ searchInput.addEventListener("input", function (e) {
 	}else{
 		homeSuggestionSearch.style.display = "none";
 	}
-})
-
-document.querySelector("body").addEventListener("click", function(){
-	homeSuggestionSearch.style.display = "none";
 });
+
+locationInput.addEventListener("input", function (e) {
+	var saisie = e.target.value;
+	if(saisie.length > 0){
+		homeSuggestionLocation.style.display = "block";
+		ajaxGet("http://serveur1.arras-sio.com/symfony4-4149/API/public/api/custom/getListingLocationRecherche/?search="+saisie, function (e) {
+			homeSuggestionLocation.innerHTML = "";
+			JSON.parse(e).forEach(c => {
+				var link = document.createElement("li");
+					link.className = "list-group-item text-dark";
+					link.style.cursor = "pointer";
+					link.textContent = c.city;
+					link.addEventListener("click", function (e) {
+						locationInput.value = e.path[0].innerText;
+					});
+					homeSuggestionLocation.appendChild(link);
+			});
+		});
+	}else{
+		homeSuggestionLocation.style.display = "none";
+	}
+});
+
+
+document.querySelector("body").addEventListener("click", function(e){
+	homeSuggestionSearch.style.display = "none";
+	homeSuggestionLocation.style.display = "none";
+});
+
 
 // Fonction ajax
 function ajaxGet(url, callback){

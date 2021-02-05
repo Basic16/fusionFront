@@ -6,6 +6,8 @@ use App\Entity\Listing;
 use App\Entity\ListingImage;
 use App\Entity\ListingCategory;
 use App\Entity\ListingCategoryTranslation;
+use App\Entity\ListingLocation;
+use App\Entity\ListingTranslation;
 use App\Entity\Mariage;
 use App\Entity\User;
 use App\Entity\UserAddress;
@@ -60,7 +62,7 @@ class RestMariage
 
         $statusCode = $response->getStatusCode();
         $content = $response->toArray();
-        //dump($content);
+        dump($content);
 
         $mariage = new Mariage();
         $mariage->setNom($content[0]['nom']);
@@ -71,33 +73,42 @@ class RestMariage
         $mariage->setImageaccueil($content[0]['imageaccueil']);
 
         foreach ($content[0]["listings"] as $l) {
+
+            // Annonce
             $listing = new Listing();
             $listing->setPrice($l["price"]);
             $listing->setCertified($l["certified"]);
 
-            // Si il y a au moins une image pour ce listing
-            if(count($l["ListingImage"]) > 0){
-                $listingImage = new ListingImage();
-                $listingImage->setName($l["ListingImage"][0]["name"]);
-                $listing->addListingImage($listingImage);
-            }
-
-            $listingCategory = new listingCategory();
+            // Catégorie de l'annonce
+            $listingCategory = new ListingCategory();
             $listing->addListingCategory($listingCategory);
 
-            $listingCategoryTranslation = new listingCategoryTranslation();
+            // Nom de catégorie de l'annonce
+            $listingCategoryTranslation = new ListingCategoryTranslation();
             $listingCategoryTranslation->setName($l["ListingCategory"][0]["listingCategoryTranslations"][0]["name"]);
+            $listingCategoryTranslation->setLocale("FR");
             $listingCategory->addListingCategoryTranslation($listingCategoryTranslation);
 
+            // Titre de l'annonce
+            $listingTranslation = new listingTranslation();
+            $listingTranslation->setTitle($l["translation"][0]["title"]);
+            $listing->addTranslation($listingTranslation);
+
+            // Image de l'annonce
+            $listingImage = new ListingImage();
+            $listingImage->setName($l["ListingImage"][0]["name"]);
+            $listing->addListingImage($listingImage);
+
+            // Ville de l'annonce
+            $ListingLocation = new ListingLocation();
+            $ListingLocation->setCity($l["location"]["city"]);
+            $listing->setLocation($ListingLocation);
+
+            // Utilisateur de l'annonce
             $user = new User();
-            $user->setCompanyName($l["user"]["companyName"]);
-            $user->setProfession($l["user"]["profession"]);
             $listing->setUser($user);
 
-            $userAdress = new UserAddress();
-            $userAdress->setCity($l["user"]["addresses"][0]["city"]);
-            $user->addAddress($userAdress);
-
+            // Image de l'utilisateur de l'annonce
             $userImage = new UserImage();
             if(count($l["user"]["images"]) > 0){
                 $userImage->setName($l["user"]["images"][0]["name"]);

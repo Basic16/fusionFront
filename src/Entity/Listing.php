@@ -140,6 +140,7 @@ class Listing
     private $ListingImage;
     
     /**
+     * @ORM\JoinTable(name="participations")
      * @ORM\ManyToMany(targetEntity=Mariage::class, inversedBy="listings")
      */
     private $mariages;
@@ -149,11 +150,17 @@ class Listing
      */
     private $ListingCategory;
 
+    /**
+     * @ORM\OneToMany(targetEntity=ListingTranslation::class, mappedBy="translatable")
+     */
+    private $translation;
+
     public function __construct()
     {
         $this->ListingImage = new ArrayCollection();
         $this->mariages = new ArrayCollection();
         $this->ListingCategory = new ArrayCollection();
+        $this->translation = new ArrayCollection();
     }
 
     public function getId(): ?int
@@ -415,6 +422,36 @@ class Listing
     public function removeListingCategory(ListingCategory $listingCategory): self
     {
         $this->ListingCategory->removeElement($listingCategory);
+
+        return $this;
+    }
+
+    /**
+     * @return Collection|ListingTranslation[]
+     */
+    public function getTranslation(): Collection
+    {
+        return $this->translation;
+    }
+
+    public function addTranslation(ListingTranslation $translation): self
+    {
+        if (!$this->translation->contains($translation)) {
+            $this->translation[] = $translation;
+            $translation->setTranslatable($this);
+        }
+
+        return $this;
+    }
+
+    public function removeTranslation(ListingTranslation $translation): self
+    {
+        if ($this->translation->removeElement($translation)) {
+            // set the owning side to null (unless already changed)
+            if ($translation->getTranslatable() === $this) {
+                $translation->setTranslatable(null);
+            }
+        }
 
         return $this;
     }

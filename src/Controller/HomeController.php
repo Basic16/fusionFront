@@ -34,7 +34,7 @@ class HomeController extends AbstractController
         // Permet l'affichage des dernier Wedder
         $listing = RestListing::getLesListing($this->client, $this->getParameter('apiAdress'), $this->getParameter('apiServer'));
 
-        //dump($categories);
+        //dump($listing);
         
         return $this->render('home/index.html.twig', ['mariages' => $mariages, 'categories' => $categories, 'listing' => $listing]);
     }
@@ -46,12 +46,14 @@ class HomeController extends AbstractController
     {
         $recherche = $request->query->get('search');
         $lieu = $request->query->get('location');
+        $listings = [];
         $erreur = null;
 
         // Vérifie si un l'utilisateur à saisie quelque chose dans la barre de recherche
         if(!empty($recherche) || !empty($lieu)){
 
             $listings = RestListing::getLesListingRecherche($this->client, $this->getParameter('apiAdress'), $this->getParameter('apiServer'), $recherche, $lieu);
+            //dump($listings);
             if(count($listings) <= 0){
                 $erreur = "Aucun résultat ne correspond à votre recherche";
             }

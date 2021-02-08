@@ -36,7 +36,12 @@ class HomeController extends AbstractController
 
         //dump($listing);
         
-        return $this->render('home/index.html.twig', ['mariages' => $mariages, 'categories' => $categories, 'listing' => $listing]);
+        return $this->render('home/index.html.twig', [
+            'mariages' => $mariages,
+            'categories' => $categories,
+            'listing' => $listing,
+            'apiAdress' => $this->getParameter('apiAdress') 
+        ]);
     }
     
     /**

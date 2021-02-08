@@ -8,11 +8,12 @@ let searchInput = document.getElementById("rechercheInput");
 let homeSuggestionLocation = document.getElementById("home_suggestion_location");
 let locationInput = document.getElementById("locationInput");
 
+// Barre de recherche
 searchInput.addEventListener("input", function (e) {
 	var saisie = e.target.value;
 	if(saisie.length > 0){
 		homeSuggestionSearch.style.display = "block";
-		ajaxGet("http://serveur1.arras-sio.com/symfony4-4149/API/public/api/custom/getListingCategoryRecherche/?search="+saisie, function (e) {
+		ajaxGet(apiAdress + "custom/getListingCategoryRecherche/?search=" + saisie, function (e) {
 			homeSuggestionSearch.innerHTML = "";
 			JSON.parse(e).forEach(c => {
 				var link = document.createElement("li");
@@ -20,7 +21,7 @@ searchInput.addEventListener("input", function (e) {
 					link.style.cursor = "pointer";
 					link.textContent = c.name;
 					link.addEventListener("click", function (e) {
-						searchInput.value = e.path[0].innerText;
+						searchInput.value = e.target.innerText;
 					});
 				homeSuggestionSearch.appendChild(link);
 			});
@@ -30,11 +31,12 @@ searchInput.addEventListener("input", function (e) {
 	}
 });
 
+// Barre de ville
 locationInput.addEventListener("input", function (e) {
 	var saisie = e.target.value;
 	if(saisie.length > 0){
 		homeSuggestionLocation.style.display = "block";
-		ajaxGet("http://serveur1.arras-sio.com/symfony4-4149/API/public/api/custom/getListingLocationRecherche/?search="+saisie, function (e) {
+		ajaxGet(apiAdress + "custom/getListingLocationRecherche/?search=" + saisie, function (e) {
 			homeSuggestionLocation.innerHTML = "";
 			JSON.parse(e).forEach(c => {
 				var link = document.createElement("li");
@@ -42,7 +44,7 @@ locationInput.addEventListener("input", function (e) {
 					link.style.cursor = "pointer";
 					link.textContent = c.city;
 					link.addEventListener("click", function (e) {
-						locationInput.value = e.path[0].innerText;
+						locationInput.value = e.target.innerText;
 					});
 					homeSuggestionLocation.appendChild(link);
 			});
@@ -52,7 +54,7 @@ locationInput.addEventListener("input", function (e) {
 	}
 });
 
-
+// Permet de masquer l'auto-completion lors du clic
 document.querySelector("body").addEventListener("click", function(e){
 	homeSuggestionSearch.style.display = "none";
 	homeSuggestionLocation.style.display = "none";

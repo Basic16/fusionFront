@@ -5,7 +5,7 @@
 # https://symfony.com/doc/current/best_practices/configuration.html#application-related-configuration
 parameters:
   apiServer: 'http://serveur1.arras-sio.com'
-  apiAdress: 'http://serveur1.arras-sio.com/symfony4-4149/API/public/index.php/api/'
+  apiAdress: 'http://serveur1.arras-sio.com/symfony4-4149/API/public/api/'
   locale: 'fr'
 
 services:

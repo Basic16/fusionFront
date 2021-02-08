@@ -18,11 +18,10 @@
 						<h5 class="card-title border-bottom pb-3 text-dark">
 						{% if unMariage.url is empty %}
 								<a href="{{path("mariage", {"url": unMariage.url})}}" class="bold text-dark card-title pb-3">{{ unMariage.nom }}</a>
-							</h5>
 						{% else %}
 								<a href="{{path("mariage", {"url": unMariage.url})}}" class="bold text-dark card-title pb-3">{{ unMariage.nom }}</a>
-							</h5>
 						{% endif %}
+						</h5>
 
 						{% if unMariage.traduction is not empty %}
 							<p class="card-text">
@@ -38,7 +37,6 @@
 							{% if unMariage.url is empty %}
 								<a href="{{path("mariage", {"url": unMariage.url})}}"><img class="card-text" style="width: 2Opx; height: 20px;" src="{{asset("images/"~unMariage.logo)}}" alt"{{ unMariage.nom }}"/></a>
 							{% else %}
-        
 								<a href="{{path("mariage", {"url": unMariage.url})}}"><img class="card-text" style="width: 2Opx; height: 20px;" src="{{asset("images/"~unMariage.logo)}}" alt="{{ unMariage.nom }}"/></a>
 							{% endif %}
 						{% endif %}

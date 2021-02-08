@@ -39,10 +39,15 @@ class RestMariage
             $a->setTexte($unMariage['texte']);
             $a->setImage($unMariage['image']);
             $a->setUrl($unMariage['url']);
-            $a->setTraduction($unMariage['traduction']);
+            if(isset($unMariage["traduction"])){
+                $a->setTraduction($unMariage['traduction']);
+            }
             $a->setImageaccueil($unMariage['imageaccueil']);
             if (isset($unMariage['images'])) {
                 $a->setImage($unMariage['images']);
+            }
+            if(isset($unMariage["logo"])){
+                $a->setLogo($unMariage["logo"]);
             }
             $mariages[] = $a;
         }

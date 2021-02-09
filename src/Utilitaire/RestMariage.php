@@ -67,18 +67,19 @@ class RestMariage
 
         $statusCode = $response->getStatusCode();
         $content = $response->toArray();
-        dump($content);
+        //dump($content);
 
         $mariage = new Mariage();
         $mariage->setNom($content[0]['nom']);
         $mariage->setTexte($content[0]['texte']);
         $mariage->setImage($content[0]['image']);
         $mariage->setUrl($content[0]['url']);
-        $mariage->setTraduction($content[0]['traduction']);
+        if(isset($content[0]['traduction'])){
+            $mariage->setTraduction($content[0]['traduction']);
+        }
         $mariage->setImageaccueil($content[0]['imageaccueil']);
 
         foreach ($content[0]["listings"] as $l) {
-
             // Annonce
             $listing = new Listing();
             $listing->setPrice($l["price"]);
@@ -97,6 +98,7 @@ class RestMariage
             // Titre de l'annonce
             $listingTranslation = new listingTranslation();
             $listingTranslation->setTitle($l["translation"][0]["title"]);
+            $listingTranslation->setSlug($l["translation"][0]["slug"]);
             $listing->addTranslation($listingTranslation);
 
             // Image de l'annonce

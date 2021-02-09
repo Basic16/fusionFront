@@ -8,6 +8,7 @@ use Symfony\Component\Routing\Annotation\Route;
 use Symfony\Component\HttpFoundation\Request;
 use App\Entity\User;
 use App\Form\InscriptionType;
+use App\Form\ConnexionType;
 use PhpParser\Node\Expr\BinaryOp\Equal;
 
 class LoginController extends AbstractController
@@ -23,10 +24,10 @@ class LoginController extends AbstractController
             return $this->redirectToRoute('connexion');
         }
 
-        //$form = $this->createForm(ConnexionType::class);
+        $form = $this->createForm(ConnexionType::class);
 
         return $this->render('login/Connexion.html.twig', [
-          //  'form' => $form->createView(),
+            'form' => $form->createView(),
         ]);
     }
     

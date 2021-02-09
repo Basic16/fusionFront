@@ -52,6 +52,7 @@ class RestListing
             // Titre de l'annonce
             $listingTranslation = new listingTranslation();
             $listingTranslation->setTitle($l["translation"][0]["title"]);
+            $listingTranslation->setSlug($l["translation"][0]["slug"]);
             $listing->addTranslation($listingTranslation);
 
             // Image de l'annonce
@@ -86,7 +87,7 @@ class RestListing
 
     
     /**
-     * Affiche les listing selon leur nom et leur profession
+     * Affiche les listing selon la recherche du site (nom, profession ...)
      */
     public static function getLesListingRecherche($client, $apiAdress, $apiServer, $recherche, $lieu)
     {
@@ -99,7 +100,7 @@ class RestListing
 
         $statusCode = $response->getStatusCode();
         $content = $response->toArray();
-        //dump($content);
+        dump($content);
 
         $listingList = [];
         foreach($content as $l){
@@ -120,6 +121,7 @@ class RestListing
             // Titre de l'annonce
             $listingTranslation = new listingTranslation();
             $listingTranslation->setTitle($l["title"]);
+            $listingTranslation->setSlug($l["slug"]);
             $listing->addTranslation($listingTranslation);
 
             // Image de l'annonce
@@ -150,6 +152,14 @@ class RestListing
         }
 
         return $listingList;
+    }
+
+    /**
+      * Récupère toutes les données d'une annonce en particulier
+      */
+    public function getListing($client, $apiAdress, $apiServer, $url)
+    {
+        
     }
 
 }

@@ -128,6 +128,7 @@ class RestListingCategory
             // Titre de l'annonce
             $listingTranslation = new ListingTranslation();
             $listingTranslation->setTitle($l["translation"][0]["title"]);
+            $listingTranslation->setSlug($l["translation"][0]["slug"]);
             $listing->addTranslation($listingTranslation);
 
             // Image de l'annonce

@@ -20,7 +20,7 @@ class MariageController extends AbstractController
     }
 
     /**
-     * @Route("/mariage/{url}", name="mariage",  requirements={"d"="en|fr"})
+     * @Route("/mariage/{url}", name="mariage", requirements={"d"="en|fr"})
      */
     public function listingList(String $url, Request $request): Response
     {
@@ -30,7 +30,7 @@ class MariageController extends AbstractController
         // Get list listing catégory
         $listingsCategory = RestListingCategory::getLesListinCategoryMariage($this->client, $this->getParameter('apiAdress'), $this->getParameter('apiServer'));
 
-        dump($mariage);
+        //dump($mariage);
 
         return $this->render('mariage/index.html.twig', [
             'mariage' => $mariage,

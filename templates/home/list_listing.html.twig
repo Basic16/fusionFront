@@ -7,17 +7,18 @@
 
             <div class="col-md-4 col-lg-3 cardwedding">
                 <div class="card card-inverse card-info">
+                <a href="{{path("listing", {"url": l.translation[0].slug})}}">
                     <img class="card-img-top" src="images/{{l.ListingImage[0].name}}" alt="Wendy">
+                </a>
                     <div class="card-block">
                         <figure class="profile">
                             <img class="profile-avatar" src="images/{{l.user.images[0].name}}" alt="Wendy">
                         </figure>
                         <p class="categorycard">{{l.ListingCategory[0].listingCategoryTranslations[0].name}}</p>
                         <h4 class="card-title mt-3 titlecard">
-                            <a href="">{{l.translation[0].title}}</a>
+                            <a href="{{path("listing", {"url": l.translation[0].slug})}}">{{l.translation[0].title}}</a>
                         </h4>
                         <div class="meta card-text locationcard text-center">
-
                             <span><i class="fa fa-map-marker" aria-hidden="true"></i> {{l.location.city | capitalize}}</span>
                         </div>
                     </div>

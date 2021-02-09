@@ -139,7 +139,7 @@
                     {% for l in category.listings %}
                     <div class="col-md-4 col-lg-4 cardwedding">
                         <div class="card card-inverse card-info">
-                            <a href="">
+                            <a href="{{path("listing", {"url": l.translation[0].slug})}}">
                                 <img src="../images/{{l.ListingImage[0].name}} " alt="" class="card-img-top" />
                             </a>
                             <div class="card-block">
@@ -149,7 +149,7 @@
                                 </figure>
                                 <p class="categorycard">{{category.listingCategoryTranslations[0].name}}</p>
                                 <h4 class="card-title mt-3 titlecard">
-                                    <a href="">{{l.translation[0].title}}</a>
+                                    <a href="{{path("listing", {"url": l.translation[0].slug})}}">{{l.translation[0].title}}</a>
                                 </h4>
                                 <div class="meta card-text locationcard text-center">
                                     <span><i class="fa fa-map-marker" aria-hidden="true"></i>{{l.location.city | capitalize}}</span>

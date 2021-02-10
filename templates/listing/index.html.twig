@@ -52,7 +52,7 @@
                                                             {% for i in listing.ListingImage %}
                                                                 <!-- slide -->
                                                                 <div class="sp-slide">
-                                                                    <img class="sp-image" src="{{i.name}}" alt="" />
+                                                                    <img class="sp-image" src="../images/{{i.name}}" alt="" />
                                                                 </div>
                                                             {% endfor %}
 
@@ -64,7 +64,7 @@
                                                                 <!-- vertical-slide -->
                                                                 <div class="sp-thumbnail">
                                                                     <div class="sp-thumbnail-image-container">
-                                                                        <img class="sp-thumbnail-image" src="{{i.name}}"/>
+                                                                        <img class="sp-thumbnail-image" src="../images/{{i.name}}"/>
                                                                     </div>
                                                                 </div>
                                                             {% endfor %}
@@ -104,10 +104,8 @@
                                             <div class="description_content">
 
                                              <div class="item-content-block tags">
-                                               {%- for unMariage in listing.mariages -%}
-
-                                                <a href="#">{{unMariage.nom}}</a>
-
+                                               {%- for m in listing.mariages -%}
+                                                    <a href="{{path("mariage", {"url": m.url})}}">{{m.nom}}</a>
                                                {%- endfor -%}
                                              </div>
 
@@ -191,18 +189,18 @@
                                             <span class="certifie_center"><i class="fa fa-check" aria-hidden="true"></i> Wedder certifié !</span>
                                         {% endif %}
                                             <div class="img_profil">
-                                                <img src="{{ listing.user.images[0].name }}" alt=""/>
+                                                <img src="../images/{{ listing.user.images[0].name }}" alt=""/>
                                             </div>
                                             <span class="name">
                                                 <a href="">
-                                                    {{ listing.user.companyName }}
+                                                    {{ listing.user.lastname }} {{ listing.user.firstname }}
                                                 </a>
                                             </span>
 
 
                                             {%- if is_granted("IS_AUTHENTICATED_FULLY") -%}
                                                 <a href="#message-form-container" class="contacter_btn" data-lity >
-                                                    {{ 'listing.show.user.contact'|trans }}
+                                                    Me contacter
                                                 </a>
 
                                                 {# contact button and form #}
@@ -215,10 +213,7 @@
                                                    <span id="phonetel">Voir le numéro</span>
                                                 </a>
                                             {%- else -%}
-                                                <a class="contacter_btn"
-                                                   href="">
-                                                    {{ 'listing.show.user.contact'|trans }}
-                                                </a>
+                                                <a class="contacter_btn" href="">Me contacter</a>
                                                 <a href=""
                                                    class="phonetel_btn"><i class="fa fa-phone" aria-hidden="true"></i>
                                                    <span>Voir le numéro</span>
@@ -317,7 +312,7 @@
                                         </div>
 
                                         <div class="politique">
-                                            <span class="bold">{{ 'listing.show.policy.title'|trans }}</span>
+                                            <span class="bold">Politique de réservation</span>
                                             {{ 'listing.show.cancellation_policy:'|trans() }}
                                             <strong>{{ listing.cancellationPolicy|trans }}</strong>
                                             <button data-placement="right" data-toggle="tooltip" class="tooltip-button"

@@ -10,6 +10,7 @@ use App\Entity\ListingLocation;
 use App\Entity\ListingTranslation;
 use App\Entity\User;
 use App\Entity\UserImage;
+use App\Entity\Mariage;
 
 class RestListing
 {
@@ -168,7 +169,7 @@ class RestListing
         $statusCode = $response->getStatusCode();
         $content = $response->toArray();
         $l = $content[0];
-        //dump($l);
+        dump($l);
 
         // Annonce
         $listing = new Listing();
@@ -190,9 +191,9 @@ class RestListing
         $listingTranslation->setSlug($l["slug"]);
         $listingTranslation->setDescription($l["description"]);
         $listing->addTranslation($listingTranslation);
-
-        foreach ($l["translatable"]["ListingImage"] as $i) {    
-            // Image de l'annonce
+ 
+        // Image de l'annonce
+        foreach ($l["translatable"]["ListingImage"] as $i) {   
             $listingImage = new ListingImage();
             $listingImage->setName($i["name"]);
             $listingImage->setPosition($i["position"]);
@@ -204,8 +205,18 @@ class RestListing
         $ListingLocation->setCity($l["translatable"]["location"]["city"]);
         $listing->setLocation($ListingLocation);
         
+        // Mariages de l'annonce
+        foreach ($l["translatable"]["mariages"] as $m) {
+            $mariage = new Mariage();
+            $mariage->setNom($m["nom"]);
+            $mariage->setUrl($m["url"]);
+            $listing->addMariage($mariage);
+        }
+
         // Utilisateur de l'annonce
         $user = new User();
+        $user->setLastname($l["translatable"]["user"]["lastName"]);
+        $user->setFirstname($l["translatable"]["user"]["firstName"]);
         $listing->setUser($user);
             
         // Image de l'utilisateur de l'annonce
@@ -214,7 +225,7 @@ class RestListing
         if(!empty($l["listing_image"])){
             $userImage->setName($l["translatable"]["user"]["images"]["name"]);
         }else{
-            $userImage->setName("img2.png"); // Default image
+            $userImage->setName("img8.png"); // Default image
         }
         $user->addImage($userImage);
 

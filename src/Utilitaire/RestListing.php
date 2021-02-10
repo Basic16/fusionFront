@@ -159,7 +159,66 @@ class RestListing
       */
     public function getListing($client, $apiAdress, $apiServer, $url)
     {
+        $response = $client->request('GET', $apiAdress . "listing_translations?page=1&slug=".$url, [
+            'headers' => [
+                'Accept' => 'application/json',
+            ],
+        ]);
         
+        $statusCode = $response->getStatusCode();
+        $content = $response->toArray();
+        $l = $content[0];
+        //dump($l);
+
+        // Annonce
+        $listing = new Listing();
+        $listing->setPrice($l["translatable"]["price"]);
+        $listing->setCertified($l["translatable"]["certified"]);
+
+        // Catégorie de l'annonce
+        $listingCategory = new ListingCategory();
+        $listing->addListingCategory($listingCategory);
+
+        // Nom de catégorie de l'annonce
+        $listingCategoryTranslation = new ListingCategoryTranslation();
+        $listingCategoryTranslation->setName($l["translatable"]["ListingCategory"][0]["listingCategoryTranslations"][0]["name"]);
+        $listingCategory->addListingCategoryTranslation($listingCategoryTranslation);
+
+        // Titre de l'annonce
+        $listingTranslation = new listingTranslation();
+        $listingTranslation->setTitle($l["title"]);
+        $listingTranslation->setSlug($l["slug"]);
+        $listingTranslation->setDescription($l["description"]);
+        $listing->addTranslation($listingTranslation);
+
+        foreach ($l["translatable"]["ListingImage"] as $i) {    
+            // Image de l'annonce
+            $listingImage = new ListingImage();
+            $listingImage->setName($i["name"]);
+            $listingImage->setPosition($i["position"]);
+            $listing->addListingImage($listingImage);
+        }
+
+        // Ville de l'annonce
+        $ListingLocation = new ListingLocation();
+        $ListingLocation->setCity($l["translatable"]["location"]["city"]);
+        $listing->setLocation($ListingLocation);
+        
+        // Utilisateur de l'annonce
+        $user = new User();
+        $listing->setUser($user);
+            
+        // Image de l'utilisateur de l'annonce
+        $userImage = new UserImage();
+        // Si l'utilisateur à plus d'une image de profile
+        if(!empty($l["listing_image"])){
+            $userImage->setName($l["translatable"]["user"]["images"]["name"]);
+        }else{
+            $userImage->setName("img2.png"); // Default image
+        }
+        $user->addImage($userImage);
+
+        return $listing;
     }
 
 }

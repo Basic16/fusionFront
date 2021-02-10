@@ -1,20 +1,340 @@
 {% extends 'base.html.twig' %}
 
-{% block title %}Hello ListingController!{% endblock %}
+{% block title %}{{listing.translation[0].title}} - {{parent()}}{% endblock %}
+
+{% block stylesheets %}
+    <link rel="stylesheet" href="{{ asset('css/vendor/fullcalendar.min.css') }}">
+    <link rel="stylesheet" href="{{ asset('css/fullcalendar-override.css') }}">
+    <link rel="stylesheet" href="{{ asset('css/vendor/slider/slider-pro.min.css') }}">
+    {{parent()}}
+{% endblock %}
 
 {% block body %}
-<style>
-    .example-wrapper { margin: 1em auto; max-width: 800px; width: 95%; font: 18px/1.5 sans-serif; }
-    .example-wrapper code { background: #F5F5F5; padding: 2px 6px; }
-</style>
+    <meta property="og:title" content=""/>
+    <meta property="og:description" content=""/>
+    <meta property="og:image" content=""/>
+    
+            <div class="container">
+                <div class="row">
 
-<div class="example-wrapper">
-    <h1>Hello {{ controller_name }}! ✅</h1>
+                    {#{{ render(controller('CocoricoCoreBundle:Frontend/ListingSearch:searchForm')) }}#}
 
-    This friendly message is coming from:
-    <ul>
-        <li>Your controller at <code><a href="{{ '/var/www/html/cocorico-4032/public/WeddingFront/src/Controller/ListingController.php'|file_link(0) }}">src/Controller/ListingController.php</a></code></li>
-        <li>Your template at <code><a href="{{ '/var/www/html/cocorico-4032/public/WeddingFront/templates/listing/index.html.twig'|file_link(0) }}">templates/listing/index.html.twig</a></code></li>
-    </ul>
-</div>
+                    <div class="album py-5">
+                        <div class="container">
+                            <div class="row">
+
+                                <div class="favorites">
+
+                                    <h1 class="title_page">{{ listing.translation[0].title }}</h1>
+
+                                    <div class="col-md-8">
+
+                                         <!-- Commentaire -->
+                                        <!--<a href="javascript:void(0)" id="favourite-{{ listing.id }}" class="single_favourit right_bottom favourit">
+                                            <i class="fa fa-heart" aria-hidden="true"></i>
+                                        </a> -->
+
+
+
+                                        <div class="tabs_content">
+
+                                            <ul class="nav nav-tabs">
+                                                <li><a class="active" data-toggle="tab" href="#images">Images</a></li>
+                                                <li><a data-toggle="tab" href="#carte">Carte</a></li>
+                                                <!--<li><a data-toggle="tab" href="#calendrier">Calendrier</a></li>-->
+                                            </ul>
+
+                                            <div class="tab-content">
+                                                <div id="images" class="tab-pane fade in active show">
+                                                    <div id="example5" class="slider-pro">
+                                                        <div class="sp-slides">
+
+                                                            {% for i in listing.ListingImage %}
+                                                                <!-- slide -->
+                                                                <div class="sp-slide">
+                                                                    <img class="sp-image" src="{{i.name}}" alt="" />
+                                                                </div>
+                                                            {% endfor %}
+
+                                                        </div>
+
+                                                        <div class="sp-thumbnails">
+
+                                                            {% for i in listing.ListingImage %}
+                                                                <!-- vertical-slide -->
+                                                                <div class="sp-thumbnail">
+                                                                    <div class="sp-thumbnail-image-container">
+                                                                        <img class="sp-thumbnail-image" src="{{i.name}}"/>
+                                                                    </div>
+                                                                </div>
+                                                            {% endfor %}
+
+                                                        </div>
+                                                    </div>
+                                                </div>
+
+                                                <div id="carte" class="tab-pane fade">
+
+                                                    <div style="width: 100%">
+                                                        <!-- maparea -->
+                                                        <div class="maparea">
+                                                            <div class="map-holder">
+                                                                <div id="map-listing" class="map-canvas"></div>
+                                                            </div>
+                                                        </div>
+                                                    </div>
+                                                </div>
+                                                <div id="calendrier" class="tab-pane fade">
+                                                    {#{% include '@CocoricoCore/Dashboard/Listing/_calendar.html.twig' with {'edit_mode': false} only %}#}
+                                                </div>
+
+                                            </div>
+
+                                        </div>
+
+                                        <div class="description_block">
+                                            <span class="description_title">Description</span>
+                                            <div class="description_content">
+                                                <p><p>{{ listing.translation[0].description |nl2br }}</p></p>
+                                            </div>
+                                        </div>
+                                         <div class="tags_block">
+
+                                            <span class="tags_title">Types de mariages concernés</span>
+                                            <div class="description_content">
+
+                                             <div class="item-content-block tags">
+                                               {%- for unMariage in listing.mariages -%}
+
+                                                <a href="#">{{unMariage.nom}}</a>
+
+                                               {%- endfor -%}
+                                             </div>
+
+                                               {% if is_granted('ROLE_SUPER_ADMIN') %}
+                                               <br />
+                                               <h5>Vous êtes le super administrateur</h5>
+                                               <form method="post" action="{{path('admin-annonces-mariages')}}">
+                                                  <input type="hidden" name="listing-id" value="{{listing.id}}" />
+                                                  <input type="hidden" name="page" value="{{ app.request.requesturi }}" />
+                                                  {%- for unType in mariages -%}
+                                                    <div class="form-check text-left ">
+                                                    <input class="form-check-input" type="checkbox" value="{{unType.id}}" id="defaultCheck-{{unType.id}}" name="defaultCheck[]" {% if unType in listing.mariages %} checked {% endif %}>
+                                                    <label class="form-check-label text-secondary" for="defaultCheck-{{unType.id}}">
+                                                    {{unType.nom}}
+                                                    </label>
+                                                     </div>
+                                                  {%- endfor -%}
+                                                 <br />
+                                                 <input type="submit" name="btMariages" value="Attribuer les mariages à l'annonce"/>
+                                               </form>
+                                               <br />
+                                               {% endif %}
+                                            </div>
+                                        </div>
+
+
+
+
+                                        <div class="tabs_content">
+
+                                            <ul class="nav nav-tabs">
+                                                <li><a class="active" data-toggle="tab" href="#commentaires">Commentaires</a></li>
+                                                <!--<li><a data-toggle="tab" href="#regles">Régles</a></li>
+                                                <li><a data-toggle="tab" href="#caracteristiuques">Caractéristiques</a></li>-->
+                                            </ul>
+
+                                            <div class="tab-content">
+                                                <div id="commentaires" class="tab-pane fade in active show">
+
+                                                    <div class="blog">
+                                                        <div class="head">
+                                                            {#<h2>{{ 'listing.comments.header'|trans }}</h2>#}
+                                                            <!-- rating -->
+                                                            {% if listing.averageRating %}
+                                                                {{ listing.averageRating }}
+                                                            {% endif %}
+                                                        </div>
+                                                        <div class="posts-holder">
+                                                            <!-- post -->
+                                                            {#{% include 'CocoricoCoreBundle:Dashboard/Listing:_rating_comments.html.twig' with {'reviews': reviews} only %}#}
+                                                        </div>
+                                                    </div>
+
+                                                </div>
+
+                                                <div id="regles" class="tab-pane fade">
+                                                    <p>{#{{ listing_translation.rules|nl2br }}#}</p>
+
+                                                </div>
+
+                                                <div id="caracteristiuques" class="tab-pane fade">
+                                                    {#{% include '@CocoricoCore/Frontend/Listing/_listing_show_characteristics.html.twig' with {'characterisitics': listing.getListingListingCharacteristicsOrderedByGroup } only %}#}
+                                                </div>
+
+                                            </div>
+
+
+                                        </div>
+
+
+                                    </div>
+
+                                    <div class="col-md-4">
+                                        <div class="rs_shear">
+                                            {#{% include 'CocoricoCoreBundle:Frontend/SocialButton:all.html.twig' with {'title': listing_translation.title} only %}#}
+                                        </div>
+
+
+                                        <div class="aside_bar_left">
+                                        {% if  listing.certified %}
+                                            <span class="certifie_center"><i class="fa fa-check" aria-hidden="true"></i> Wedder certifié !</span>
+                                        {% endif %}
+                                            <div class="img_profil">
+                                                <img src="{{ listing.user.images[0].name }}" alt=""/>
+                                            </div>
+                                            <span class="name">
+                                                <a href="">
+                                                    {{ listing.user.companyName }}
+                                                </a>
+                                            </span>
+
+
+                                            {%- if is_granted("IS_AUTHENTICATED_FULLY") -%}
+                                                <a href="#message-form-container" class="contacter_btn" data-lity >
+                                                    {{ 'listing.show.user.contact'|trans }}
+                                                </a>
+
+                                                {# contact button and form #}
+                                                {{ render(controller('CocoricoMessageBundle:Dashboard/Message:newThread',
+                                                { 'listing': listing } )) }}
+                                                {# end of contact button and form #}
+                                                <a id="linktel"
+                                                   onclick="AfficheTel();"
+                                                   class="phonetel_btn"><i class="fa fa-phone" aria-hidden="true"></i>
+                                                   <span id="phonetel">Voir le numéro</span>
+                                                </a>
+                                            {%- else -%}
+                                                <a class="contacter_btn"
+                                                   href="">
+                                                    {{ 'listing.show.user.contact'|trans }}
+                                                </a>
+                                                <a href=""
+                                                   class="phonetel_btn"><i class="fa fa-phone" aria-hidden="true"></i>
+                                                   <span>Voir le numéro</span>
+                                                </a>
+                                            {%- endif -%}
+
+                                            <script type="text/javascript">
+                                                function AfficheTel() {
+                                                  // Si le bouton est un élément quelconque (comme une div ou une span...)
+                                                  {% if listing.user.phone is not null%}
+                                                    {% set phonetel= listing.user.phone %}
+                                                  {% else %}
+                                                    {% set phonetel= "non renseigné" %}
+                                                  {% endif %}
+                                                  if (document.getElementById("phonetel").innerHTML!="Voir le numéro"){
+                                                      document.getElementById("linktel").href = "tel:{{phonetel}}";                                  }
+                                                  else{
+                                                    document.getElementById("phonetel").innerHTML = "{{phonetel}}";
+                                                  }
+                                                }
+                                            </script>
+
+
+                                            <ul class="info_liste">
+                                                <li>
+                                                    {#{% if listing_user.phoneVerified %}
+                                                        <i class="fa fa-check green" aria-hidden="true"></i>
+                                                        <span>
+                                                            {{ 'form.user.phone:'|trans({}, 'cocorico_user') }}
+                                                            <span class="bold">{{ "verified"|trans }}</span>
+                                                        </span>
+                                                    {% else %}
+                                                        <i class="fa fa-times black" aria-hidden="true"></i>
+                                                        <span>
+                                                            {{ 'form.user.phone:'|trans({}, 'cocorico_user') }}
+                                                            <span class="bold">{{ "no_verified"|trans }}</span>
+                                                        </span>
+                                                    {% endif %}#}
+                                                </li>
+                                                <li>
+                                                    {#{% if listing_user.emailVerified %}
+                                                        <i class="fa fa-check green" aria-hidden="true"></i>
+                                                        <span>
+                                                            {{ 'form.user.username:'|trans({}, 'cocorico_user') }}
+                                                            <span class="bold">{{ "verified"|trans }}</span>
+                                                        </span>
+                                                    {% else %}
+                                                        <i class="fa fa-times black" aria-hidden="true"></i>
+                                                        <span>
+                                                            {{ 'form.user.username:'|trans({}, 'cocorico_user') }}
+                                                            <span class="bold">{{ "no_verified"|trans }}</span>
+                                                        </span>
+                                                    {% endif %}#}
+                                                </li>
+                                                <li>
+                                                    {#{% if listing_user.idCardVerified %}
+                                                        <i class="fa fa-check green" aria-hidden="true"></i>
+                                                        <span>
+                                                            {{ 'form.user.id_card:'|trans({}, 'cocorico_user') }}
+                                                            <span class="bold">{{ "verified"|trans }}</span>
+                                                        </span>
+                                                    {% else %}
+                                                        <i class="fa fa-times black" aria-hidden="true"></i>
+                                                        <span>
+                                                            {{ 'form.user.id_card:'|trans({}, 'cocorico_user') }}
+                                                            <span class="bold">{{ "no_verified"|trans }}</span>
+                                                        </span>
+                                                    {% endif %}#}
+                                                </li>
+                                                <li>
+                                                    {#{% if listing_user.nbBookingsOfferer %}
+                                                        <i class="fa fa-check green" aria-hidden="true"></i>
+                                                        <span>
+                                                            {{ 'form.user.nb_bookings_offerer:'|trans({}, 'cocorico_user') }}
+                                                            <span class="bold">{{ "yes"|trans }}</span>
+                                                        </span>
+                                                    {% else %}
+                                                        <i class="fa fa-times black" aria-hidden="true"></i>
+                                                        <span>
+                                                            {{ 'form.user.nb_bookings_offerer:'|trans({}, 'cocorico_user') }}
+                                                            <span class="bold">{{ "no"|trans }}</span>
+                                                        </span>
+                                                    {% endif %}#}
+                                                </li>
+                                            </ul>
+                                        </div>
+
+
+                                        <div class="aside_reservation">
+
+                                            {#booking form #}
+                                            {#{{ render(controller('CocoricoCoreBundle:Frontend/BookingPrice:bookingPriceForm', {
+                                                'listing': listing
+                                            })) }}#}
+
+                                        </div>
+
+                                        <div class="politique">
+                                            <span class="bold">{{ 'listing.show.policy.title'|trans }}</span>
+                                            {{ 'listing.show.cancellation_policy:'|trans() }}
+                                            <strong>{{ listing.cancellationPolicy|trans }}</strong>
+                                            <button data-placement="right" data-toggle="tooltip" class="tooltip-button"
+                                                    data-html="true" type="button"
+                                                    data-original-title="{#{{ cancellationPolicies() }}#}"> ?
+                                            </button>
+                                        </div>
+
+                                    </div>
+
+                                </div>
+
+                            </div><!-- END/.row -->
+                        </div><!-- END/.container -->
+                    </div><!-- END/.album.py-5.bg_gris -->
+
+                </div>
+            </div>
+
 {% endblock %}

@@ -9,6 +9,17 @@
     {{parent()}}
 {% endblock %}
 
+{% block layout %}
+
+{% block breadcrumbs %}
+    <div class="container">
+            <div class="row">
+            <!-- breadcrumbs -->
+            {#{{ render(controller('CocoricoBreadcrumbBundle:Breadcrumbs:index',{request: app.request })) }}#}
+        </div>
+    </div>
+{% endblock %}
+
 {% block body %}
     <meta property="og:title" content=""/>
     <meta property="og:description" content=""/>
@@ -17,7 +28,7 @@
             <div class="container">
                 <div class="row">
 
-                    {#{{ render(controller('CocoricoCoreBundle:Frontend/ListingSearch:searchForm')) }}#}
+                    {#{ render(controller('CocoricoCoreBundle:Frontend/ListingSearch:searchForm')) }}#}
 
                     <div class="album py-5">
                         <div class="container">
@@ -48,18 +59,15 @@
                                                 <div id="images" class="tab-pane fade in active show">
                                                     <div id="example5" class="slider-pro">
                                                         <div class="sp-slides">
-
                                                             {% for i in listing.ListingImage %}
                                                                 <!-- slide -->
                                                                 <div class="sp-slide">
                                                                     <img class="sp-image" src="../images/{{i.name}}" alt="" />
                                                                 </div>
                                                             {% endfor %}
-
                                                         </div>
 
                                                         <div class="sp-thumbnails">
-
                                                             {% for i in listing.ListingImage %}
                                                                 <!-- vertical-slide -->
                                                                 <div class="sp-thumbnail">
@@ -68,7 +76,6 @@
                                                                     </div>
                                                                 </div>
                                                             {% endfor %}
-
                                                         </div>
                                                     </div>
                                                 </div>
@@ -163,7 +170,6 @@
 
                                                 <div id="regles" class="tab-pane fade">
                                                     <p>{#{{ listing_translation.rules|nl2br }}#}</p>
-
                                                 </div>
 
                                                 <div id="caracteristiuques" class="tab-pane fade">
@@ -180,9 +186,8 @@
 
                                     <div class="col-md-4">
                                         <div class="rs_shear">
-                                            {#{% include 'CocoricoCoreBundle:Frontend/SocialButton:all.html.twig' with {'title': listing_translation.title} only %}#}
+                                            {% include 'listing/SocialButton/all.html.twig' with {'title': listing.translation[0].title} only %}
                                         </div>
-
 
                                         <div class="aside_bar_left">
                                         {% if  listing.certified %}
@@ -331,5 +336,7 @@
 
                 </div>
             </div>
+
+{% endblock %}
 
 {% endblock %}

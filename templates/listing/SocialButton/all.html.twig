@@ -1,0 +1,25 @@
+{% if url is not defined or url == null %}
+    {% set url = app.request.uri %}
+{% endif %}
+
+
+<div class="socialp text-right">
+
+        {% include 'listing/SocialButton/facebook.html.twig' with {
+        'title': title,
+        'url': url
+        } only %}
+
+        {% include 'listing/SocialButton/twitter.html.twig' with {
+        'title': title,
+        'url': url
+        } only %}
+
+    {#<li>#}
+    {#<a href="#"><i class="icon-vimeo"></i>#}
+    {#<span class="hidden">vimoe</span>#}
+    {#</a>#}
+    {#</li>#}
+
+
+</div>

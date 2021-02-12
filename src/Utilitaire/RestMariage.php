@@ -67,7 +67,7 @@ class RestMariage
 
         $statusCode = $response->getStatusCode();
         $content = $response->toArray();
-        //dump($content);
+        dump($content);
 
         $mariage = new Mariage();
         $mariage->setNom($content[0]['nom']);
@@ -117,7 +117,7 @@ class RestMariage
 
             // Image de l'utilisateur de l'annonce
             $userImage = new UserImage();
-            if(count($l["user"]["images"]) > 0){
+            if(isset($l["user"]["images"])){
                 $userImage->setName($l["user"]["images"][0]["name"]);
             }else{
                 $userImage->setName("img2.png"); // Default image

@@ -1,0 +1,100 @@
+{% extends 'baseBackend.html.twig' %}
+
+{% block title %}
+	{{ parent() }}
+
+{% endblock %}
+{% block stylesheets %}
+	{{ parent() }}
+	<link rel="stylesheet" href={{asset("css/galerie.css")}}>
+
+{% endblock %}
+
+{% block contenu %}
+	<style>
+		img {
+			max-width: 100%;
+			max-height: 100%;
+			display: block; /* remove extra space below image */
+		}
+		.box {
+			width: 50em;
+			margin: 0.3em;
+			border: 2em solid white;
+		}
+		.box.large {
+			height: 70em;
+		}
+		.box.small {
+			height: 50em;
+		}
+
+		.dropzone {
+			margin: 5em;
+			border: 2px dashed #0087F7;
+			border-radius: 5px;
+			background: white;
+			min-height: 25em;
+
+		}
+	
+	</style>
+
+	<div class="container-fluid pb-2 mb-2">
+		<div class="row">
+			<div class="col-12 text-center p-0 m-0">
+				<img src="https://zupimages.net/up/20/50/lsxc.jpg" alt="" class="img-fluid">
+			</div>
+		</div>
+	</div>
+	<!-- Page Content -->
+	<div class="container bodyblog">
+		<form action="galerie" method="post" enctype="multipart/form-data" class="dropzone" id="dropzoneFrom">
+		
+	</form>
+
+
+		<div class="row">
+			{% for image in images %}
+
+
+				<div class="col-md-4 ">
+					<div class="card-content">
+						<div class="card-img ">
+							<center>
+								<img src=" ../uploads/images/{{image.nom}} ">
+							</center>
+							<a href="{{path('galerie',{'supp':image.id})}}" class="confirm text-white">
+								<span>
+									<h4>
+
+										<i class="fa fa-trash" aria-hidden="true" style="color: black"></i>
+
+									</h4>
+								</span>
+							</a>
+						</div>
+
+					</div>
+				</div>
+
+
+			{% endfor %}
+		
+		</div>
+		
+	</div>
+	
+	<!-- Mettre Widget Aussi-->
+	<div class="col-lg-4">
+		{% block widget %}
+		{% endblock %}
+	</div>
+
+
+	<!-- /.row -->
+
+</div>
+<!-- /.container -->
+
+<!-- Fin corp du blog -->{% endblock %}

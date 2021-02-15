@@ -1,0 +1,79 @@
+{% extends 'baseBackend.html.twig' %}
+{% block title %}
+	{{parent()}}
+	Liste thèmes
+{% endblock %}
+{% block stylesheets %}
+			{{parent()}}
+{% endblock %}
+{% block stylesheetsspan %}
+			{{parent()}}
+{% endblock %}
+{% block contenu %}
+	{{parent()}}
+	<div class="container-fluid">
+		<div class="row justify-content-center">
+			<h1 class="text-center text-primary p-4">
+				Gestion des catégories
+			</h1>
+
+		</div>
+
+		<div class="row justify-content-center">
+			<div class="col-8 p-4 m-0 text-primary">
+	
+				<div class="table-responsive">
+					<table class="table table-hover">
+						<thead>
+							<tr>
+								<th scope="col">
+									Libellé
+								</th>
+								<th scope="col">
+									Modifier
+								</th>
+								<th scope="col">
+									Supprimer
+								</th>
+								<th scope="col">
+									Nombre d'articles
+								</th>
+							</tr>
+						</thead>
+						
+						<tbody>
+							{% for c in categories %}
+								<tr class="{{ cycle(['table-warning', 'white'], loop.index0) }}">
+									<td>
+										{{c.libelle |capitalize }}
+									</td>
+									<td>
+										<a href="{{path('modifierCategorie',{'id': c.id})}}" class="text-black btn-card">
+											<i class="fa fa-pen" aria-hidden="true" style="color: black"></i>
+										</a>
+									</td>
+									<td>
+										<a href="{{path('delete_cat',{'id':c.id})}}" class="confirm text-white">
+											<i class="fa fa-trash" aria-hidden="true" style="color: black"></i>
+
+										</a>
+										
+									</td>
+									<td>
+										{{ c.articles | length }}
+									</td>
+								</tr>
+							{% endfor %}
+							
+							
+						</tbody>
+					</table>
+
+
+				</div>
+			</div>
+		</div>
+	</div>
+
+
+{% endblock %}

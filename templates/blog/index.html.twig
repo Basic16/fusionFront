@@ -29,7 +29,7 @@
                 <div class="row">
                     <div class="col-xl-6 mx-auto text-center marginsearchb">
                         <div class="section-title mb-100">
-                            <form class="search" action="{{ path('rechercher') }}" method="post">
+                            <form class="search" action="{{ path('rechercher_front') }}" method="post">
                                 <div class="search__wrapper">
                                     <input type="text" name="test" placeholder="Recherche..." class="search__field" required>
                                     <button type="submit" class="fa fa-search search__icon"></button>
@@ -91,7 +91,7 @@
                     <div class="gallery text-center col-lg-12 col-md-12 col-sm-12 col-xs-12">
                         <div>
                             {% for cat in categories %}
-                                <a class="btn btn-default filter-button" href="{{path('articles_par_categorie',{'libelle':cat.libelle})}}">{{cat.libelle}}</a>
+                                <a class="btn btn-default filter-button" href="{{path('articles_par_categorie_front',{'libelle':cat.libelle})}}">{{cat.libelle}}</a>
                             {% endfor %}
                         </div>
                     </div>
@@ -114,7 +114,7 @@
                             <div class="card-desc">
                                 <h3>{{ article.titre }}</h3>
                                 <p>{{ article.extrait }}</p>
-                                <a href="{{ path('article_show', {'url':article.url})}}" class="btn-card">Lire la suite</a>
+                                <a href="{{ path('article_show_front', {'url':article.url})}}" class="btn-card">Lire la suite</a>
 								
                             </div>
                         </div>

@@ -1,0 +1,131 @@
+{% extends 'baseBackend.html.twig' %}
+
+
+{% block title %}
+	{{ parent() }}
+
+{% endblock %}
+
+{% block stylesheets %}
+	{{ parent() }}
+
+	<link rel="stylesheet" href={{asset("css/article-show.css")}}>
+
+
+	<style></style>
+
+{% endblock %}
+{% block stylesheetsspan %}{% endblock %}
+
+{% block contenu %}
+	<link rel="stylesheet" href="WeddingBackend/minified/themes/default.min.css"/>
+
+	<!-- Include the editors JS -->
+
+
+	<!-- Include the BBCode or XHTML formats -->
+
+
+		<div class="container-fluid pb-2 mb-2"> <div class="row">
+			<div class="col-12 text-center p-0 m-0">
+				<img src="https://zupimages.net/up/20/50/lsxc.jpg" alt="" class="img-fluid">
+			</div>
+		</div>
+	</div>
+
+	<!-- Page Content -->
+	<div class="container bodyblog">
+
+		<div class="row">
+			{{ form_start(form, {'attr': {'id': 'formarticle'}}) }}
+			<!-- Blog Entries Column -->
+			<div
+				class="col-lg-8">
+				<!-- Title -->
+				<div class="form-group">
+					{{ form_label(form.titre, 'Titre de larticle ', {'label_attr': {'class': 'font-weightbold'}}
+					) }}
+					{{ form_widget(form.titre, {'attr': {'class': 'form-control'}}
+					) }}
+				</div>
+				<hr>
+				<!-- Contenu + Extrait-->
+				<div class="form-group">
+
+					{{ form_label(form.contenu, 'Contenu de l article', {'label_attr': {'class': 'fontweight-bold'}}
+					) }}
+					{{ form_widget(form.contenu, {'attr': {'class': 'form-control'}}
+					) }}
+
+				</div>
+
+				<input type="submit" onclick="verifier()" value="Aperçu" style="color: #fff;background-color: #cab437;padding: 10px 20px;text-transform: uppercase;border-radius: 45px;font-size: 14px;border: 1px solid #cab437;">
+
+				<hr>
+
+				<div class="form-group">
+					{{ form_label(form.url, 'URL de l article', {'label_attr': {'class': 'fontweight-bold'}}
+					) }}
+					{{ form_widget(form.url, {'attr': {'class': 'form-control'}}
+					) }}
+				</div>
+
+				<hr>
+
+				<div class="form-group">
+					{{ form_label(form.categories, 'Categorie de l article', {'label_attr': {'class': 'fontweight-bold'}}
+					) }}
+					{{ form_widget(form.categories, {'attr': {'class': 'form-control'}}
+					) }}
+				</div>
+
+				<hr>
+
+				<div class="form-group">
+					{{ form_label(form.image, 'Image de l article', {'label_attr': {'class': 'fontweight-bold'}}
+					) }}
+					{{ form_widget(form.image, {'attr': {'class': 'form-control'}}
+					) }}
+				</div>
+
+
+				<div class="form-group mx-auto text-center">
+					{{ form_widget(form.modifierarticle, { 'label': "Envoyer", 'attr': {'class': 'btn font-weightbold bg-primary text-white text-center', "onclick": "envoie()"}}
+					) }}
+				</div>
+
+				<hr>
+
+				{{ form_end(form) }}
+			</div>
+
+			<script>
+				function verifier() {
+
+form = document.getElementById("formarticle");
+form.action = "../apercu";
+window.open('', 'formpopup', 'width=900,height=1200,resizeable,scrollbars');
+form.target = 'formpopup';
+
+
+}
+function envoie() {
+form.target = '';
+
+form.action = "modifierArticle";
+
+
+}
+			</script>
+			<!-- Mettre Widget Aussi-->
+			<div class="col-lg-4">
+				{% block widget %}{% endblock %}
+			</div>
+		</div>
+		<!-- /.row -->
+
+	</div>
+	<!-- /.container -->
+
+	<!-- Fin corp du blog -->
+{% endblock %}

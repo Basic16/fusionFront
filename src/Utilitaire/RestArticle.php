@@ -2,8 +2,6 @@
 namespace App\Utilitaire;
 use App\Entity\Article;
 use App\Utilitaire\RestCategorie;
-use App\Utilitaire\RestAvis;
-
 class RestArticle {
 
     public function __construct(){}
@@ -11,36 +9,51 @@ class RestArticle {
 
     public static function getLesArticles($client, $apiAdress, $apiServer){
 
-                $response = $client->request('GET', $apiAdress.'articles' , [
+                $response = $client->request('GET', $apiAdress.'articles', [
                     'headers' => [
                     'Accept' => 'application/json',
                     ],
                     ]);
-                $statusCode = $response->getStatusCode();
                 $content = $response->toArray();
                 $articles = array();
-                foreach($content as $unArticle) {
+                foreach($content as $unArticle){
                     $a = new Article();
                     $a->setId($unArticle['id']);
                     $a->setTitre($unArticle['titre']);
                     $a->setContenu($unArticle['contenu']);
-                    $date = new \DateTime($unArticle['date']);
-                    $a->setDate($date);
+                    //$date = new \DateTime($unArticle['date']);
+                    //$a->setDate($date);
                     $a->setUrl($unArticle['url']);
                     $a->setExtrait($unArticle['extrait']);
-                    if (isset($unArticle['image'])) {
+                    if (isset($unArticle['image'])){
                         $a->setImage($unArticle['image']);
                     }
-                    $categorie = RestCategorie::getLaCategorie($client, $apiServer, $unArticle['categorie']);
+                    dump($unArticle['categorie']);
+                    $idCategorie = explode('/', $unArticle['categorie']);
+                    dump($idCategorie);
+                    $categorie = RestCategorie::getLaCategorieId($client, $apiAdress, $idCategorie[count ($idCategorie) -1]);
                     $a->setCategorie($categorie);
                     $articles[] = $a;
-
                 }
                 return $articles;
 
 
-}
+    }
 
+
+    public static function deleteArticle($client, $apiAdress, $apiServer, $idArticle){
+
+
+        $client->request('DELETE', $apiAdress.'articles/'.$idArticle , [
+            'headers' => [
+                'Accept' => 'application/json',
+            ],
+        ]);
+
+    }
+
+
+/* Pas encore use */
     public static function getUnArticle($client, $apiAdress, $apiServer, $pathArticle){
 
             $response = $client->request('GET', $apiAdress.'articles?url='.$pathArticle.'&page=1' , [
@@ -65,29 +78,23 @@ class RestArticle {
             }
             $categorie = RestCategorie::getLaCategorie($client, $apiServer, $content[0]['categorie']);
             $a->setCategorie($categorie);
-            $array = array();
-            $avis = RestAvis::getUnAvis($client, $apiServer, $content[0]['avis'][0]);
-            $array[] = $avis;
-            $avisDeux = RestAvis::getUnAvis($client, $apiServer, $content[0]['avis'][1]);
-            $array[]=$avisDeux;
-            dump($array);
-            $a->setAvis($avis);
             $article = $a;
+
             return $article;
 
         }
 
-    public static function getLarticle($client, $apiServer , $apiAdress, $pathArticle){
-        dump($pathArticle);
+    public static function getLarticle($client, $apiServer, $apiAdress ,$pathArticle){
+
 
         $response = $client->request('GET', $apiServer.$pathArticle , [
             'headers' => [
                 'Accept' => 'application/json',
             ],
         ]);
+        dump($apiServer);
         $statusCode = $response->getStatusCode();
         $content = $response->toArray();
-        dump($content);
         $a = new Article();
         $a->setId($content['id']);
         $a->setTitre($content['titre']);
@@ -141,7 +148,34 @@ class RestArticle {
 
     }
 
+    public static function getLarticleId($client, $apiAdress, $apiServer, $id){
 
+        dump($apiAdress.'articles/'.$id);
 
+        $response = $client->request('GET', $apiAdress.'articles/'.$id , [
+            'headers' => [
+                'Accept' => 'application/json',
+            ],
+        ]);
+        $statusCode = $response->getStatusCode();
+        $content = $response->toArray();
+        dump($content);
+        $a = new Article();
+        $a->setId($content['id']);
+        $a->setTitre($content['titre']);
+        $a->setContenu($content['contenu']);
+        $date = new \DateTime($content['date']);
+        $a->setDate($date);
+        $a->setUrl($content['url']);
+        $a->setExtrait($content['extrait']);
+        if (isset($content['image'])){
+            $a->setImage($content['image']);
+        }
+
+        $article = $a;
+
+        return $article;
+        
+    }
 
 }

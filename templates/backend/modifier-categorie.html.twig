@@ -1,0 +1,66 @@
+{% extends 'baseBackend.html.twig' %}
+
+{% block title %}
+	{{ parent() }}
+
+{% endblock %}
+
+{% block stylesheets %}
+	{{ parent() }}
+	<link rel="stylesheet" href={{asset("css/article-show.css")}}>
+{% endblock %}
+
+{% block contenu%}
+
+	<div class="container-fluid pb-2 mb-2">
+		<div class="row">
+			<div class="col-12 text-center p-0 m-0">
+				<img src="https://zupimages.net/up/20/50/lsxc.jpg" alt="" class="img-fluid">
+			</div>
+		</div>
+	</div>
+
+	<!-- Page Content -->
+	<div class="container bodyblog">
+
+		<div class="row">
+			{{ form_start(form) }}
+			<!-- Blog Entries Column -->
+			<div
+				class="col-lg-8">
+
+				<!-- Title -->
+				<div class="form-group text-center col-lg-12 ">
+					{{ form_label(form.libelle, 'Nom de la catégorie ', {'label_attr': {'class': 'font-weightbold'}}) }}
+					{{ form_widget(form.libelle, {'attr': {'class': 'form-control'}}) }}
+				</div>
+
+
+				<div class="form-group mx-auto text-center">
+					{{ form_widget(form.modifiercategorie, { 'label': "Envoyer", 'attr': {'class': 'btn font-weightbold bg-primary text-white text-center'}}) }}
+				</div>
+
+				<hr>
+
+				{{ form_end(form) }}
+			</div>
+
+			<div>
+				<a href="{{ path('listeCategorie')}}" class="btn-card">
+					Liste des catégories
+				</a>
+			</div>
+			<!-- Mettre Widget Aussi-->
+			<div class="col-lg-4">
+				{% block widget %}{% endblock %}
+			</div>
+
+
+		</div>
+		<!-- /.row -->
+
+	</div>
+	<!-- /.container -->
+
+	<!-- Fin corp du blog -->
+{% endblock %}

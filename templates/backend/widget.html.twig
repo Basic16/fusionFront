@@ -1,0 +1,39 @@
+<!-- Sidebar Widgets Column -->
+
+
+
+<!-- Archives Widget -->
+	<div class="card my-3"> <h5 class="card-header">Articles récents</h5>
+	<div class="card-body">
+		<ul class="list-unstyled mb-0">
+			{% for article in articles %}
+				<li>
+					<a href="{{path('article_show',{'url':article.url})}}">{{article.titre}}</a>
+				</li>
+			{% endfor %}
+		</ul>
+	</div>
+</div>
+
+<!-- Categories Widget -->
+<div class="card my-3">
+	<h5 class="card-header">Catégories</h5>
+	<div class="card-body">
+		<div class="row">
+			<div class="col-lg-6">
+				<ul class="list-unstyled mb-0">
+					{% for c in categories %}
+						<li>
+							<a href="{{path('articles_par_categorie',{'libelle':c.libelle})}}">{{c.libelle}}</a>
+							
+							<a href="{{path('modifierCategorie',{'id':c.id})}}" class="text-black btn-card"><i class="fa fa-pencil" aria-hidden="true"></i></a>
+
+							
+						</li>
+					{% endfor %}
+				</ul>
+			</div>
+
+		</div>
+	</div>
+</div>

@@ -1,0 +1,259 @@
+
+
+{% extends 'baseBlog.html.twig' %}
+
+{% block title %}
+    {{ parent()}}
+    Abonnement
+{% endblock %}
+
+{% block stylesheets %}
+    {{ parent() }}
+    <link rel="stylesheet" href={{asset("css/index.css")}}>
+{% endblock %}
+
+{% block contenu%}
+
+    <div id="wrapper">
+
+
+        <style media="screen">
+
+            .table {
+                background-color: #FFF;
+                font-family: 'Roboto', sans-serif;
+            }
+            .link-hover1 {
+                background-color: #fafafa;
+                transition: all 0.3s ease;
+                border: 1px solid #dee2e6;
+            }
+            .link-hover1:hover {
+                background-color: #cab437;
+                color: #fff;
+                text-decoration: none;
+                border: 1px solid #cab437;
+            }
+            .link-hover2 {
+                background-color: #cab437;
+                transition: all 0.3s ease;
+                color: #fff;
+                border: 1px solid #cab437;
+            }
+            .link-hover2:hover {
+                background-color: #fff;
+                color: #cab437;
+                text-decoration: none;
+                border: 1px solid #cab437;
+            }
+
+            th .packpriceleft {
+                text-align: left;
+            }
+
+            .taxesp {
+                font-size: 14px;
+            }
+
+            .price {
+                font-size: 25px;
+            }
+
+            .packprice .table thead th {
+                border: none;
+            }
+
+            .packprice .table td, .table th {
+                border: none;
+            }
+        </style>
+
+        <div class="container packprice">
+            <div class="row">
+                <div class="col-12">
+                    <h4 class="py-5 text-center">Design pack WeddingYourself.fr</h4>
+                    <div class="table-responsive">
+                        <table class="table table-striped text-center">
+                            <thead>
+                            <tr>
+                                <th scope="col" class="text-white" style="background-color:#cab437 ;">Pack</th>
+                                <th scope="col" class="" style="background-color:#fafafa;">Standard</th>
+                                <th scope="col" class="text-white" style="background-color:#cab437;">Professionnel</th>
+                            </tr>
+                            </thead>
+                            <tbody>
+                            <tr>
+                                <th scope="row">Inscrivez-vous et testez notre site</th>
+                                <td><i class="lni lni-checkmark text-success font-weight-bold"></i></td>
+                                <td><i class="lni lni-checkmark text-success font-weight-bold"></i></td>
+                            </tr>
+                            <tr>
+                                <th scope="row">Créez votre vitrine sur Wedding Yourself</th>
+                                <td><i class="lni lni-checkmark text-success font-weight-bold"></i></td>
+                                <td><i class="lni lni-checkmark text-success font-weight-bold"></i></td>
+                            </tr>
+                            <tr>
+                                <th scope="row">Informations / Devis / Réservations</th>
+                                <td><i class="lni lni-checkmark text-success font-weight-bold"></i></td>
+                                <td><i class="lni lni-checkmark text-success font-weight-bold"></i></td>
+                            </tr>
+                            <tr>
+                                <th scope="row">Assistance téléphonique 24h/24</th>
+                                <td><i class="lni lni-checkmark text-success font-weight-bold"></i></td>
+                                <td><i class="lni lni-checkmark text-success font-weight-bold"></i></td>
+                            </tr>
+                            <tr>
+                                <th scope="row">Accèdez au téléphone des mariés</th>
+                                <td><i class="lni lni-close text-danger font-weight-bold"></i></td>
+                                <td><i class="lni lni-checkmark text-success font-weight-bold"></i></td>
+                            </tr>
+                            <tr>
+                                <th scope="row">Gardez votre numéro de téléphone visible sur votre vitrine</th>
+                                <td><i class="lni lni-close text-danger font-weight-bold"></i></td>
+                                <td><i class="lni lni-checkmark text-success font-weight-bold"></i></td>
+                            </tr>
+                            <tr>
+                                <th scope="row">Fichiers photos & vidéos</th>
+                                <td>5 photos + 0 vidéo</td>
+                                <td>26 photos + 3 vidéos</td>
+                            </tr>
+                            <tr>
+                                <th scope="row">Style de mariage - Où vous apparaissez</th>
+                                <td>1 styles</td>
+                                <td>8 styles</td>
+                            </tr>
+                            <tr>
+                                <th scope="row">Positionnement Style de mariage - Resultat de recherche</th>
+                                <td>à partir de la 11e place par région</td>
+                                <td>à partir de la 1er place par région</td>
+                            </tr>
+                            <tr>
+                                <th scope="row">Positionnement catégorie metier - Resultat de recherche</th>
+                                <td>à partir de la 11e place par région</td>
+                                <td>à partir de la 1er place par région</td>
+                            </tr>
+                            <tr>
+                                <th scope="row" class="bg-white"></th>
+                                <td class="p-0"><a href="" class="link-hover1 h5 w-100 d-block py-4 mb-0 price">Gratuit</a></td>
+                                <!--<td class="p-0" id="desac"><button type="button" class="link-hover2 h5 w-100 d-block py-4 mb-0 price" onclick="afficherpayment()">25€ <span class="taxesp">/Mois</span></button></td>-->
+                                <td class="p-0" id="desac"><button id="myBtn" type="button" class="link-hover2 h5 w-100 d-block py-4 mb-0 price">25€/mois</button></td>
+
+                            </tr>
+                            <tr>
+                                <th scope="row" class="bg-white"></th>
+                                <th scope="row" class="bg-white"></th>
+                                <th>
+
+                                </th>
+
+                            </tr>
+
+                            </tbody>
+                        </table>
+                    </div>
+                </div>
+            </div>
+        </div>
+        <!-- The Modal -->
+        <div id="myModal" class="modal">
+
+            <!-- Modal content -->
+            <div class="modal-content">
+                <span class="close">&times;</span>
+                <div id="paypal-button-container"></div>
+                <button type="button" class="link-hover2 h5 w-100 d-block py-4 mb-0 price" id="checkout-button">STRIPE</button>
+            </div>
+
+        </div>
+        </div>
+    <script src="https://www.paypal.com/sdk/js?client-id=AdY5NF7bseTV-d60AWe2IYSZNcv4OEycNDVI7senA3Dog1qAm8Va7_TpnAabLjQr9MQIaUq4drVZEMXY&vault=true&intent=subscription" data-sdk-integration-source="button-factory"></script>
+
+
+    <script src="https://js.stripe.com/v3/"></script>
+
+    <script type="text/javascript">
+        // Create an instance of the Stripe object with your publishable API key
+        var stripe = Stripe('pk_test_51IBz6yHvLG3kzNdDgdd35m1eEpd1A6cXGy5FUmAj1a02Oc3Fqtv6sLeLzlA5Pj346NZd0BKN3oLNDCB6xJqhz0I60046j23X3U');
+        var checkoutButton = document.getElementById('checkout-button');
+
+        checkoutButton.addEventListener('click', function() {
+            // Create a new Checkout Session using the server-side endpoint you
+            // created in step 3.
+            fetch('http://serveur1.arras-sio.com/symfony4-4056/blog/public/create-checkout-session', {
+                method: 'POST',
+            })
+                .then(function(response) {
+                    return response.json();
+                })
+                .then(function(session) {
+                    return stripe.redirectToCheckout({ sessionId: session.id });
+                })
+                .then(function(result) {
+                    // If `redirectToCheckout` fails due to a browser or network
+                    // error, you should display the localized error message to your
+                    // customer using `error.message`.
+                    if (result.error) {
+                        alert(result.error.message);
+                    }
+                })
+                .catch(function(error) {
+                    console.error('Error:', error);
+                });
+        });
+    </script>
+    <script>
+        // Get the modal
+        var modal = document.getElementById("myModal");
+
+        // Get the button that opens the modal
+        var btn = document.getElementById("myBtn");
+
+        // Get the <span> element that closes the modal
+        var span = document.getElementsByClassName("close")[0];
+
+        // When the user clicks on the button, open the modal
+        var abonnement25 =document.getElementById("abonnement25");
+        var desac =document.getElementById("desac");
+        var stripeBtn = document.getElementById("checkout-button");
+        btn.onclick = function() {
+            modal.style.display = "block";
+            stripeBtn.style.visibility = "visible";
+
+        }
+
+        // When the user clicks on <span> (x), close the modal
+        span.onclick = function() {
+            modal.style.display = "none";
+        }
+
+        // When the user clicks anywhere outside of the modal, close it
+        window.onclick = function(event) {
+            if (event.target == modal) {
+                modal.style.display = "none";
+            }
+        }
+    </script>
+    <script>
+        paypal.Buttons({
+
+            style: {
+                shape: 'pill',
+                color: 'gold',
+                layout: 'horizontal',
+                label: 'subscribe',
+            },
+            createSubscription: function(data, actions) {
+                return actions.subscription.create({
+                    'plan_id': 'P-5YK14272U0988480NMAIWDKQ'
+                });
+            },
+            onApprove: function(data, actions) {
+                alert("Votre id de commande est : " + data.subscriptionID);
+                window.document.location ='{{ path("success",{'idachat' : 'idachat' }) }}'.replace('idachat',data.subscriptionID);
+            }
+        }).render('#paypal-button-container');
+    </script>
+
+
+    <!-- /.container -->
+{% endblock %}

@@ -1,0 +1,96 @@
+{% extends 'baseBlog.html.twig' %}
+
+{% block title %}
+    {{ parent() }}
+    Modifier le Thème
+{% endblock %}
+
+{% block stylesheets %}
+    {{ parent() }}
+    <link rel="stylesheet" href={{asset("css/article-show.css")}}>
+{% endblock %}
+
+{% block contenu%}
+
+    <div class="container-fluid pb-2 mb-2">
+        <div class="row">
+            <div class="col-12 text-center p-0 m-0">
+                <img src="https://zupimages.net/up/20/50/lsxc.jpg" alt="" class="img-fluid">
+            </div>
+        </div>
+    </div>
+
+    <style media="screen">
+        .modif_theme .jcf-textarea textarea {
+            width: 940px !important;
+            background: black;
+            color: white;
+        }
+
+        .modif_theme .input-group {
+            margin-bottom: 20px;
+        }
+    </style>
+
+
+
+            <!-- Page Content -->
+            <div class="container">
+
+                <div class="row modif_theme">
+                    {{ form_start(form) }}
+
+
+                    <div class="col-md-12">
+
+                            <div class="input-group">
+                                <div class="input-group-prepend">
+										    <span class="input-group-text">
+													Header
+										    </span>
+                                </div>
+                                {{ form_widget(form.header, {'attr': {'class': 'form-control', 'rows': '12'}}) }}
+
+
+
+                            </div>
+
+                            <div class="input-group">
+                                <div class="input-group-prepend">
+                        <span class="input-group-text">
+                          Footer
+                        </span>
+                                </div>
+                                {{ form_widget(form.footer, {'attr': {'class': 'form-control', 'rows': '12'}}) }}
+                            </div>
+
+
+                            <div class="form-group mx-auto text-center">
+                                {{ form_widget(form.modiftheme, { 'label': "Envoyer", 'attr': {'class': 'btn font-weightbold bg-primary text-white text-center'}}) }}
+                            </div>
+
+                    </div>
+                </div>
+                {{ form_end(form) }}
+            </div>
+            <!-- /.container -->
+
+
+
+
+
+
+            <!-- Mettre Widget Aussi-->
+            <div class="col-lg-4">
+                {% block widget %}{% endblock %}
+            </div>
+
+
+        </div>
+        <!-- /.row -->
+
+    </div>
+    <!-- /.container -->
+
+    <!-- Fin corp du blog -->
+{% endblock %}

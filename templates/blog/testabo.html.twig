@@ -1,0 +1,37 @@
+{% extends 'baseBlog.html.twig' %}
+
+{% block title %}
+    {{ parent()}}
+    le blog
+{% endblock %}
+
+{% block stylesheets %}
+    {{ parent() }}
+    <link rel="stylesheet" href={{asset("css/index.css")}}>
+{% endblock %}
+
+{% block contenu%}
+
+<div id="paypal-button-container"></div>
+<script src="https://www.paypal.com/sdk/js?client-id=AdY5NF7bseTV-d60AWe2IYSZNcv4OEycNDVI7senA3Dog1qAm8Va7_TpnAabLjQr9MQIaUq4drVZEMXY&vault=true&intent=subscription" data-sdk-integration-source="button-factory"></script>
+<script>
+    paypal.Buttons({
+        style: {
+            shape: 'pill',
+            color: 'gold',
+            layout: 'horizontal',
+            label: 'subscribe',
+            visibility: 'hidden'
+        },
+        createSubscription: function(data, actions) {
+            return actions.subscription.create({
+                'plan_id': 'P-5YK14272U0988480NMAIWDKQ'
+            });
+        },
+        onApprove: function(data, actions) {
+            alert("Votre id de commande est : " + data.subscriptionID);
+            window.document.location ='{{ path("testroute",{'subid' : 'subid' }) }}'.replace('subid',data.subscriptionID);
+        }
+    }).render('#paypal-button-container');
+</script>
+{% endblock %}

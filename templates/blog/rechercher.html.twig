@@ -1,0 +1,76 @@
+{% extends 'baseBlog.html.twig' %}
+
+{% block stylesheets %}
+	{{ parent() }}
+	<link rel="stylesheet" href={{asset("css/recherche.css")}}>
+{% endblock %}
+
+{% block title %}
+	{{ parent() }}
+	{{ laRecherche }}
+{% endblock %}
+
+{% block contenu%}
+	<div class="container-fluid pb-2 mb-2">
+		<div class="row">
+			<div class="col-12 text-center p-0 m-0">
+				<img src="https://zupimages.net/up/20/50/6jzg.jpg" alt="" class="img-fluid">
+			</div>
+		</div>
+	</div>
+
+	<!-- Page Content -->
+	<div class="container bodyblog">
+
+		<div
+			class="row">
+
+			<!-- Blog Entries Column -->
+			<div
+				class="recherche col-lg-8">
+
+				<!-- Title -->
+				<h2 class="mt-4">Résultats pour: {{ laRecherche }}
+				</h2>
+
+				<div class="row">
+					{% for article in articleSearch %}
+						<div class="col-md-6 text-center">
+							<div class="card-content">
+								<div class="card-img">
+									{% if article.image is null%}
+										<img src="https://cdn.pixabay.com/photo/2014/02/07/11/36/couple-260899_960_720.jpg" alt="">
+									{% else %}
+										<img src="{{article.image}}" alt="">
+									{%endif%}
+									<span>
+										<h4>{{article.categorie.libelle}}</h4>
+									</span>
+								</div>
+								<div class="card-desc">
+									<h3>{{article.titre}}</h3>
+									<p>{{article.extrait}}</p>
+									<a href="{{ path('article_show', {'url':article.url})}}" class="btn-card">Lire la suite</a>
+								</div>
+							</div>
+						</div>
+					{% endfor %}
+
+				</div>
+
+			</div>
+
+			<!-- Sidebar Widgets Column -->
+			<div class="col-lg-4">
+				{% block widget %}
+					{% include 'blog/widget.html.twig' %}
+				{% endblock %}
+			</div>
+
+
+		</div>
+		<!-- /.row -->
+
+	</div>
+	<!-- /.container -->
+{% endblock %}

@@ -1,0 +1,38 @@
+{% extends 'baseBlog.html.twig' %}
+
+{% block title %}Admin{% endblock %}
+
+
+{% block contenu %}
+<style>
+    .example-wrapper { margin: 1em auto; max-width: 800px; width: 95%; font: 18px/1.5 sans-serif; }
+    .example-wrapper code { background: #F5F5F5; padding: 2px 6px; }
+</style>
+
+<div class="example-wrapper">
+   
+
+        {# Nombre utilisateurs   #}
+        <p> Nombre d'utilisateurs : {{ lesUsers | length}} </p>
+
+        <p> Nombre de Prestataires : {{ lesWedders | length}} </p>
+
+       {# <p> Nombre de non wedders : {{ lesNonWedders | length}} </p>#}
+
+        <canvas id="weddersParCategorie" width="400" height="200"></canvas>
+
+
+
+
+
+{# Fin   #}
+
+</div>
+{% endblock %}
+
+{% block javascripts %} 
+<script src="https://cdnjs.cloudflare.com/ajax/libs/Chart.js/2.9.4/Chart.min.js" integrity="sha512-d9xgZrVZpmmQlfonhQUvTR7lMPtO7NkZMkA0ABN3PHCbKA5nqylQ/yWlFAyY6hYgdF1Qh6nYiuADWwKB4C2WSw==" crossorigin="anonymous"></script>
+<script src="https://cdnjs.cloudflare.com/ajax/libs/moment.js/2.29.1/moment.min.js" integrity="sha512-qTXRIMyZIFb8iQcfjXWCO8+M5Tbc38Qi5WzdPOYZHIlZpzBHG3L3by84BBBOiRGiEb7KKtAOAs5qYdUiZiQNNQ==" crossorigin="anonymous"></script>
+<script src="https://cdn.jsdelivr.net/npm/chartjs-adapter-moment@0.1.1"></script>
+<script src="../public/js/chart.js"></script>
+{% endblock %}

@@ -1,0 +1,111 @@
+{% extends 'baseBlog.html.twig' %}
+
+{% block title %}
+	{{ parent() }}
+	{{article.titre}}
+{% endblock %}
+
+{% block stylesheets %}
+	{{ parent() }}
+	<link rel="stylesheet" href={{asset("css/article-show.css")}}>
+{% endblock %}
+{% block meta %}
+	<meta name="description" content=""><meta charset="utf-8">
+	<meta property="og:image" name="image" content="{{ article.image }}">
+{% endblock %}
+
+{% block contenu%}
+
+	<div class="container-fluid pb-2 mb-2">
+		<div class="row">
+			<div class="col-12 text-center p-0 m-0">
+				<img src="https://zupimages.net/up/20/50/lsxc.jpg" alt="" class="img-fluid">
+			</div>
+		</div>
+	</div>
+
+	<!-- Page Content -->
+	<div class="container bodyblog">
+
+		<div
+			class="row">
+
+			<!-- Blog Entries Column -->
+			<div
+				class="col-lg-8">
+
+				<!-- Title -->
+				<h1 class="mt-4">{{article.titre}}</h1>
+
+				<!-- Author -->
+				<p class="lead">
+					par
+					<a href="#">Wedding Yourself</a>
+				</p>
+
+				<hr>
+
+				<!-- Date/Time -->
+				<p>Publié le {{ article.date |format_datetime(locale='fr', pattern='dd MMMM Y') }}
+
+
+
+
+				<hr>
+
+				{{ article.contenu | raw }}
+				<hr>
+				{% include 'reseauxsociaux/facebook.html.twig' %}
+
+				{{ form_start(form, {'attr': {'id': 'ajoutavis'}}) }}
+				<div
+						class="col-lg-8">
+
+					<!-- Title -->
+					<div class="form-group">
+						{{ form_label(form.titre, 'Titre', {'label_attr': {'class': 'font-weightbold'}}
+						) }}
+						{{ form_widget(form.titre, {'attr': {'class': 'form-control'}}
+						) }}
+					</div>
+
+
+					<hr>
+
+					<!-- Contenu + Extrait-->
+					<div class="form-group">
+						{{ form_label(form.commentaire, 'Commentaire', {'label_attr': {'class': 'fontweight-bold'}}
+						) }}
+						{{ form_widget(form.commentaire, {'attr': {'class': 'form-control', 'rows': '12'}}
+						) }}
+
+					</div>
+
+
+					<div class="form-group mx-auto text-center">
+						{{ form_widget(form.ajouter, { 'label': "Envoyer mon commentaire", 'attr': {'class': 'btn font-weightbold bg-primary text-white text-center'}}
+						) }}
+					</div>
+
+					{{ form_end(form) }}
+				</div>
+
+
+			</div>
+			<div>
+
+			</div>
+			<!-- Mettre Widget Aussi-->
+			<div class="col-lg-4">
+				{% block widget %}
+					{% include 'blog/widget.html.twig' %}
+				{% endblock %}
+			</div>
+		</div>
+		<!-- /.row -->
+
+	</div>
+	<!-- /.container -->
+
+	<!-- Fin corp du blog -->
+{% endblock %}

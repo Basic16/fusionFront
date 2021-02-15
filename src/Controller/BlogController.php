@@ -187,7 +187,7 @@ class BlogController extends AbstractController
             if ($form->isSubmitted() && $form->isValid()) {
                 $header = $form->get("header")->getData();
                 $footer = $form->get("footer")->getData();
-                $response = $this->client->request('PATCH', 'http://s1.nuage-pedagogique.fr/cocorico-4181/API/public/api/themes/1', [
+                $response = $this->client->request('PATCH', 'http://serveur1.arras-sio.com/symfony4-4149/API/public/api/themes/1', [
                     'headers' => [
                         'Content-Type' => 'application/merge-patch+json',
                         'Accept' => 'application/json',

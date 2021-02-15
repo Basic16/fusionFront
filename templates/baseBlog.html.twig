@@ -92,7 +92,8 @@ ga('send', 'pageview');
 			id="wrapper">
 			<!-- header of the page -->
 
-			{{ theme.header|raw }}
+			{% include 'base/_new_header.html.twig' %}
+
 
 			<!--End of header-->
 
@@ -142,10 +143,10 @@ var hoursAvailable = [
 ];
 		</script>
 		<!-- jQuery (necessary for Bootstrap's JavaScript plugins) -->
-		<script src=" https://code.jquery.com/jquery-3.2.1.min.js"></head>
+		<script src=" https://code.jquery.com/jquery-3.2.1.min.js"></script>
 		
 	</body>
-</html></script><script src="https://cdnjs.cloudflare.com/ajax/libs/popper.js/1.12.9/umd/popper.min.js" integrity="sha384-ApNbgh9B+Y1QKtv3Rn7W3mgPxhU9K/ScQsAP7hUibX39j7fakFPskvXusvfa0b4Q" crossorigin="anonymous"></script><script type="text/javascript" src="//ajax.googleapis.com/ajax/libs/jqueryui/1.11.2/jquery-ui.min.js"></script><script type="text/javascript" src="//ajax.googleapis.com/ajax/libs/jqueryui/1.11.2/i18n/jquery-ui-i18n.min.js"></script><script>
+</html><script src="https://cdnjs.cloudflare.com/ajax/libs/popper.js/1.12.9/umd/popper.min.js" integrity="sha384-ApNbgh9B+Y1QKtv3Rn7W3mgPxhU9K/ScQsAP7hUibX39j7fakFPskvXusvfa0b4Q" crossorigin="anonymous"></script><script type="text/javascript" src="//ajax.googleapis.com/ajax/libs/jqueryui/1.11.2/jquery-ui.min.js"></script><script type="text/javascript" src="//ajax.googleapis.com/ajax/libs/jqueryui/1.11.2/i18n/jquery-ui-i18n.min.js"></script><script>
 (function ($, d) {
 $.each(readyQ, function (i, f) {
 $(f)
@@ -174,5 +175,10 @@ $(d).bind("ready", f)
 <script type="text/javascript" src="https://weddingyourself.fr/js/jquery.main-override.js"></script>
 <script type="text/javascript" src="https://weddingyourself.fr/js/common.js"></script>
 <script type="text/javascript" src="https://weddingyourself.fr/js/date-time.js"></script>
+<script
+		type="text/javascript"
+		async defer
+		src="//assets.pinterest.com/js/pinit.js"
+></script>
 {% block javascripts %} {% endblock %}
 </body></html>

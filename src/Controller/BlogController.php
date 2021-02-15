@@ -484,12 +484,7 @@ class BlogController extends AbstractController
 
     }
 
-/**
-     * @Route("backend", name="backend")
-     */
-    public function backend(){
-        return $this->render('baseBackend.html.twig');
-    }
+
 
 
 }

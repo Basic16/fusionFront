@@ -21,7 +21,7 @@ class DashboardController extends AbstractController
         $this->client = $client;
     }
     /**
-     * @Route("/index", name="index")
+     * @Route("/backend", name="backend")
      */
     public function index(): Response
     {

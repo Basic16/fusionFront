@@ -11,12 +11,33 @@ class RestUser
 
     public function __construct(){}
 
-    /**
-     * Afficher tout les wedder du plus récent au plus vieux
-     */
-    public static function getLesUsers($client, $apiAdress, $apiServer)
-    {
-        $response = $client->request('GET', $apiAdress . 'users', [
+    public static function getLesUsers($client, $apiAdress, $apiServer){
+        $response = $client->request('GET', $apiAdress . 'custom/getLesUsers/', [
+            'headers' => [
+                'Accept' => 'application/json',
+            ],
+        ]);
+
+        $statusCode = $response->getStatusCode();
+        $content = $response->toArray();
+        $listUsers = [];
+        
+        foreach($content as $w){
+            $user = new User();
+            $user->setId($w["id"]);
+            $user->setPersontype($w['person_type']);
+            
+            //$user->setCreatedat($w['createdat']);
+
+            $listUsers[] = $user;
+            
+        }
+
+        return $listUsers;
+    }
+
+    public static function getLesWedders($client, $apiAdress, $apiServer){
+        $response = $client->request('GET', $apiAdress . 'custom/getLesPrestataires/', [
             'headers' => [
                 'Accept' => 'application/json',
             ],
@@ -30,10 +51,7 @@ class RestUser
             
             $user = new User();
             $user->setId($w["id"]);
-            $user->setLastname($w['lastName']);
-            $user->setFirstname($w['firstName']);
-            $user->setEmail($w['email']);
-            $user->setPersontype($w['personType']);
+            $user->setPersontype($w['person_type']);
 
             $listUsers[] = $user;
             
@@ -42,9 +60,8 @@ class RestUser
         return $listUsers;
     }
 
-    public static function getLesWedders($client, $apiAdress, $apiServer)
-    {
-        $response = $client->request('GET', $apiAdress . 'users?personType=2', [
+    public static function getLastMonth($client, $apiAdress, $apiServer){
+        $response = $client->request('GET', $apiAdress . 'custom/getLesUsersLastMonth/', [
             'headers' => [
                 'Accept' => 'application/json',
             ],
@@ -52,27 +69,12 @@ class RestUser
 
         $statusCode = $response->getStatusCode();
         $content = $response->toArray();
-        $listUsers = [];
 
-        foreach($content as $w){
-            
-            $user = new User();
-            $user->setId($w["id"]);
-            $user->setLastname($w['lastName']);
-            $user->setFirstname($w['firstName']);
-            $user->setEmail($w['email']);
-            $user->setPersontype($w['personType']);
-
-            $listUsers[] = $user;
-            
-        }
-
-        return $listUsers;
+        return count($content);
     }
 
-    public static function getLesNonWedders($client, $apiAdress, $apiServer)
-    {
-        $response = $client->request('GET', $apiAdress . 'users?personType=1', [
+    public static function getLastWeek($client, $apiAdress, $apiServer){
+        $response = $client->request('GET', $apiAdress . 'custom/getLesUsersLastWeek/', [
             'headers' => [
                 'Accept' => 'application/json',
             ],
@@ -80,22 +82,9 @@ class RestUser
 
         $statusCode = $response->getStatusCode();
         $content = $response->toArray();
-        $listUsers = [];
 
-        foreach($content as $w){
-            
-            $user = new User();
-            $user->setId($w["id"]);
-            $user->setLastname($w['lastName']);
-            $user->setFirstname($w['firstName']);
-            $user->setEmail($w['email']);
-            $user->setPersontype($w['personType']);
-
-            $listUsers[] = $user;
-            
-        }
-
-        return $listUsers;
+        return count($content);
     }
+
 
 }

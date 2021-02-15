@@ -13,12 +13,6 @@ class User
 {
 
     const PERSON_TYPE_NATURAL = 1;
-    const PERSON_TYPE_LEGAL = 2;
-
-    public static $personTypeValues = array(
-        self::PERSON_TYPE_NATURAL => 'une personne',
-        self::PERSON_TYPE_LEGAL => 'une entreprise',
-    );
 
     /**
      * @ORM\Id
@@ -29,19 +23,13 @@ class User
 
     /**
      * @ORM\Column(type="string", length=255)
-     * @Assert\Length(
-     *     min=3,
-     *     max="255",
-     *     minMessage="cocorico_user.username.short",
-     *     maxMessage="cocorico_user.username.long"   
-     * )
      */
     private $username;
 
     /**
      * @ORM\Column(type="string", length=255)
      */
-    private $plainPassword;
+    private $password;
 
     /**
      * @ORM\Column(type="string", length=255)
@@ -79,19 +67,14 @@ class User
     private $phone;
 
     /**
-     * @ORM\Column(type="string", length=6)
-     */
-    protected $phonePrefix = '+33';
-
-    /**
      * @ORM\Column(type="string", length=255)
      */
     private $profession;
 
     /**
-     * @ORM\column(type="smallint", length=2)
+     * @ORM\column(type="integer", length=2)
      */    
-    private $personType = self::PERSON_TYPE_NATURAL;
+    private $persontype;
 
     /**
      * @ORM\Column(type="string", length=255)
@@ -109,9 +92,9 @@ class User
     private $images;
 
     /**
-     * @ORM\OneToMany(targetEntity=Listing::class, mappedBy="user")
+     * @ORM\Column(type="date", nullable=true)
      */
-    private $listing;
+    private $createdat;
 
     public function __construct()
     {
@@ -119,7 +102,6 @@ class User
         $this->address = new ArrayCollection();
         $this->addresses = new ArrayCollection();
         $this->images = new ArrayCollection();
-        $this->listing = new ArrayCollection();
     }
 
 
@@ -148,36 +130,26 @@ class User
         return $this;
     }
 
-    public function getPlainPassword(): ?string
+    public function getPassword(): ?string
     {
-        return $this->plainPassword;
+        return $this->password;
     }
 
-    public function setPlainPassword(string $plainPassword): self
+    public function setPassword(string $password): self
     {
-        $this->plainPassword = $plainPassword;
+        $this->password = $password;
 
         return $this;
     }
 
-    public function getPersonType()
+    public function getPersontype(): ?string
     {
-        if (!$this->personType) {
-            $this->personType = self::PERSON_TYPE_NATURAL;
-        }
-
-        return $this->personType;
+        return $this->persontype;
     }
 
-    public function setPersonType($personType)
+    public function setPersontype(string $persontype): self
     {
-        if (!in_array($personType, array_keys(self::$personTypeValues))) {
-            throw new \InvalidArgumentException(
-                sprintf('Invalid value for user.person_type : %s.', $personType)
-            );
-        }
-
-        $this->personType = $personType;
+        $this->persontype = $persontype;
 
         return $this;
     }
@@ -280,16 +252,6 @@ class User
         return $this;
     }
 
-    public function getPhonePrefix()
-    {
-        return $this->phonePrefix;
-    }
-
-    public function setPhonePrefix($phonePrefix)
-    {
-        $this->phonePrefix = $phonePrefix;
-    }
-
     public function getEmail(): ?string
     {
         return $this->email;
@@ -362,33 +324,17 @@ class User
         return $this;
     }
 
-    /**
-     * @return Collection|Listing[]
-     */
-    public function getListing(): Collection
+    public function getCreatedat(): ?\DateTimeInterface
     {
-        return $this->listing;
+        return $this->createdat;
     }
 
-    public function addListing(Listing $listing): self
+    public function setCreatedat(?\DateTimeInterface $createdat): self
     {
-        if (!$this->listing->contains($listing)) {
-            $this->listing[] = $listing;
-            $listing->setUser($this);
-        }
+        $this->createdat = $createdat;
 
         return $this;
     }
 
-    public function removeListing(Listing $listing): self
-    {
-        if ($this->listing->removeElement($listing)) {
-            // set the owning side to null (unless already changed)
-            if ($listing->getUser() === $this) {
-                $listing->setUser(null);
-            }
-        }
 
-        return $this;
-    }
 }

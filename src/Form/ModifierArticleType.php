@@ -22,14 +22,15 @@ class ModifierArticleType extends AbstractType
     public function buildForm(FormBuilderInterface $builder, array $options)
     {
         $builder
-            ->add('titre')
-            ->add('contenu',TextType::class)
-            ->add('url')
-            ->add('image', TextType::class)
-            ->add('categories', ChoiceType::class, array(
+        ->add('titre')
+        ->add('contenu',CKEditorType::class)
+        ->add('url')
+        ->add('image', CKEditorType::class, array(
+            'config_name' => 'image',))
+        ->add('categories', ChoiceType::class, array(
                 'choices' => $options['categories'], 'mapped'=>false
             ,))
-            ->add('modifierarticle', SubmitType::class)
+        ->add('modifierarticle', SubmitType::class)
         ;
     }
 

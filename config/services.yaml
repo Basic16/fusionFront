@@ -33,3 +33,49 @@ services:
 
     # add more service definitions when explicit configuration is needed
     # please note that last definitions always *replace* previous ones
+artgris_file_manager:
+    conf:
+        files:
+          dir: "../uploads/images"
+          type: 'file'
+        images:
+          dir: "../uploads/images"
+          type: 'image'
+          view: thumbnail
+        button:
+           dir: "../uploads/images"
+
+fos_ck_editor:
+    default_config: base
+    configs:
+        base:
+            
+            filebrowserBrowseRoute: file_manager
+            filebrowserBrowseRouteParameters:
+                conf: files
+                module: ckeditor
+            filebrowserImageBrowseRoute: file_manager
+            filebrowserImageBrowseRouteParameters:
+                conf: images
+                module: ckeditor
+        image:
+            removePlugins: "wordcount"
+            toolbar: "toolbar_image"
+            filebrowserBrowseRoute: file_manager
+            filebrowserBrowseRouteParameters:
+                conf: files
+                module: ckeditor
+            filebrowserImageBrowseRoute: file_manager
+            filebrowserImageBrowseRouteParameters:
+                conf: images
+                module: ckeditor
+        commentaires:
+            toolbar: [ ["Bold", "-", "Italic", "-", "Underline"] ]
+           
+    toolbars:
+      configs:
+        toolbar_image: ["@document"]
+      items:
+        document: ["Image"]
+        links: ["Image"]
+        

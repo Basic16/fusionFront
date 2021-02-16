@@ -1,4 +1,10 @@
 {
+    "artgris/filemanager-bundle": {
+        "version": "2.2.3"
+    },
+    "composer/installers": {
+        "version": "v1.10.0"
+    },
     "composer/package-versions-deprecated": {
         "version": "1.11.99.1"
     },
@@ -84,6 +90,18 @@
     "friendsofphp/proxy-manager-lts": {
         "version": "v1.0.2"
     },
+    "friendsofsymfony/ckeditor-bundle": {
+        "version": "2.0",
+        "recipe": {
+            "repo": "github.com/symfony/recipes-contrib",
+            "branch": "master",
+            "version": "2.0",
+            "ref": "8eb1cd0962ded6a6d6e1e5a9b6d3e888f9f94ff6"
+        },
+        "files": [
+            "config/packages/fos_ckeditor.yaml"
+        ]
+    },
     "laminas/laminas-code": {
         "version": "4.0.0"
     },
@@ -98,6 +116,9 @@
     },
     "nikic/php-parser": {
         "version": "v4.10.4"
+    },
+    "oomphinc/composer-installers-extender": {
+        "version": "2.0.0"
     },
     "php": {
         "version": "7.3.21"

@@ -20,16 +20,16 @@ class AjoutArticleType extends AbstractType
     public function buildForm(FormBuilderInterface $builder, array $options)
     {
         $builder
-            ->add('titre',TextType::class)
-            ->add('contenu',TextType::class)
+             ->add('titre',TextType::class)
+            ->add('contenu',CKEditorType::class)
             ->add('url',TextType::class)
       
-            ->add('image', TextType::class)
+            ->add('image', CKEditorType::class, array(
+                'config_name' => 'image',))
             ->add('categories', ChoiceType::class, array(
                 'choices' => $options['categories']
             ,))
             ->add('envoyer', SubmitType::class);
-
         ;
     }
 

@@ -10,8 +10,8 @@
 	<link rel="stylesheet" href={{asset("css/article-show.css")}}>
 {% endblock %}
 {% block meta %}
-	<meta name="description" content=""><meta charset="utf-8">
-	<meta property="og:image" name="image" content="{{ article.image }}">
+	<meta name="description" content="&nbsp;"><meta charset="utf-8">
+	<meta property="og:image" name="image" id="imageArticle" content="{{image | raw}}">
 {% endblock %}
 
 {% block contenu%}

@@ -105,7 +105,7 @@
                             {% if article.image is null%}
                             <img src="https://cdn.pixabay.com/photo/2014/02/07/11/36/couple-260899_960_720.jpg" alt="">
                             {% else %}
-                                <img src="{{article.image}}" alt="">
+                                {{article.image | raw}}
                             {%endif%}
                                 <span>
                                     <h4>{{ article.categorie.libelle }}</h4>

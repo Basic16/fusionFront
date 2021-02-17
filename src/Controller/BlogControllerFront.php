@@ -73,8 +73,9 @@ class BlogControllerFront extends AbstractController
         if ($article->getImage() != null) {
             $valeur = $article->getImage();
             $valeur = explode('src=', $valeur);
-            $valeur = $valeur[0][1];
-
+            $valeur = $valeur[1];
+            $valeur = explode('"', $valeur);
+            $valeur = $valeur[1];
         }
         else{
             $valeur = "https://cdn.pixabay.com/photo/2014/02/07/11/36/couple-260899_960_720.jpg";

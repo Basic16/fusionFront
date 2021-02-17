@@ -47,4 +47,29 @@ class ImageRepository extends ServiceEntityRepository
         ;
     }
     */
+
+
+    public function nombreImage()
+    {
+        $conn = $this->getEntityManager()->getConnection();
+        $sql ='SELECT count(i.id) as nombre
+        FROM `image` i 
+        ';
+        $stmt = $conn->prepare($sql);
+        $stmt->execute();
+        return $stmt ->fetchAllAssociative();
+    }
+    
+    public function pagination($premier, $dernier)
+    {
+        $conn = $this->getEntityManager()->getConnection();
+        $sql ='SELECT *
+        FROM image i 
+        ORDER BY i.id
+        DESC LIMIT ' . $premier .', '. $dernier 
+        ;
+        $stmt = $conn->prepare($sql);
+        $stmt->execute();
+        return $stmt ->fetchAllAssociative();
+    }
 }

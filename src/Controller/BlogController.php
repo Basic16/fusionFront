@@ -10,6 +10,7 @@ use Sensio\Bundle\FrameworkExtraBundle\Configuration\Entity;
 use Sensio\Bundle\FrameworkExtraBundle\Configuration\ParamConverter;
 use Symfony\Component\HttpFoundation\Request;
 use App\Repository\CategorieRepository;
+use App\Repository\ImageRepository;
 
 use App\Entity\Article;
 use App\Entity\Categorie;
@@ -412,35 +413,58 @@ class BlogController extends AbstractController
     /**
      * @Route("/galerie", name="galerie")
      */
-    public function galerie(Request $request){
+        public function galerie(Request $request, ImageRepository $ImageRepository)
+    {
 
+        if(isset($_GET['page']) && !empty($_GET['page'])){
+            $currentPage = (int) strip_tags($_GET['page']);
+        }else{
+            $currentPage = 1;
+        }
         $em = $this->getDoctrine();
         $image = new Image();
         $repoImage = $em->getRepository(Image::class);
         $formImage = $this->createForm(AjoutImageType::class, $image);
 
+        if ($request->get('suppimgs')!= null){
+            foreach($request->get('suppimgs') as $idimage){
+                $img = $repoImage->find($idimage);
+                if ($img != null){
+                    unlink ("../uploads/images/".$img->getNom());
+                    $em->getManager()->remove($img);
+                    $em->getManager()->flush();
+
+                }
+            }
+            $this->addFlash('notice', 'image supprimée');
+        }
 
         if (!empty($_FILES)) {
             $target_dir = '../uploads/images/';
-            $infosfichier = pathinfo($_FILES["file"]["name"]);
-            $extension_upload = $infosfichier['extension'];
-            $nomfichier = md5(uniqid()) . "." . $extension_upload;
+            $target_file = md5(uniqid());
+            $infoFichier = pathinfo($_FILES["file"]["name"]);
+            $extension = $infoFichier['extension'];
 
-            if (move_uploaded_file($_FILES["file"]["tmp_name"], $target_dir . $nomfichier)) {
+            if (move_uploaded_file($_FILES["file"]["tmp_name"], $target_dir . $target_file . "." . $extension)) {
                 $status = 1;
 
 
-                $image->setNom($nomfichier); // Le nom du fichier va être celui généré
+                $image->setNom($target_file . "." . $extension); // Le nom du fichier va être celui généré
                 $em = $em->getManager();
                 $em->persist($image); // Enregistrement du fichier dans la table
                 $em->flush();
             }
         }
 
-
         if ($request->get('supp') != null) {
+
             $imagesup = $repoImage->find($request->get('supp'));
             if ($imagesup != null) {
+                $image = $this->getDoctrine()
+                    ->getRepository(Image::class)
+                    ->find($request->get('supp'));
+                $nom = $image->getNom();
+                unlink ("../uploads/images/".$nom);
                 $em->getManager()->remove($imagesup);
                 $em->getManager()->flush();
                 $this->addFlash('notice', 'image supprimée');
@@ -448,21 +472,39 @@ class BlogController extends AbstractController
             return $this->redirectToRoute('galerie');
         }
 
+
+        $compte = $ImageRepository->nombreImage();
+        foreach ($compte as $resultat){
+            $nombreImage = $resultat["nombre"];
+        }
+        
+        $parPage = 9;
+
+        
+        $pages = ceil($nombreImage / $parPage);
+        $pages = $pages;
+
+        $premier = ($currentPage * $parPage) - $parPage;
+
+        $imagePages = $ImageRepository->pagination($premier, $parPage);
         $images = $repoImage->findBy(array());
-        return $this->render('blog/galerie.html.twig', [
+        if($currentPage < 2){
+            $precedente = 1;
+        }
+        else{$precedente = $currentPage -1;}
+        if($currentPage < $pages){
+        $suivante = $currentPage +1;}
+        else{$suivante = $currentPage ;}
+
+        return $this->render('backend/galerie.html.twig', [
             'formImage' => $formImage->createView(),
-            'images' => $images,
+            'imagePages'=>$imagePages,
+            'pages'=>$pages,
+            'pageActuelle'=>$currentPage,
+            'precedente'=>$precedente,
+            'suivante'=>$suivante,
+            'nombreimage'=>$nombreImage
         ]);
-    }
-    /**
-     * @Route("/delete_article/{id}", name="delete_article")
-     */
-
-    public function deleteArticle($id): Response
-    {
-        RestArticle::deleteArticle($this->client, $this->getParameter('apiAdress'), $this->getParameter('apiServer'), $id);
-        return $this->redirectToRoute('listeArticles');
-
     }
 
     /**

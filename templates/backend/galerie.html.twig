@@ -2,99 +2,149 @@
 
 {% block title %}
 	{{ parent() }}
+	Galerie d'images
 
 {% endblock %}
 {% block stylesheets %}
 	{{ parent() }}
 	<link rel="stylesheet" href={{asset("css/galerie.css")}}>
+	<link rel="stylesheet" href={{asset("css/pagination.css")}}>
 
 {% endblock %}
 
+
 {% block contenu %}
-	<style>
-		img {
-			max-width: 100%;
-			max-height: 100%;
-			display: block; /* remove extra space below image */
-		}
-		.box {
-			width: 50em;
-			margin: 0.3em;
-			border: 2em solid white;
-		}
-		.box.large {
-			height: 70em;
-		}
-		.box.small {
-			height: 50em;
+	<style media="screen">
+		.pagination > li > a {
+			border-radius: 50% !important;
+			margin: 0 5px;
 		}
 
-		.dropzone {
-			margin: 5em;
-			border: 2px dashed #0087F7;
-			border-radius: 5px;
-			background: white;
-			min-height: 25em;
-
+		.pagination {
+			justify-content: center;
+			margin-bottom: 20px;
 		}
-	
+
+		.page-item.active .page-link {
+
+			border-radius: 50% !important;
+			margin: 0 5px;
+			color: #fff;
+			background-color: #cab437;
+			border-color: #cab437;
+		}
+
+		.page-link {
+			color: #cab437;
+		}
+
+		.page-link:hover {
+			background-color: #cab437;
+			color: #fff;
+		}
 	</style>
 
-	<div class="container-fluid pb-2 mb-2">
-		<div class="row">
-			<div class="col-12 text-center p-0 m-0">
-				<img src="https://zupimages.net/up/20/50/lsxc.jpg" alt="" class="img-fluid">
-			</div>
-		</div>
-	</div>
+
 	<!-- Page Content -->
 	<div class="container bodyblog">
-		<form action="galerie" method="post" enctype="multipart/form-data" class="dropzone" id="dropzoneFrom">
-		
-	</form>
+		<form action="galerie" method="post" enctype="multipart/form-data" class="dropzone" id="dropzoneFrom"></form>
+
+		<form action="galerie" name="formsupp" id="formsupp" method="POST">
+
+			<div class="text-center">
+				<p>
+					<input type="button" onclick='selectAll()' value="Tout Sélectionner"/>
+					<input type="button" onclick='unselectAll()' value="Tout Désélectionner"/>
+
+					<button class="btn btn-success" type="submit" name="btn_delete" id="btn_delete">
+						Supprimer les images
+					</button>
+
+				</p>
+
+			</div>
 
 
-		<div class="row">
-			{% for image in images %}
+			<div class="row">
 
 
-				<div class="col-md-4 ">
-					<div class="card-content">
-						<div class="card-img ">
-							<center>
-								<img src=" ../uploads/images/{{image.nom}} ">
-							</center>
-							<a href="{{path('galerie',{'supp':image.id})}}" class="confirm text-white">
-								<span>
-									<h4>
+				{% for image in imagePages %}
+					<div class="col-md-4 ">
+						<div class="card-content">
+							<div class="card-img ">
+								<center>
+									<img src=" ../uploads/images/{{image.nom}} " id="{{image.id}}">
+									<input type="checkbox" name="suppimgs[]" value="{{image.id}}">
 
-										<i class="fa fa-trash" aria-hidden="true" style="color: black"></i>
+								</center>
 
-									</h4>
-								</span>
-							</a>
+								<a href="{{path('galerie',{'supp':image.id})}}" class="confirm text-white">
+									<span>
+										<h4>
+
+											<i class="fa fa-trash" aria-hidden="true" style="color: black"></i>
+										</h4>
+									</span>
+								</a>
+							</div>
+
 						</div>
-
 					</div>
-				</div>
 
 
-			{% endfor %}
-		
-		</div>
-		
+				{% endfor %}
+			
+
+
+				<div style="width: 100%"></div>
+			</div>
+		</form>
+			<nav>
+					<ul
+						class="pagination">
+						<!-- Lien vers la page précédente (désactivé si on se trouve sur la 1ère page) -->
+						<li class="page-item ">
+							<a href="{{path('galerie',{'page':precedente})}}" class="page-link">
+								&laquo;&nbsp;
+							</a>
+						</li>
+					
+						{% for page in 1 .. pages %}
+					
+							{% if page != pageActuelle %} 
+							<!-- Lien vers chacune des pages (activé si on se trouve sur la page correspondante) -->
+							<li class="page-item">
+								<a href="{{path('galerie',{'page':page})}}" class="page-link">
+									{{page}}
+								</a>
+							</li>
+							{% else %}
+							<li class="page-item active">
+								<a href="{{path('galerie',{'page':page})}}" class="page-link">
+									{{page}}
+								</a>
+							</li>
+							{% endif %}
+						{% endfor %}
+						<!-- Lien vers la page suivante (désactivé si on se trouve sur la dernière page) -->
+						<li class="page-item ">
+							<a href="{{path('galerie',{'page':suivante})}}" class="page-link">
+								&nbsp;&raquo;
+							</a>
+						</li>
+					</ul>
+				</nav>
+
 	</div>
-	
-	<!-- Mettre Widget Aussi-->
-	<div class="col-lg-4">
-		{% block widget %}
-		{% endblock %}
-	</div>
-
-
-	<!-- /.row -->
 
 </div>
-<!-- /.container -->
 
-<!-- Fin corp du blog -->{% endblock %}
+
+<!-- Mettre Widget Aussi-->
+<div class="col-lg-4">
+	{% block widget %}
+	{% endblock %}
+</div>
+
+<script type="text/javascript" src="js/galerie.js"></script>
+<!-- /.row --></div><!-- /.container --><!-- Fin corp du blog -->{% endblock %}

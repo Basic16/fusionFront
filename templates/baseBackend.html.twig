@@ -24,7 +24,9 @@
     <!-- Custom styles for this template-->
     <link href="{{asset("css/sb-admin-2.min.css")}}" rel="stylesheet">
     <link href="{{asset("css/backwedding.css")}}" rel="stylesheet" type="text/css">
-    
+    			<link rel="stylesheet" href="../public/dropzone/dropzone.min.css">
+			<link rel="stylesheet" href="../public/dropzone/basic.min.css">
+			<link rel="stylesheet" href="../css/backendBlog.css">
      <style>
 		.bg-gradient-primary {
 			background-color: #cab437;
@@ -111,8 +113,8 @@
 
                         <a class="collapse-item" href="{{path('listeCategorie')}}">Liste des categories</a>
                         <a class="collapse-item" href="{{path('ajoutCategorie')}}">Ajout de categories</a>
-                        
-                        
+                        <a class="collapse-item" href="{{path('galerie')}}"> Galerie</a>
+                       
                     </div>
                 </div>
             </li>
@@ -414,5 +416,5 @@
     {% block javascripts %} {% endblock %}
 
 </body>
-
+	<script src="../public/dropzone/dropzone.min.js"></script>
 </html>

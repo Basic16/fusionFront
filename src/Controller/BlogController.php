@@ -526,7 +526,16 @@ class BlogController extends AbstractController
 
     }
 
+ /**
+     * @Route("/delete_article/{id}", name="delete_article")
+     */
 
+    public function deleteArticle($id): Response
+    {
+        RestArticle::deleteArticle($this->client, $this->getParameter('apiAdress'), $this->getParameter('apiServer'), $id);
+        return $this->redirectToRoute('index');
+
+    }
 
 
 }

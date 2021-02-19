@@ -1,13 +1,18 @@
 <!doctype html>
 <html lang="fr">
 	<head>
+		<!-- Include the default theme -->
+	
+		
+		
 		<title>
 			{% block title %}
 				WeddingYourself -
 			{% endblock %}
 		</title>
-		{% block meta %}<meta name="description" content="WeddingYourself est un site qui recense les prestataires de mariage de toute la france."><meta
-		charset="utf-8">{% endblock %}
+		<meta name="description" content="WeddingYourself est un site qui recense les prestataires de mariage de toute la france.">
+		<meta
+		charset="utf-8">
 		<!-- set the viewport width and initial-scale on mobile devices -->
 		<meta name="viewport" content="width=device-width, initial-scale=1.0">
 
@@ -19,14 +24,15 @@
 			href='//fonts.googleapis.com/css?family=Open+Sans:400,300,300italic,400italic,600,700,600italic,700italic,800,800italic' rel='stylesheet' type='text/css'> <!-- include the Raleway google font -->
 			<link href='//fonts.googleapis.com/css?family=Raleway:400,100,200,300,500,600,700,800,900' rel='stylesheet' type='text/css'>
 			<link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/4.7.0/css/font-awesome.min.css">
-			<link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/Chart.js/2.9.4/Chart.min.css" integrity="sha512-/zs32ZEJh+/EO2N1b0PEdoA10JkdC3zJ8L5FTiQu82LR9S/rOQNfQN7U59U9BC12swNeRAz3HSzIL2vpp4fv3w==" crossorigin="anonymous" />
+
 			<!-- include HTML5 IE enabling script and stylesheet for IE -->
 			<!--[if lt IE 9]>
-																																																																						    <link type="text/css" media="all" rel="stylesheet" href="https://weddingyourself.fr/css/ie.css">
-																																																																						    <script type="text/javascript" src="https://weddingyourself.fr/js/vendor/ie.js"></script>
-																																																																						    <![endif]-->
-
-			<link rel="icon" type="image/x-icon" href="https://weddingyourself.fr/favicon.ico"> <link rel="stylesheet" href="https://weddingyourself.fr/css/shared.css">
+																																																																															    <link type="text/css" media="all" rel="stylesheet" href="https://weddingyourself.fr/css/ie.css">
+																																																																															    <script type="text/javascript" src="https://weddingyourself.fr/js/vendor/ie.js"></script>
+																																																																															    <![endif]-->
+			<link rel="stylesheet" href="https://weddingyourself.fr/css/shared.css">
+			<link rel="icon" type="image/x-icon" href="https://weddingyourself.fr/favicon.ico">
+			<link rel="stylesheet" href="https://weddingyourself.fr/css/shared.css"> 
 			<link rel="stylesheet" href="https://weddingyourself.fr/css/new-style.css">
 			<link rel="stylesheet" href="https://weddingyourself.fr/css/vendor/bootstrap-datetimepicker.css">
 			<link rel="stylesheet" href="https://weddingyourself.fr/css/vendor/bootstrap-multiselect.css">
@@ -37,12 +43,13 @@
 			<link rel="stylesheet" href="https://weddingyourself.fr/css/accueil-mariage.css">
 			<link rel="stylesheet" href="https://weddingyourself.fr/css/compatible.css">
 			<link rel="stylesheet" href="{{asset("css/footer.css")}}">
-			<link rel="stylesheet" href="https://raw.githubusercontent.com/daneden/animate.css/master/animate.css">
-			<link rel="stylesheet" href="https://cdn.lineicons.com/2.0/LineIcons.css">
-			<link rel="stylesheet" href="{{asset("css/abonnement.css")}}">
-
+			<link rel="stylesheet" href="../public/dropzone/dropzone.min.css">
+			<link rel="stylesheet" href="../public/dropzone/basic.min.css">
+			<link rel="stylesheet" href="../css/backendBlog.css">
+			
 
 		{% endblock %}
+
 		<script>
 			(function (w, d, u) {
 w.readyQ = [];
@@ -83,29 +90,45 @@ m.parentNode.insertBefore(a, m)
 ga('create', 'UA-113587588-1', 'auto');
 ga('send', 'pageview');
 		</script>
+
+
 	</head>
-	<body
-		class="loading home-page">
+	<body class="loading home-page">
+		{% for message in app.flashes('notice') %}
+
+			<div class="flash-notice">
+				<div class="alert alert-info alert-dismissible fade show" role="alert">
+					<strong>
+						{{ message }}
+					</strong>
+					<button type="button" class="close" data-dismiss="alert" aria-label="Close">
+						<span aria-hidden="true">
+							&times;
+						</span>
+					</button>
+				</div>
+
+			</div>
+
+		{% endfor %}
 		<!-- allow a user to go to the main content of the page -->
-		<noscript>Javascript must be enabled for the correct page display</noscript>
+		<noscript>
+			Javascript must be enabled for the correct page display
+		</noscript>
 		<div
 			id="wrapper">
 			<!-- header of the page -->
-
 			{% include 'base/_new_header.html.twig' %}
-
-
-			<!--End of header-->
-
 			{% block contenu %}{% endblock %}
 			<!-- Fin corp du blog -->
 			<!-- Footer -->
 
-			{{ theme.footer|raw }}
+			<footer id="footer">
+				{{ theme.footer|raw }}
 
+			</footer>
 			<!-- ./Footer -->
 		</div>
-		
 		<script>
 			// Global Javascript variables var locale = 'fr'; var locales = [" fr"];
 var defaultCurrency = 'EUR';
@@ -142,43 +165,9 @@ var hoursAvailable = [
 23
 ];
 		</script>
-		<!-- jQuery (necessary for Bootstrap's JavaScript plugins) -->
-		<script src=" https://code.jquery.com/jquery-3.2.1.min.js"></script>
 		
+		<script src="https://cdnjs.cloudflare.com/ajax/libs/jquery/3.5.1/jquery.min.js" integrity="sha512-bLT0Qm9VnAYZDflyKcBaQ2gg0hSYNQrJ8RilYldYQ1FxQYoCLtUjuuRuZo+fjqhx/qtq/1itJ0C2ejDxltZVFg==" crossorigin="anonymous"></script>
+		<script src="../public/dropzone/dropzone.min.js"></script>
 	</body>
-</html><script src="https://cdnjs.cloudflare.com/ajax/libs/popper.js/1.12.9/umd/popper.min.js" integrity="sha384-ApNbgh9B+Y1QKtv3Rn7W3mgPxhU9K/ScQsAP7hUibX39j7fakFPskvXusvfa0b4Q" crossorigin="anonymous"></script><script type="text/javascript" src="//ajax.googleapis.com/ajax/libs/jqueryui/1.11.2/jquery-ui.min.js"></script><script type="text/javascript" src="//ajax.googleapis.com/ajax/libs/jqueryui/1.11.2/i18n/jquery-ui-i18n.min.js"></script><script>
-(function ($, d) {
-$.each(readyQ, function (i, f) {
-$(f)
-});
-$.each(bindReadyQ, function (i, f) {
-$(d).bind("ready", f)
-})
-})(jQuery, document)</script>
-<script src="https://maxcdn.bootstrapcdn.com/bootstrap/4.0.0/js/bootstrap.min.js" integrity="sha384-JZR6Spejh4U02d8jOt6vLEHfe/JQGiRRSQQxSfFWpi1MquVdAyjUar5+76PVCmYl" crossorigin="anonymous"></script>
-<script type="text/javascript">
-	$.fn.modal || document.write('<script src="https://weddingyourself.fr/js/vendor/bootstrap.min.js"><\/script>');
-</script>
-<script type="text/javascript" src="https://weddingyourself.fr/js/vendor/moment.js"></script>
-<script type="text/javascript" src="https://weddingyourself.fr/js/vendor/json2.js"></script>
-<script type="text/javascript" src="https://weddingyourself.fr/js/vendor/jquery.cookie.js"></script>
-<script type="text/javascript" src="https://weddingyourself.fr/js/vendor/jquery.touch-punch.js"></script>
-<script type="text/javascript" src="https://weddingyourself.fr/js/vendor/hammer.js"></script>
-<script type="text/javascript" src="https://weddingyourself.fr/js/vendor/bootstrap-multiselect.js"></script>
-<script type="text/javascript" src="https://weddingyourself.fr/js/vendor/bootstrap-datetimepicker.js"></script>
-<script type="text/javascript" src="https://weddingyourself.fr/js/vendor/parsley.min.js"></script>
-<script type="text/javascript" src="https://weddingyourself.fr/js/vendor/jquery.unslider.js"></script>
-<script type="text/javascript" src="https://weddingyourself.fr/js/vendor/jquery.caroufredsel.min.js"></script>
-<script type="text/javascript" src="https://weddingyourself.fr/js/vendor/jquery.clearsearch.js"></script>
-<script type="text/javascript" src="https://weddingyourself.fr/js/vendor/lity/lity.min.js"></script>
-<script type="text/javascript" src="https://weddingyourself.fr/js/jquery.main.js"></script>
-<script type="text/javascript" src="https://weddingyourself.fr/js/jquery.main-override.js"></script>
-<script type="text/javascript" src="https://weddingyourself.fr/js/common.js"></script>
-<script type="text/javascript" src="https://weddingyourself.fr/js/date-time.js"></script>
-<script
-		type="text/javascript"
-		async defer
-		src="//assets.pinterest.com/js/pinit.js"
-></script>
-{% block javascripts %} {% endblock %}
-</body></html>
+	
+</html>

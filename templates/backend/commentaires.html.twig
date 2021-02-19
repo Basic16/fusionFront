@@ -1,48 +1,153 @@
-<!-- Comments Form -->
+{# <style>
+	* {
+		margin: 0;
+		padding: 0;
+	}
+	.rate {
+		float: left;
+		height: 30px;
+		padding: 0 20px;
+	}
+	.rate:not(:checked) > input {
+		position: absolute;
+		top: -9999px;
+	}
+	.rate:not(:checked) > label {
+		float: right;
+		width: 1em;
+		overflow: hidden;
+		white-space: nowrap;
+		cursor: pointer;
+		font-size: 30px;
+		color: #ccc;
+	}
+	.rate:not(:checked) > label:before {
+		content: '★ ';
+	}
+	.rate > input:checked ~ label {
+		color: #ffc700;
+	}
+	.rate:not(:checked) > label:hover,
+	.rate:not(:checked) > label:hover ~ label {
+		color: #deb217;
+	}
+	.rate > input:checked + label:hover,
+	.rate > input:checked + label:hover ~ label,
+	.rate > input:checked ~ label:hover,
+	.rate > input:checked ~ label:hover ~ label,
+	.rate > label:hover ~ input:checked ~ label {
+		color: #c59b08;
+	}
+</style> #}
 <div class="card my-4">
-	<h5 class="card-header">Laissez un commentaire:</h5>
-	<div class="card-body">
-		<form>
-			<div class="form-group">
-				<textarea class="form-control" rows="3" placeholder="Rédiger votre commentaire ici..."></textarea>
-			</div>
-			<button type="submit" class="btn btn-primary">Envoyer</button>
-		</form>
+	<h5 class="card-header">
+		Laissez un commentaire:
+	</h5>
+	<br>
+	<div>
+		<button class="btn btn-primary" onclick="affichageAjoutComm()">
+			Ajouter un commentaire
+		</button>
 	</div>
-</div>
 
-<!-- Single Comment -->
-<div class="media mb-4">
-	<img class="d-flex mr-3 rounded-circle" src="http://placehold.it/50x50" alt="">
-	<div class="media-body">
-		<h5 class="mt-0">Commenter Name</h5>
-		Cras sit amet nibh libero, in gravida nulla. Nulla vel metus scelerisque ante sollicitudin. Cras purus odio, vestibulum in vulputate at, tempus viverra turpis. Fusce condimentum nunc ac nisi vulputate fringilla. Donec lacinia congue felis in faucibus.
-	</div>
-</div>
+		<div class="card-body" id="ajoutComm" style="display: none">
+			{# <div class="form-group rate">
+				<div class=''>
+					<span>Note :
+					</span>
+					<input type="radio" id="star5" name="rate" value="5"/>
+					<label for="star5" title="text">5 stars</label>
+					<input type="radio" id="star4" name="rate" value="4"/>
+					<label for="star4" title="text">4 stars</label>
+					<input type="radio" id="star3" name="rate" value="3"/>
+					<label for="star3" title="text">3 stars</label>
+					<input type="radio" id="star2" name="rate" value="2"/>
+					<label for="star2" title="text">2 stars</label>
+					<input type="radio" id="star1" name="rate" value="1"/>
+					<label for="star1" title="text">1 star</label>
+				</div>
+			</div> #}
 
-<!-- Comment with nested comments -->
-<div class="media mb-4">
-	<img class="d-flex mr-3 rounded-circle" src="http://placehold.it/50x50" alt="">
-	<div class="media-body">
-		<h5 class="mt-0">Commenter Name</h5>
-		Cras sit amet nibh libero, in gravida nulla. Nulla vel metus scelerisque ante sollicitudin. Cras purus odio, vestibulum in vulputate at, tempus viverra turpis. Fusce condimentum nunc ac nisi vulputate fringilla. Donec lacinia congue felis in faucibus.
+		{{ form_start(form) }}
 
-		<div class="media mt-4">
-			<img class="d-flex mr-3 rounded-circle" src="http://placehold.it/50x50" alt="">
-			<div class="media-body">
-				<h5 class="mt-0">Commenter Name</h5>
-				Cras sit amet nibh libero, in gravida nulla. Nulla vel metus scelerisque ante sollicitudin. Cras purus odio, vestibulum in vulputate at, tempus viverra turpis. Fusce condimentum nunc ac nisi vulputate fringilla. Donec lacinia congue felis in faucibus.
-			</div>
+		<div class="form-group">
+			{{ form_label(form.note, "Noter l'article:", {'label_attr': {'class': 'fontweight-bold'}}
+			) }}
+			{{ form_widget(form.note, {'attr': {'class': 'form-control'}}
+			) }}
+			<br>
+			{{ form_widget(form.commentaire, {'attr': {'class': 'form-control'}}
+			) }}
 		</div>
+		{{ form_widget(form.envoyer, { 'label': "Envoyer", 'attr': {'class': 'btn font-weightbold bg-primary text-white text-center', "onclick": "envoie()"}}
+		) }}
+		<hr>
 
-		<div class="media mt-4">
-			<img class="d-flex mr-3 rounded-circle" src="http://placehold.it/50x50" alt="">
-			<div class="media-body">
-				<h5 class="mt-0">Commenter Name</h5>
-				Cras sit amet nibh libero, in gravida nulla. Nulla vel metus scelerisque ante sollicitudin. Cras purus odio, vestibulum in vulputate at, tempus viverra turpis. Fusce condimentum nunc ac nisi vulputate fringilla. Donec lacinia congue felis in faucibus.
-			</div>
-		</div>
+		{{ form_end(form) }}
 
 	</div>
+	<script>
+		function affichageAjoutComm() {
+var x = document.getElementById("ajoutComm");
+if (x.style.display === "none") {
+x.style.display = "block";
+} else {
+x.style.display = "none";
+}
+}
+	</script>
 </div>
-<hr>
+{% for commentaire in commentaires %}
+	<!-- Single Comment -->
+	<div class="media mb-4">
+		<img class="d-flex mr-3 rounded-circle" src="http://placehold.it/50x50" alt="">
+		<div class="media-body">
+
+			<h5 class="mt-0">
+				{{ commentaire.utilisateur }}
+			</h5>
+
+			<h5>
+				Note de l'article:
+				{% for i in 1..commentaire.note  %}
+					★
+				{% endfor %}
+			</h4>
+
+			{{ commentaire.commentaire | raw }}
+			<div id="likeButtons">
+				<button href="" class="like-button" name="like" id="coeurVide" onclick="likeButton()">
+					<i class="fa fa-heart-o" aria-hidden="true" name="empty-heart" id="likeVide"></i>
+				</button>
+				<button href="" class="like-button" name="like" id="coeurPlein" style="display:none">
+					<i class="fa fa-heart" aria-hidden="true" name="empty-heart" id="likePlein" ></i>
+				</button>
+			</div>
+			<a
+				href="{{path('article_show',{'url':commentaire.article,'suppCom':commentaire.id})}}" class="confirm text-white">
+				<!--- <a href="../article/{{commentaire.article}}/{{commentaire.id}}" class="confirm text-white"> -->
+				<span>
+					<h4>
+						<i class="fa fa-trash" aria-hidden="true" style="color: red"></i>
+					</h4>
+				</span>
+			</a>
+			<hr>
+			<span></div>
+		</div>
+	
+	{% endfor %}
+	<script>
+			function likeButton() {
+var coeurVide = document.getElementById("coeurVide");
+var coeurPlein = document.getElementById("coeurPlein");
+
+if (coeurVide.style.display === "block") {
+coeurVide.style.display = "none";
+coeurPlein.style.display = "block";
+} else {
+coeurVide.style.display = "block";
+coeurPlein.style.display = "none";
+}
+}
+		</script>

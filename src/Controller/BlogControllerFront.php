@@ -9,14 +9,17 @@ use Sensio\Bundle\FrameworkExtraBundle\Configuration\Entity;
 use Sensio\Bundle\FrameworkExtraBundle\Configuration\ParamConverter;
 use Symfony\Component\HttpFoundation\Request;
 use Symfony\Contracts\HttpClient\HttpClientInterface;
+use App\Entity\Commentaire;
 use App\Entity\Article;
 use App\Entity\Categorie;
 use App\Form\SearchFormType;
+use App\Form\CommentaireType;
 use App\Utilitaire\RestArticle;
 use App\Utilitaire\RestCategorie;
 use App\Utilitaire\RestAvis;
 use App\Utilitaire\RestTheme;
 use App\Form\AjoutAvisType;
+use App\Repository\CommentaireRepository;
 
 use App\Form\ModifThemeType;
 
@@ -55,7 +58,7 @@ class BlogControllerFront extends AbstractController
     /**
      * @Route("/article_front/{url}", name="article_show_front")
      */
-    public function articleShow($url, Request $request): Response
+    public function articleShow($url, Request $request,  CommentaireRepository $CommentaireRepository)
     {
 
 
@@ -67,6 +70,46 @@ class BlogControllerFront extends AbstractController
 
         $theme = RestTheme::getTheme($this->client, $this->getParameter('apiAdress'));
 
+        
+        $em = $this->getDoctrine();
+        $commentaire  = new Commentaire();
+        $repoCommentaire = $em->getRepository(Commentaire::class);
+        
+        $form = $this->createForm(CommentaireType::class);
+        $form->handleRequest($request);
+        
+        if ($request->get('suppCom') != null) {
+
+            $commentairesup = $repoCommentaire->find($request->get('suppCom'));;
+            if ($commentairesup != null) {
+                $commentaire = $this->getDoctrine()
+                    ->getRepository(Commentaire::class)
+                    ->find($request->get('suppCom'));
+
+                $em->getManager()->remove($commentairesup);
+                $em->getManager()->flush();
+                $this->addFlash('notice', 'commentaire supprimé');
+            }
+            return $this->redirect($url);
+        }
+
+
+
+            if ($form->isSubmitted() && $form->isValid()) {
+                $commentaireUti = $form->get('commentaire')->getData();
+                $note = $form->get('note')->getData();
+                $date= new \DateTime("now");
+                $em = $this->getDoctrine()->getManager();
+                $commentaire->setUtilisateur(1);
+                $commentaire->setDate($date);
+                $commentaire->setNote($note);
+                $commentaire->setCommentaire($commentaireUti);
+                $commentaire->setArticle($url);
+                $em->persist($commentaire);
+                $em->flush();
+                $this->addFlash('notice', 'Commentaire posté');
+                return $this->redirect($url);
+            }
 
 
         dump($article);
@@ -80,12 +123,13 @@ class BlogControllerFront extends AbstractController
         else{
             $valeur = "https://cdn.pixabay.com/photo/2014/02/07/11/36/couple-260899_960_720.jpg";
         }
+        
+     
 
-
-
-
+        $commentaires = $CommentaireRepository->commentaireArticle($url);
         return $this->render('blog/article-show.html.twig', [
-
+            'form'=>$form->createView(),
+            'commentaires'=>$commentaires,
             'article'=>$article,
             'articles'=>$articles,
             'theme'=>$theme,

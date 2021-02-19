@@ -1,4 +1,3 @@
-
 {% extends 'baseBackend.html.twig' %}
 
 {% block title %}
@@ -13,6 +12,12 @@
 
 {% block stylesheets %}
 	{{ parent() }}
+	<style>
+	img {
+            max-width: 50em;
+        }
+	</style>
+
 	<link rel="stylesheet" href={{asset("css/article-show.css")}}>
 	<link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/sceditor/2.1.3/themes/content/default.min.css" integrity="sha512-HFIO3TSewWJuQyXDMtoX7CvpEKMrkduO8j5dKPeF9smntHrFw402Jyy3CllTTpwonVp792hg/kp1iOK+85QCNQ==" crossorigin="anonymous" />
 {% endblock %}
@@ -62,25 +67,32 @@
 				</p>
 
 				<hr>
-				<div>
-
-					<div id="example">
+				<div class="row">
+				
+					<div class="col col-md" style="margin-bottom: 15px;">
 						{{ article.contenu | raw }}
 					</div>
 
 				</div>
 				<hr>
 				{% include 'reseauxsociaux/facebook.html.twig' %}
+				<hr>
+				<!-- commentaire -->
+
+				
+				<div>
+					
+					</form>
+					{% include 'backend/commentaires.html.twig' %}
+				</div>
 
 			</div>
-
-			<div class="col-lg-8"></div>
-
-
+			
 			<!-- Mettre Widget Aussi-->
 			<div class="col-lg-4">
 				{% block widget %}
-					{% include 'blog/widget.html.twig' %}
+					{% include 'backend/widget.html.twig' %}
+					
 				{% endblock %}
 			</div>
 		</div>
@@ -91,4 +103,3 @@
 
 	<!-- Fin corp du blog -->
 {% endblock %}
-
